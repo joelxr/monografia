@@ -1,0 +1,160 @@
+\documentclass[12pt,twoside,openright,a4paper,english,brazil,sumario=tradicional]{abntex2}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{tikz-uml}
+
+\graphicspath{{../images/}}
+
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backref}{}
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+
+\titulo{Módulo de pré-vizualização para a ferramenta CGT - Ceará Game Tools}
+\author{Joel Xavier Rocha\thanks{\texttt{joelxr@gmail.com}}}
+\orientador{Prof. Dr. Carlos Hairon Ribeiro Gonçalves}
+\local{Fortaleza}
+\data{2015}
+\instituicao{
+  Instituto Federal de Ciência, Educação e Tecnologia do Ceará
+  \par
+  Engenharia de Computação}
+\tipotrabalho{Monografia}
+\preambulo{Trabalho de conclusão de curso apresentado à banca examinadora do Instituto Federal de Educação, Ciência e Tecnologia do Ceará para obtenção do grau de bacharel em Engenharia de Computação sob a orientação do Prof. Dr. Carlos Hairon Ribeiro Gonçalves.}
+\definecolor{blue}{RGB}{41,5,195}
+\makeatletter
+\hypersetup{
+   pdftitle={\@title},
+	 pdfauthor={\@author},
+   pdfsubject={Trabalho de conclusão de curso},
+   pdfcreator={pdfLaTeX},
+   pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho científico},
+   colorlinks=true,
+   linkcolor=blue,
+   citecolor=blue,
+   filecolor=magenta,
+   urlcolor=blue,
+   bookmarksdepth=4
+}
+\makeatother
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+\makeindex
+
+\begin{document}
+\selectlanguage{brazil}
+\frenchspacing
+\imprimircapa
+\imprimirfolhaderosto*
+% \begin{fichacatalografica}
+%     \includepdf{fig_ficha_catalografica.pdf}
+% \end{fichacatalografica}
+% \includepdf{folhadeaprovacao_final.pdf}
+
+\begin{agradecimentos}
+
+\end{agradecimentos}
+
+\setlength{\absparsep}{18pt}
+\begin{resumo}
+O crescimento da indústria de jogos em diversas áreas - como entretenimento e educação - torna necessário a elaboração de ferramentas que possibilitem a criação destes de forma simples, fácil e objetiva. Por esta razão, o projeto \emph{Ceará Game Tools} (CGT), tem como objetivo possibilitar isso aos usuários que não conhecem os meios e as técnicas envolvidas na criação de jogos.
+
+Então, é proposto nesse trabalho, melhorias importantes para a ferramenta CGT, principalmente, a pré-vizualização do jogo que está sendo construído e também dos seus objetos.
+
+\vspace{\onelineskip}
+\noindent
+\textbf{Palavras-chave}: CGT, ferramenta;
+\end{resumo}
+
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables*
+\cleardoublepage
+
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+
+\textual
+
+\chapter{Introdução} % Ryllari
+\label{chap:introducao}
+\section{Identificação do problema}
+\section{Solução estudada}
+\section{Disposição do documento}
+
+\chapter{Problema}
+\label{chap:intro}
+\section{Módulo anterior da ferramenta}
+\section{Escopo das melhorias}
+\section{Dificuldades encontradas}
+\subsection{Exemplo de jogo}
+\section{Game JAM}
+
+\chapter{Descrição das melhorias} % Joel
+\label{chap:melhorias}
+\section{Pontos de melhoria}
+\section{Detalhes da implementação do novo módulo}
+\subsection{Métodos e ferramentas}
+\subsection{Descrição do módulo}
+
+\chapter{Estudo de caso}
+\label{chap:caso}
+\section{Análise dos resultados}
+\section{Comparativo}
+\section{Jogo exemplo}
+\section{Projeto de extensão}
+
+\chapter{Conclusão e trabalhos futuros}
+\label{chap:conclcsao}
+
+\begin{apendicesenv}
+\partapendices
+\chapter{Diagramas}
+\label{chap:diagramas}
+
+\section{Diagrama de classes}
+
+\begin{tikzpicture}
+\begin{umlpackage}{application}
+\umlinterface{DrawableObject}{}{
+\umlvirt{setB (b : B) : void} \\ getB() : B
+}
+\end{umlpackage}
+\end{tikzpicture}
+
+\section{Diagrama de sequência}
+
+\end{apendicesenv}
+
+\begin{anexosenv}
+\partanexos
+\chapter{Manual da ferramenta}
+
+\chapter{Código fonte}
+\end{anexosenv}
+\phantompart
+\printindex
+\end{document}
