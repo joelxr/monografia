@@ -132,20 +132,76 @@ Então, é proposto nesse trabalho, melhorias importantes para a ferramenta CGT,
 
 \begin{apendicesenv}
 \partapendices
-\chapter{Diagramas}
+\chapter{Diagramas UML}
 \label{chap:diagramas}
 
 \section{Diagrama de classes}
+No diagrama de classes a seguir, temos a notação UML para as classes do módulo \texttt{ferramenta} do projeto CGT que estão localizadas dentro do pacote \texttt{br.edu.ifce.cgt.application}.
 
+\begin{figure}[h]
+\label{fig:diagrama-classes}
+\centering
 \begin{tikzpicture}
-\begin{umlpackage}{application}
-\umlinterface{DrawableObject}{}{
-\umlvirt{setB (b : B) : void} \\ getB() : B
+\begin{umlpackage}{vo}
+\umlinterface{DrawableObject}{}
+{
+	getObject() : T \\
+	setObject(obj : T) : void \\
+	getPane() : Node \\
+	drawObject() : void \\
+	drawConfigurationPanel() : void \\
+	onCreate() : void \\
+	onStart() : void \\
+	destroy() : boolean }
+\umlclass[x=8,y=0]{AbstractDrawableObject}
+{
+	- object : T \\
+	- drawableObjectPane : Pane \\
+	- drawConfigurationPanel : Pane
 }
+{
+	getDrawableObjectPane() : Pane \\
+	getDrawableConfigurationsPane() : Pane \\
+	updateDrawPane(node : Node) : void \\
+	updateConfigPane(node : Node) : void \\
+	updateConfigPane(pane : Pane) : void
+}
+\umlclass[x=0,y=-6]{CGTProjectDrawable}
+{
+	- size : Rectangle \\
+	- projectPane : ConfigProjectPane
+}{}
+\umlclass[x=8,y=-6]{CGTGameObjectDrawable}
+{
+	- gameObjectTitledPane : GameObjectPane \\
+	- worldName : String \\
+	- bounds : Rectangle \\
+	- collision : Rectangle \\
+	- preview : Draggable
+}
+{}
+\umlclass[x=0,y=-9]{CGTGameActorDrawable}{}{}
+\umlclass[x=8,y=-10]{CGTGameEnemyDrawable}{}{}
+\umlclass[x=0,y=-11]{CGTGameOppositeDrawable}{}{}
+\umlclass[x=8,y=-12]{CGTGameBonusDrawable}{}{}
+\umlclass[x=0,y=-13]{CGTGameProjectitleDrawable}{}{}
+\umlclass[x=8,y=-14]{CGTGameScreenDrawable}{}{}
+\umlclass[x=0,y=-15]{CGTButtonScreenPreview}{}{}
+\umlclass[x=8,y=-16]{CGTLifeBarDrawable}{}{}
+\umlclass[x=0,y=-17]{HUDComponetDrawable}{}{}
+\umlclass[x=8,y=-18]{DrawableObjectTreeCellImpl}{}{}
+\umlimpl{DrawableObject}{AbstractDrawableObject}
+\umlimpl{AbstractDrawableObject}{CGTProjectDrawable}
+\umlimpl{AbstractDrawableObject}{CGTGameObjectDrawable}
+\umlimpl{CGTGameObjectDrawable}{CGTGameActorDrawable}
+\umlimpl{CGTGameObjectDrawable}{CGTGameEnemyDrawable}
+\umlimpl{CGTGameObjectDrawable}{CGTGameOppositeDrawable}
+\umlimpl{CGTGameObjectDrawable}{CGTGameBonusDrawable}
+\umlimpl{CGTGameObjectDrawable}{CGTGameProjectitleDrawable}
 \end{umlpackage}
 \end{tikzpicture}
-
-\section{Diagrama de sequência}
+\caption{Diagrama de classes UML para o módulo implementado.}
+\end{figure}
 
 \end{apendicesenv}
 
