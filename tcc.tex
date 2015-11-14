@@ -101,13 +101,46 @@ Então, é proposto nesse trabalho, melhorias importantes para a ferramenta CGT,
 
 \chapter{Introdução} % Ryllari
 \label{chap:introducao}
-\section{Identificação do problema}
-\section{Solução estudada}
+
+% introduzindo sobre o que é o trabalho
+Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}).
+
+\section{O projeto CGT}
+% Descrição/apresentação do projeto CGT
+O projeto CGT vem sendo desenvolvido há cerca de um ano e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos.
+
+De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo.
+
+\subsection{O módulo \texttt{ferramenta}}
+% ferramenta de construção de jogos
+O projeto é composto por módulos, onde um deles - a ferramenta - implementa toda a interação com o usuário. A ferramenta é responsável por apresentar o jogo para o usuário final no momento da criação.
+
+\subsection{Vínculo com o CNPQ} % Pegar informações com Ryllari
+
+O CNPQ\footnote{Centro Nacional de desenvolvimento científico e tecnológico.} ...
+
+\section{Introdução ao problema}
+% Como foi feita a identificação dos problemas? por que? por e para quem?
+A identificação dos problemas e pontos de melhoria para a ferramenta foram percebidos, principalmente, atráves do uso e estão relacionados a interação com o usuário final e a percepção deste com o jogo em produção.
+
+% principal problema
+A \texttt{ferramenta 1.0} é bastante robusta e atende bem com o propósito de criar os objetos que compõem o jogo e, eventualmente, produzir o jogo em forma de aplicação para a plataforma destino. Entretanto, a mesma carece em fornecer algum \emph{feedback} no momento da criação, obrigando ao usuário a sempre executar o jogo para poder perceber atributos essenciais dos objetos, tais como: a posição, o tamanho, a textura entre outros.
+
+% mais problemas
+Além disso, os controles que fazem parte da primeira versão da ferramenta, tornam, na maioria das vezes, oneroso o processo de configuração dos objetos. Por exemplo, a configuração das animações que possui um inimigo. Os problemas encontrados na \texttt{ferramenta 1.0} foram a motivação para esse trabalho e serão descritos detalhadamente no capitulo \ref{chap:problemas}.
+
 \section{Disposição do documento}
+% Falar sobre cada parte do documento e qual o objetivo de cada uma
+Este documento está dividido basicamente em três partes que são:
+\begin{description}
+	\item[Definir o problema] Mostrado no capítulo \ref{chap:problemas}, como já dito anteriormente, tem como objetivo enumerar detalhadamente os problemas e pontos de melhoria encontrados na \texttt{ferramenta 1.0}. Dessa forma, prepara-se uma lista das principais funcionalidades que farão parte da nova versão da ferramenta.
+	\item[Proposta de melhorias] Corresponde ao capítulo \ref{chap:melhorias} que visa propor soluções para as questões encontradas anteriormente e explicar como foram alcançadas.
+	\item[Análise dos resultados] É um estudo de caso, mostrado no capítulo \ref{chap:caso}, com a nova versão da ferramenta, onde busca-se comparar o tempo de criação de jogo, a facilidade de uso, a quantidade de esforço necessário para configurar objetos entre outros.
+\end{description}
 
 \chapter{Problema}
-\label{chap:intro}
-\section{Módulo anterior da ferramenta}
+\label{chap:problemas}
+\section{\texttt{ferramenta 1.0}}
 \section{Escopo das melhorias}
 \section{Dificuldades encontradas}
 \subsection{Exemplo de jogo}
