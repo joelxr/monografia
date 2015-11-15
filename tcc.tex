@@ -1,5 +1,4 @@
 \documentclass[12pt,twoside,openright,a4paper,english,brazil,sumario=tradicional]{abntex2}
-\usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{indentfirst}
@@ -15,6 +14,10 @@
 \usepackage{amssymb}
 \usepackage{listings}
 \usepackage{tikz-uml}
+
+\usepackage{uarial}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{blindtext}
 
 \graphicspath{{../images/}}
 
@@ -65,9 +68,11 @@
 \frenchspacing
 \imprimircapa
 \imprimirfolhaderosto*
+
 % \begin{fichacatalografica}
 %     \includepdf{fig_ficha_catalografica.pdf}
 % \end{fichacatalografica}
+
 % \includepdf{folhadeaprovacao_final.pdf}
 
 \begin{agradecimentos}
@@ -103,21 +108,38 @@ Então, é proposto nesse trabalho, melhorias importantes para a ferramenta CGT,
 \label{chap:introducao}
 
 % introduzindo sobre o que é o trabalho
-Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}).
+Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}). A nova versão da ferramenta tem como objetivo melhorar o processe de criação de jogos e tornar essa tarefa mais intuitiva para o usuário final.
 
 \section{O projeto CGT}
 % Descrição/apresentação do projeto CGT
-O projeto CGT vem sendo desenvolvido há cerca de um ano e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos.
+O projeto CGT que surgiu a partir de uma necessidade mercadológica, assim como é explicado no trabalho \cite{monografia:aquino}, vem sido desenvolvido há cerca de um ano e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos. De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo. Assim como, é proposto no \emph{website} do projeto.
 
-De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo.
-
-\subsection{O módulo \texttt{ferramenta}}
-% ferramenta de construção de jogos
-O projeto é composto por módulos, onde um deles - a ferramenta - implementa toda a interação com o usuário. A ferramenta é responsável por apresentar o jogo para o usuário final no momento da criação.
+\begin{citacao}
+O projeto Ceará Game Tools tem como objetivo oferecer uma ferramenta para a construção de jogos. Em suma, qualquer um poderá criar seu próprio jogo utilizando componentes \emph{drag-and-drop} e os configurando. \cite{website:projeto-cgt}
+\end{citacao}
 
 \subsection{Vínculo com o CNPQ} % Pegar informações com Ryllari
+O CNPQ\footnote{Centro Nacional de desenvolvimento científico e tecnológico.}
 
-O CNPQ\footnote{Centro Nacional de desenvolvimento científico e tecnológico.} ...
+\subsection{Os módulos desenvolvidos para o projeto}
+% ferramenta de construção de jogos
+O projeto é composto por módulos - mostrados na tabela \ref{table:modules} - onde um deles é a \texttt{a ferramenta} que é objeto de estudo para este trabalho. O objetivo desta ferramenta é implementar toda a interação com o usuário e ser responsável por apresentar o jogo para o usuário final no momento da sua criação. Tudo isso de forma intuitica, simples e prática.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ | l | p{10cm} | }
+    \hline
+    Módulos & Descrição \\ \hline
+    \texttt{core} & Contém os objetos essenciais para o projeto. \\
+    \texttt{desktop} & Responsável por possibilitar a execução do jogo no computador. \\
+		\texttt{ferramenta} & Corresponde ao módulo objeto de estudo deste trabalho que possibilita a criação do jogo. \\
+		\texttt{android} & Permite exportar o jogo para execução dos dispositivos \emph{Android}. \\
+		\texttt{ios} & Permite exportar o jogo para execução dos dispositivos \emph{iOS}. \\
+    \hline
+\end{tabular}
+\caption{Módulos existentes no projeto CGT }
+\label{table:modulos}
+\end{table}
 
 \section{Introdução ao problema}
 % Como foi feita a identificação dos problemas? por que? por e para quem?
@@ -140,11 +162,41 @@ Este documento está dividido basicamente em três partes que são:
 
 \chapter{Problema}
 \label{chap:problemas}
-\section{\texttt{ferramenta 1.0}}
-\section{Escopo das melhorias}
+% breve descrição do problema do preview
+A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui severas lacunas quando se trata da interação humano-computador (IHC), das quais é possível listar principalmente:
+
+\begin{alineas}
+	\item A falta de pré-vizualização dos objetos contidos no jogo, que torna difícil a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas;
+	\item Os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa e repleta de configurações repetitivas.
+\end{alineas}
+
+Com esses itens em mente, a seguir, é mostrado como construir um jogo de exemplo na primeira versão da ferramenta e, a partir daí, quais problemas e melhorias são notados.
+
+\section{Objetos de um jogo}
+\label{sec:objetos}
+
+A fim de enumerar os problemas e melhorias, torna-se necessário construir um jogo com a \texttt{ferramenta 1.0} e, para fazê-lo, deve-se conhecer os objetos que existem e como devemos configura-los. Então, a seguir, há uma lista dos possíveis objetos que podem compor um jogo:
+
+\begin{itemize}
+	\item Mundo,
+	\item Ator,
+	\item Inimigo,
+	\item Opositor,
+	\item Bônus,
+	\item Projétil,
+	\item Tela,
+	\item Botão de tela,
+	\item Vida de um objeto e
+	\item Munição de um objeto.
+\end{itemize}
+
+Na secção \ref{sec:dificuldades}, será criado um jogo de exemplo na ferramenta, a fim de mostrar os problemas e pontos de melhoria percebidos.
+
 \section{Dificuldades encontradas}
-\subsection{Exemplo de jogo}
-\section{Game JAM}
+\label{sec:dificuldades}
+% detalhar dificuldad	es com figuras da ferramenta 1.0, fazer um jogo de exemplo que será usado posteriormente
+
+\section{Game JAM} % Ryllari
 
 \chapter{Descrição das melhorias} % Joel
 \label{chap:melhorias}
@@ -162,6 +214,9 @@ Este documento está dividido basicamente em três partes que são:
 
 \chapter{Conclusão e trabalhos futuros}
 \label{chap:conclcsao}
+
+\postextual
+\bibliography{references}
 
 \begin{apendicesenv}
 \partapendices
