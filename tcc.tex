@@ -231,9 +231,11 @@ Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.i
 \subsection{Organização dos objetos}
 Um dos pontos mais importantes quando se trata de criação de jogos, é que - no decorrer do desenvolvimento - eles podem se tornar enormes e, para a ferramenta, um jogo é um conjunto de objetos e suas respectivas propriedades. Logo, é imprescindível que os objetos possam ser vistos de forma lógica e, mais importante, organizada, já que, assim, serão acessados facilmente, pois o usuário terá necessidade de retornar a eles para melhorar ou corrigir alguma configuração.
 
-Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar, essa hierarquia precisa ser levada em consideração na ferramenta e o autor criará um jogo sempre pensando nessas relações.
+Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar, essa hierarquia precisa ser levada em consideração na ferramenta e o jogo será criado respeitando essas relações.
 
-Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a partir dessa imagem - pode-se notar que a ferramenta é dividida em cinco áreas importantes que estão descritas na tabela \ref{table:ferramenta_areas}. 
+Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a partir dessa imagem - pode-se notar que a ferramenta é dividida em cinco áreas importantes que estão descritas na tabela \ref{table:ferramenta_areas}. Os botões que representam objetos são organizados por colunas que representam as categorias: ator, inimigos, opositores, bonificações e informações da tela. A medida que é adicionado um novo objeto para a aba, este é posicionado na coluna correta.
+
+Essa forma de organizar os objetos do jogo possui a vantagem de ser objetiva quanto a exibir apenas o conteúdo que importa para aquele agregador (uma fase do jogo ou uma tela). No entanto, a medida que o usuário vai inserindo elementos ao jogo, essa visão - embora organizada - pode perder o significado, isto é, precisa-se de algo além de um botão com um nome gerado automaticamente para representar um objeto. Como pode ser percebido na figura \ref{fig:objetos_disp}, nesse jogo, existem quatro inimigos configurados, mas não se sabe quais são as características deles apenas olhando para os botões, ou seja, o usuário precisa selecionar um a um até encontrar qual deles é o que ele procura. Sendo assim, a ação de reconfigurar um objeto pode tornar-se difícil a medida que novos itens forem sendo adicionados ao jogo.
 
 \begin{table}[h]
    \centering
@@ -261,9 +263,28 @@ Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a 
 \caption{Disposição dos objetos na versão anterior da ferramenta.}
 \end{figure}
 
-
 \subsection{Painéis de configuração dos objetos}
+
+Todos os itens que fazem parte de um jogo possuem características que os definem, sendo assim cabe a ferramenta prover ao usuário final uma forma clara e objetiva de configurá-las. Além disso, a ferramenta tem obrigação de validar os dados e guiar o usuário nos casos mais complexos, assim como dar um significado para o dado que está sendo recebido. Por exemplo, vamos supor que exista um objeto recém adicionado no jogo e que pretendemos configurar a sua posição inicial na tela, a ferramenta recebe essa configuração através de dois números que são, respectivamente, as posições cartesianas $x$ e $y$ do objeto, deve-se verificar se essas posições estão contidas no retângulo que representa a tela do jogo, assim como fornecer ao usuário formas de saber o que significa o valor que ele está configurando.
+
+\begin{figure}[h]
+   \label{fig:obj_pos_inicial}
+\centering
+\includegraphics[width=0.8\textwidth]{images/pos_inicial.jpg}
+\caption{Configuração da posição inicial de um objeto na primeira versão da ferramenta.}
+\end{figure}
+
+\begin{figure}[h]
+   \label{fig:obj_dimensoes}
+\centering
+\includegraphics[width=0.8\textwidth]{images/obj_dimensoes.jpg}
+\caption{Configuração das dimensões de um objeto na primeira versão da ferramenta.}
+\end{figure}
+
 \subsection{Pré visualização dos objetos}
+
+Os principais problema dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré-visualização dos objetos, já que não há forma melhor que a pré-visualização quando se trata de perceber o significado de uma configuração feita.
+
 
 \section{Game JAM} % Ryllari
 
