@@ -14,13 +14,10 @@
 \usepackage{amssymb}
 \usepackage{listings}
 \usepackage{tikz-uml}
-
 \usepackage{uarial}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{blindtext}
-
 \graphicspath{{../images/}}
-
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
 \renewcommand{\backref}{}
 \renewcommand*{\backrefalt}[4]{
@@ -178,16 +175,16 @@ Este documento segue o método que consiste em: apresentar um problema, propor s
 A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui lacunas quando se trata da interação humano computador (IHC), onde é possível enumerar os seguintes pontos:
 
 \begin{alineas}
-\item A falta de pré-visualização dos objetos contidos no jogo, que dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas;
+\item A falta de pré-visualização dos objetos contidos no jogo dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas;
 \item Os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa, confusa e repleta de configurações repetitivas.
 \end{alineas}
 
-Com esses itens em mente, mostra-se como construir um jogo na primeira versão da ferramenta e, a partir daí, quais problemas e melhorias são notados.
+A nova versão da ferramenta visa resolver os dois problemas mencionados, principalmente o primeiro item, por ser mais importante quando o assunto é usabilidade. Com isso em mente, faz-se necessário construir um jogo na primeira versão da ferramenta com o objetivo de perceber os problemas e as possíveis melhorias.
 
 \section{Objetos de um jogo}
 \label{sec:objetos}
 
-Com o objetivo de enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, torna-se necessário construir um jogo com ela e, para fazê-lo, é preciso conhecer os objetos que existem e como devemos configurá-los. É importante observar que, cada objeto possui suas características e configurações, assim como um propósito no jogo. Pode-se ver na tabela \ref{table:objetos-desc} os possíveis objetos que compõem um jogo e a descrição deles. 
+Para enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, é importante construir um jogo com ela e, para fazê-lo, é preciso conhecer os objetos que existem e como devemos configurá-los. Observar que, cada um deles possui suas características e configurações, assim como um propósito no jogo. A tabela \ref{table:objetos-desc} mostra os possíveis tipos objetos e a descrição deles.
 
 \begin{table}[h]
 \centering
@@ -220,16 +217,50 @@ Com o objetivo de enumerar todos os problemas e melhorias da \texttt{ferramenta 
 \label{table:objetos-desc}
 \end{table}
 
-A seguir, será criado um jogo de exemplo na ferramenta, a fim de mostrar os problemas e pontos de melhoria percebidos. Notar que, o manual da ferramenta está na parte de anexos e pode ser consultado para entender como funciona a criação de cada um dos objetos.
+Notar que, eles são inseridos na ferramenta a medida que o usuário ver necessidade e são responsáveis por dar liberdade ao autor de construir vários formatos de jogos, por exemplo jogos de: perguntas e respostas, concluir percurso, derrotar inimigo, sobreviver determinado tempo.
+
+A seguir, mostra-se um jogo de exemplo na ferramenta e, com isso, os problemas e pontos de melhoria, notar que, o manual da ferramenta está na parte de anexos e pode ser consultado para entender como funciona a criação de cada um dos objetos citados.
 
 \section{Dificuldades encontradas}
 \label{sec:dificuldades}
 % detalhar dificuldades com figuras da ferramenta 1.0, fazer um jogo de exemplo que será usado posteriormente
-Nesta secção vamos mostrar um jogo com os possíveis objetos e cada componente existente na ferramenta, daí enumerar os problemas encontrados. Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.ifce.edu.br/downloads.php}{site do projeto CGT} na secção de \emph{downloads}\footnote{http://www.cgt.ifce.edu.br/downloads.php}.
+As dificuldades encontradas na ferramenta foram relacionadas de acordo com a compreensão de cada componente existente nela, chama-se dificuldade qualquer empecilho na ferramenta que dificulte a criação e configuração de algum objeto ou o entendimento do papel dele no jogo. Assim, é percebido uma dificuldade e então ela é enumerado como problema encontrado. As seções seguintes trazem cada um dessas dificuldades encontradas.
+
+Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.ifce.edu.br/downloads.php}{site do projeto CGT} na secção de \emph{downloads}\footnote{http://www.cgt.ifce.edu.br/downloads.php}.
 
 \subsection{Organização dos objetos}
+Um dos pontos mais importantes quando se trata de criação de jogos, é que - no decorrer do desenvolvimento - eles podem se tornar enormes e, para a ferramenta, um jogo é um conjunto de objetos e suas respectivas propriedades. Logo, é imprescindível que os objetos possam ser vistos de forma lógica e, mais importante, organizada, já que, assim, serão acessados facilmente, pois o usuário terá necessidade de retornar a eles para melhorar ou corrigir alguma configuração.
 
-Um dos pontos mais importantes, quando se trata de 
+Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar, essa hierarquia precisa ser levada em consideração na ferramenta e o autor criará um jogo sempre pensando nessas relações.
+
+Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a partir dessa imagem - pode-se notar que a ferramenta é dividida em cinco áreas importantes que estão descritas na tabela \ref{table:ferramenta_areas}. 
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{| l | p{8cm} |}
+      \hline
+      \textbf{Menu} & No menu é possível realizar ações que refletem no projeto todo, por exemplo: salvar, adicionar \emph{spritesheet}, executar o jogo. \\
+      \hline
+      \textbf{Abas} & As abas representam os agregadores de objetos, podem conter a aba inicial do projeto, um \emph{mundo} ou uma tela. \\
+      \hline
+      \textbf{\emph{Toolbar}} & Permite realizar ações referentes ao agregador, se for de um mundo possibilitar adicionar um inimigo ao jogo, por exemplo. \\
+      \hline
+      \textbf{Botões de objetos} & Cada objeto é representado por um botão que pertencem a uma determinada aba. \\
+      \hline
+      \textbf{Painel lateral} & Mostra as configurações do objeto selecionado, ao clicar em qualquer botão será mostrado as configurações daquele objeto.  \\
+      \hline
+   \end{tabular}
+   \caption{Controles utilizados na primeira versão da ferramenta.}
+   \label{table:ferramenta_areas}
+\end{table}
+
+\begin{figure}[h]
+\label{fig:objetos_disp}
+\centering
+\includegraphics[width=0.8\textwidth]{images/objetos_disposicao.jpg}
+\caption{Disposição dos objetos na versão anterior da ferramenta.}
+\end{figure}
+
 
 \subsection{Painéis de configuração dos objetos}
 \subsection{Pré visualização dos objetos}
