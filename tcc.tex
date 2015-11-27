@@ -15,6 +15,7 @@
 \usepackage{listings}
 \usepackage{tikz-uml}
 \usepackage{uarial}
+\usepackage{sidecap}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{blindtext}
 \graphicspath{{../images/}}
@@ -143,20 +144,20 @@ A \texttt{ferramenta 1.0} é bastante robusta e atende o propósito de criar os 
 Por exemplo, sejam as posições de um novo objeto configuradas da forma que se deseja, logo após isso, naturalmente, o usuário executa o jogo para poder visualizar o que configurou, e também entender o que representa graficamente o número que inseriu. Pode-se ver esse processo ocorrendo na imagem \ref{fig:intro-problema-1}, as duas janelas que estão abertas são, respectivamente, a do jogo em execução e da ferramenta de criação. Portanto, podemos assumir que para todo objeto recém configurado, será preciso executar o jogo para ver o resultado da configuração. Ou seja, o processo de criação se torna bastante repetitivo.
 
 \begin{figure}[h]
-   \label{fig:intro-problema-1}
    \centering
    \includegraphics[width=0.7\textwidth]{images/problema-1.jpg}
    \caption{Problema de pré-visualização na \texttt{ferramenta 1.0}.}
+   \label{fig:intro-problema-1}
 \end{figure}
 
 % mais problemas
 Além disso, os controles que fazem parte da primeira versão da ferramenta, tornam, na maioria das vezes, oneroso o processo de configuração dos objetos. Por exemplo, na configuração das animações que possui um objeto é necessário criar as animações olhando no \emph{spritesheet}\footnote{Imagem que contém todas as faces de um objeto no jogo.} do objeto e preenchendo campos de texto com o valor da linha e coluna do \emph{sprite} correspondente a animação configurada (ver imagem \ref{fig:intro-problema-2}).
 
 \begin{figure}[h]
-   \label{fig:intro-problema-2}
    \centering
    \includegraphics[width=0.7\textwidth]{images/problema-2.jpg}
    \caption{Problema com os controles na configuração de uma animação na \texttt{ferramenta 1.0}.}
+   \label{fig:intro-problema-2}
 \end{figure}
 
 Os problemas encontrados na \texttt{ferramenta 1.0} foram a motivação para esse trabalho e serão descritos detalhadamente no capitulo \ref{chap:problemas}.
@@ -229,6 +230,7 @@ As dificuldades encontradas na ferramenta foram relacionadas de acordo com a com
 Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.ifce.edu.br/downloads.php}{site do projeto CGT} na secção de \emph{downloads}\footnote{http://www.cgt.ifce.edu.br/downloads.php}.
 
 \subsection{Organização dos objetos}
+\label{sec:orga-objetos}
 Um dos pontos mais importantes quando se trata de criação de jogos, é que - no decorrer do desenvolvimento - eles podem se tornar enormes e, para a ferramenta, um jogo é um conjunto de objetos e suas respectivas propriedades. Logo, é imprescindível que os objetos possam ser vistos de forma lógica e, mais importante, organizada, já que, assim, serão acessados facilmente, pois o usuário terá necessidade de retornar a eles para melhorar ou corrigir alguma configuração.
 
 Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar, essa hierarquia precisa ser levada em consideração na ferramenta e o jogo será criado respeitando essas relações.
@@ -257,40 +259,108 @@ Essa forma de organizar os objetos do jogo possui a vantagem de ser objetiva qua
 \end{table}
 
 \begin{figure}[h]
-\label{fig:objetos_disp}
 \centering
 \includegraphics[width=0.8\textwidth]{images/objetos_disposicao.jpg}
 \caption{Disposição dos objetos na versão anterior da ferramenta.}
+\label{fig:objetos_disp}
 \end{figure}
 
 \subsection{Painéis de configuração dos objetos}
-
+\label{sec:paineis-objetos}
 Todos os itens que fazem parte de um jogo possuem características que os definem, sendo assim cabe a ferramenta prover ao usuário final uma forma clara e objetiva de configurá-las. Além disso, a ferramenta tem obrigação de validar os dados e guiar o usuário nos casos mais complexos, assim como dar um significado para o dado que está sendo recebido. Por exemplo, vamos supor que exista um objeto recém adicionado no jogo e que pretendemos configurar a sua posição inicial na tela, a ferramenta recebe essa configuração através de dois números que são, respectivamente, as posições cartesianas $x$ e $y$ do objeto, deve-se verificar se essas posições estão contidas no retângulo que representa a tela do jogo, assim como fornecer ao usuário formas de saber o que significa o valor que ele está configurando.
 
 \begin{figure}[h]
-   \label{fig:obj_pos_inicial}
 \centering
 \includegraphics[width=0.8\textwidth]{images/pos_inicial.jpg}
 \caption{Configuração da posição inicial de um objeto na primeira versão da ferramenta.}
+\label{fig:obj_pos_inicial}
 \end{figure}
 
 \begin{figure}[h]
-   \label{fig:obj_dimensoes}
 \centering
 \includegraphics[width=0.8\textwidth]{images/obj_dimensoes.jpg}
 \caption{Configuração das dimensões de um objeto na primeira versão da ferramenta.}
+\label{fig:obj_dimensoes}
 \end{figure}
 
 \subsection{Pré visualização dos objetos}
+\label{sec:previa-objetos}
+Os principais problemas dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré visualização dos objetos, notar que não há forma melhor de perceber o significado de uma configuração do que visualizando-a. Ou seja, simular o jogo é importantíssimo para a criação. Logo, a maior motivação para a criação do módulo que é proposto neste trabalho é a falta desse recurso na primeira versão da ferramenta.
 
-Os principais problema dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré-visualização dos objetos, já que não há forma melhor que a pré-visualização quando se trata de perceber o significado de uma configuração feita.
+Vale ressaltar que a visualização dos objeto também ajuda a resolver os problemas mencionados nas secções anteriores. A disposição deles e - como dito anteriormente - os problemas referentes aos painéis de configuração de cada um. Na secção \ref{chap:melhorias} será mostrado a solução sugerida para cada um desses problemas.
 
+Antes disso, é importante enumerar as propriedades dos objetos que se beneficiariam com a pré-visualização, ou seja, as propriedades que trazem ao usuário a necessidade de executar o jogo para aferir a sua respectiva configuração. Esses atributos são mostrados na tabela \ref{table:objetos-atributos}.
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{| p{6cm} | p{9cm} |}
+      \hline
+      \textbf{Objeto(s)} & \textbf{Atributo(s)} \\
+      \hline
+      Mundo e tela do jogo & Plano de fundo (figura \ref{fig:configurar-mundo-1}).\\
+      \hline
+      Ator, inimigo, bônus, opositor e projétil & Animações (\emph{spritesheet}), posição inicial, dimensões e área de colisão (figura \ref{fig:configurar-obj-1}). \\
+      \hline
+      Botão de uma tela & Posição, dimensões, textura do botão normal e textura quando for pressionado (figura \ref{fig:configurar-botao-1}).\\
+      \hline
+      Munição do projétil & Posição, dimensões e ícone (figura \ref{fig:configurar-municao-1}). \\
+      \hline
+      Barra de vida de um objeto & Posição, dimensões, textura do preenchimento da barra e textura do plano de fundo (figura \ref{fig:configurar-vida-1}). \\
+      \hline
+   \end{tabular}
+   \caption{Objetos do jogo e suas respectivas propriedades que demandam ser simuladas, ou seja, serem visualizadas na criação.}
+   \label{table:objetos-atributos}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/configurar-mundo-1.jpg}
+\caption{Painel de configuração de um mundo do jogo na primeira versão da ferramenta.}
+\label{fig:configurar-mundo-1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/configurar-obj-1.jpg}
+\caption{Painel de configuração de um objeto do jogo, existe para os seguintes objetos: ator, inimigo, bônus, opositor e projétil. }
+\label{fig:configurar-obj-1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/configurar-botao-1.jpg}
+\caption{Painel de configuração de um botão na tela do jogo.}
+\label{fig:configurar-botao-1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/configurar-municao-1.jpg}
+\caption{Painel de configuração do mostrador de munição de um projétil do jogo.}
+\label{fig:configurar-municao-1}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/configurar-vida-1.jpg}
+\caption{Painel de configuração da barra de vida de um objeto do jogo.}
+\label{fig:configurar-vida-1}
+\end{figure}
 
 \section{Game JAM} % Ryllari
 
 \chapter{Descrição das melhorias} % Joel
 \label{chap:melhorias}
+Tendo visto os problemas da primeira versão da ferramenta mostrados na secção \ref{chap:problemas}, discuti-se aqui como resolvê-los e o que é necessário para fazê-lo. Primeiramente, tem-se uma solução correspondente a cada problema indicado, daí é discutido a sua viabilidade e a implementação técnica. Vale salientar que, os pontos de melhorias mostrados encontram-se implementados na \texttt{ferramenta 2.0}, dessa forma pode ser mostrado o resultado disso (secção \ref{chap:caso}).
+
 \section{Pontos de melhoria}
+Para cada um dos problemas indicados anteriormente, é necessário determinar a solução de cada um e, além disso, detalhar qual foi o meio técnico. Portanto, tem-se três problemas descritos nas secções \ref{sec:orga-objetos}, \ref{sec:paineis-objetos} e \ref{sec:previa-objetos} e, consequentemente, as respectivas melhorias que estão relacionadas a seguir.
+
+\begin{alineas}
+\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore.
+\item \textbf{Painéis de configuração dos objetos:}
+\item \textbf{Pré visualização dos objetos:}
+\end{alineas}
+
 \section{Detalhes da implementação do novo módulo}
 \subsection{Métodos e ferramentas}
 \subsection{Descrição do módulo}
