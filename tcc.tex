@@ -15,7 +15,6 @@
 \usepackage{listings}
 \usepackage{tikz-uml}
 \usepackage{uarial}
-\usepackage{sidecap}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{blindtext}
 \graphicspath{{../images/}}
@@ -79,6 +78,7 @@
    O crescimento da industria de jogos em diversas áreas - como entretenimento e educação - torna necessário a elaboração de ferramentas que possibilitem a criação destes de forma simples, fácil e objetiva. Por esta razão, o projeto \emph{Ceará Game Tools} (CGT), tem como objetivo possibilitar isso aos usuários que não conhecem os meios e as técnicas envolvidas na criação de jogos.
 
    Então, é proposto nesse trabalho, melhorias importantes para a ferramenta CGT, principalmente, a pré visualização do jogo que está sendo construído e também dos seus objetos.
+
    \vspace{\onelineskip}
    \noindent
    \textbf{Palavras-chave}: CGT, ferramenta;
@@ -356,8 +356,8 @@ Tendo visto os problemas da primeira versão da ferramenta mostrados na secção
 Para cada um dos problemas indicados anteriormente, é necessário determinar a solução de cada um e, além disso, detalhar qual foi o meio técnico. Portanto, tem-se três problemas descritos nas secções \ref{sec:orga-objetos}, \ref{sec:paineis-objetos} e \ref{sec:previa-objetos} e, consequentemente, as respectivas melhorias que estão relacionadas a seguir.
 
 \begin{alineas}
-\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore.
-\item \textbf{Painéis de configuração dos objetos:}
+\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore. % adcionar figura
+\item \textbf{Painéis de configuração dos objetos:} Os painéis de configurações mantiveram-se parecidos com a primeira versão da ferramenta, a melhoria feita esta relacionada fazer com que as informações alteradas reflitam sempre com a área destinada a simular o jogo. Ou seja, com o módulo de pré visualização os painéis terão que interagir para mostrar as mudanças feitas no objeto.
 \item \textbf{Pré visualização dos objetos:}
 \end{alineas}
 
