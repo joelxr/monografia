@@ -350,20 +350,46 @@ Antes disso, é importante enumerar as propriedades dos objetos que se beneficia
 
 \chapter{Descrição das melhorias} % Joel
 \label{chap:melhorias}
-Tendo visto os problemas da primeira versão da ferramenta mostrados na secção \ref{chap:problemas}, discuti-se aqui como resolvê-los e o que é necessário para fazê-lo. Primeiramente, tem-se uma solução correspondente a cada problema indicado, daí é discutido a sua viabilidade e a implementação técnica. Vale salientar que, os pontos de melhorias mostrados encontram-se implementados na \texttt{ferramenta 2.0}, dessa forma pode ser mostrado o resultado disso (secção \ref{chap:caso}).
+Tendo visto os problemas da primeira versão da ferramenta mostrados na secção \ref{chap:problemas}, discuti-se aqui como resolvê-los e o que é necessário. Primeiramente, tem-se uma solução correspondente a cada problema indicado, daí é discutido a sua viabilidade e a implementação técnica. Vale salientar que, os pontos de melhorias mostrados encontram-se implementados na \texttt{ferramenta 2.0}, dessa forma pode ser mostrado o resultado disso (secção \ref{chap:caso}).
 
-\section{Pontos de melhoria}
+\section{Resumo dos pontos de melhoria}
 Para cada um dos problemas indicados anteriormente, é necessário determinar a solução de cada um e, além disso, detalhar qual foi o meio técnico. Portanto, tem-se três problemas descritos nas secções \ref{sec:orga-objetos}, \ref{sec:paineis-objetos} e \ref{sec:previa-objetos} e, consequentemente, as respectivas melhorias que estão relacionadas a seguir.
 
 \begin{alineas}
-\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore. % adcionar figura
-\item \textbf{Painéis de configuração dos objetos:} Os painéis de configurações mantiveram-se parecidos com a primeira versão da ferramenta, a melhoria feita esta relacionada fazer com que as informações alteradas reflitam sempre com a área destinada a simular o jogo. Ou seja, com o módulo de pré visualização os painéis terão que interagir para mostrar as mudanças feitas no objeto.
-\item \textbf{Pré visualização dos objetos:}
+\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore.
+\item \textbf{Painéis de configuração dos objetos:} Os painéis de configurações permanecem parecidos com a primeira versão da ferramenta, as melhorias visam permitir que as informações alteradas reflitam sempre com a área destinada a simular o jogo, a área de pré visualização, ou seja, no módulo de pré visualização, os painéis terão que interagir para mostrar as mudanças feitas no objeto.
+\item \textbf{Pré visualização dos objetos:} A melhoria mais importante desse módulo, consiste em mostrar uma prévia do jogo ao usuário, mostrando os objetos inseridos e configurados, permitindo que o usuário perceba melhor o jogo que ele está criando.
 \end{alineas}
 
-\section{Detalhes da implementação do novo módulo}
-\subsection{Métodos e ferramentas}
-\subsection{Descrição do módulo}
+\section{A nova tela inicial da ferramenta}
+Com o objetivo de implementar as melhorias foi necessário redesenhar a tela inicial da ferramenta, colocando os componentes novos e retirando os que não são mais utilizados. Dessa forma, a árvore de objetos do jogo está localizada a direita da tela, os painéis de configuração dos objetos ficam logo abaixo dela. E, a área de pré visualização é disponibilizada no centro da ferramenta.  A figura \ref{fig:tela_inicial_2} mostra a nova versão da tela inicial.
+
+Vale ressaltar que, a cada interação na árvore, a ferramenta atualiza os painéis e a área de pré visualização dependendo do objeto que esteja selecionado. Além disso, a ferramenta atualiza a prévia quando algumas propriedades são alteradas no painel. Por exemplo, o campo correspondente ao plano de fundo do mundo mostrado na imagem \ref{fig:tela_inicial_2}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/tela_inicial_2.jpg}
+\caption{Nova tela inicial da ferramenta com os novos controles que possibilitaram as melhorias.}
+\label{fig:tela_inicial_2}
+\end{figure}
+
+A seguir veremos como cada um dos problemas enumerados anteriormente foram resolvidos com base na solução sugerida.
+
+\section{Organização dos objetos}
+
+Árvores são ideais para organizar elementos que estão classificados hierarquicamente e tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta. A versão anterior exibia os mundos criados como abas e dentro de cada aba, os objetos criados eram botões que - quando clicados - exibiam o painel de configuração correspondente. Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alterar a visão da ferramenta. Então, essa melhoria é mais lógica e trouxe mais praticidade a ferramenta. A imagem \ref{fig:arvore_objetos} mostra um exemplo de uso da árvore de objetos para um jogo em criação.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.2\textwidth]{images/arvore_objetos.png}
+\caption{Árvore de objetos da nova versão da ferramenta.}
+\label{fig:arvore_objetos}
+\end{figure}
+
+\section{Painéis de configuração}
+
+\section{Pré visualização}
+\section{Descrição do módulo}
 
 \chapter{Estudo de caso}
 \label{chap:caso}
