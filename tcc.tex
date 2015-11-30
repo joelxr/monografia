@@ -96,10 +96,10 @@
 \chapter{Introdução} % Ryllari
 \label{chap:introducao}
 % introduzindo sobre o que é o trabalho
-Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}). A nova versão da ferramenta tem como objetivo melhorar o processe de criação de jogos e tornar essa tarefa mais intuitiva para o usuário final.
+Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}). A nova versão da ferramenta tem como objetivo melhorar o processo de criação de jogos e tornando-o mais intuitivo para o usuário final.
 \section{O projeto CGT}
 % Descrição/apresentação do projeto CGT
-O projeto CGT que surgiu para tornar possível a qualquer pessoa a criação de jogos, assim como é explicado no trabalho \cite{monografia:aquino}, vem sido desenvolvido desde 2013 e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos. De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo. Assim como, é proposto no \emph{web site} do projeto que explica, detalhadamente, o seu objetivo.
+O projeto CGT que surgiu para tornar possível a qualquer pessoa a criação de jogos, assim como é explicado no trabalho \cite{monografia:aquino}, vem sido desenvolvido desde 2013 e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos. De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo. Assim como, é proposto no \emph{website} do projeto que explica, detalhadamente, o seu objetivo.
 \begin{citacao}
    O projeto Ceará Game Tools tem como objetivo oferecer uma ferramenta para a construção de jogos. Em suma, qualquer um poderá criar seu próprio jogo utilizando componentes \emph{drag and drop} e os configurando. \cite{website:projeto-cgt}
 \end{citacao}
@@ -114,7 +114,7 @@ Em aspectos gerais, esse trabalho apresenta todo o processo de criação da ferr
 
 \subsection{Os módulos desenvolvidos para o projeto}
 % ferramenta de construção de jogos
-O projeto é composto por módulos que dividem entre si as funcionalidades existentes, esses módulos são mostrados e descritos na tabela \ref{table:modulos}. O módulo da ferramenta é o objeto de estudo para este trabalho e o objetivo deste módulo é implementar toda a interação com o usuário e ser responsável por apresentar o jogo a ele no momento da criação, tudo isso de forma intuitiva, simples e prática. Logo, pode-se notar que, esse módulo é essencial para o projeto e deve ser capaz de lidar com tudo que torna possível a criação de jogos.
+O projeto é composto por módulos que dividem as funcionalidades existentes, esses módulos são mostrados e descritos na tabela \ref{table:modulos}. O módulo da ferramenta que é o objeto de estudo para este trabalho tem como objetivo implementar toda a interação com o usuário e ser responsável por apresentá-lo ao jogo no momento da criação, tudo isso de forma intuitiva, simples e prática. Pode-se notar que, esse módulo é essencial para o projeto e deve ser capaz de lidar com tudo que torna possível a criação de jogos.
 \begin{table}[h]
    \centering
    \begin{tabular}{ | l | p{10cm} | }
@@ -137,11 +137,11 @@ O projeto é composto por módulos que dividem entre si as funcionalidades exist
 \end{table}
 \section{Introdução ao problema}
 \label{sec:intro-problema}
-A identificação dos problemas e pontos de melhoria para a ferramenta foram percebidos, principalmente, Através do uso e estão relacionados a interação com o usuário final e como o jogo em produção é percebido.
+A identificação dos problemas e pontos de melhoria para a ferramenta foram percebidos, principalmente, através do uso e estão relacionados a interação com o usuário final, além disso, na forma como o jogo em produção é percebido.
 
 A \texttt{ferramenta 1.0} é bastante robusta e atende o propósito de criar os objetos que compõem o jogo e, eventualmente, produzi-lo em forma de aplicação para a plataforma destino. Entretanto, a mesma carece em fornecer algum \emph{feedback} no momento da criação, obrigando ao usuário a sempre executar o jogo para poder perceber atributos essenciais dos objetos dele, tais como: a posição, o tamanho, a textura.
 
-Por exemplo, sejam as posições de um novo objeto configuradas da forma que se deseja, logo após isso, naturalmente, o usuário executa o jogo para poder visualizar o que configurou, e também entender o que representa graficamente o número que inseriu. Pode-se ver esse processo ocorrendo na imagem \ref{fig:intro-problema-1}, as duas janelas que estão abertas são, respectivamente, a do jogo em execução e da ferramenta de criação. Portanto, podemos assumir que para todo objeto recém configurado, será preciso executar o jogo para ver o resultado da configuração. Ou seja, o processo de criação se torna bastante repetitivo.
+Por exemplo, sejam as posições de um novo objeto configuradas da forma que se deseja, logo após isso, naturalmente, o usuário executa o jogo para poder visualizar o que configurou, e também entender o que representa graficamente o número que inseriu. Pode-se ver esse processo ocorrendo na imagem \ref{fig:intro-problema-1}, as duas janelas que estão abertas são, respectivamente, a do jogo em execução e da ferramenta de criação. Portanto, podemos assumir que para todo objeto recém configurado, será preciso executar o jogo para ver o resultado da configuração, ou seja, o processo de criação se torna bastante repetitivo.
 
 \begin{figure}[h]
    \centering
@@ -362,7 +362,24 @@ Para cada um dos problemas indicados anteriormente, é necessário determinar a 
 \end{alineas}
 
 \section{A nova tela inicial da ferramenta}
-Com o objetivo de implementar as melhorias foi necessário redesenhar a tela inicial da ferramenta, colocando os componentes novos e retirando os que não são mais utilizados. Dessa forma, a árvore de objetos do jogo está localizada a direita da tela, os painéis de configuração dos objetos ficam logo abaixo dela. E, a área de pré visualização é disponibilizada no centro da ferramenta.  A figura \ref{fig:tela_inicial_2} mostra a nova versão da tela inicial.
+Com o objetivo de implementar as melhorias foi necessário redesenhar a tela inicial da ferramenta, colocando os componentes novos e retirando os que não são mais utilizados. Dessa forma, a árvore de objetos do jogo está localizada a direita da tela, os painéis de configuração dos objetos ficam logo abaixo dela. E, a área de pré visualização é disponibilizada no centro da ferramenta.  A figura \ref{fig:tela_inicial_2} mostra a nova versão da tela inicial e a tabela \ref{table:ferramenta_areas_2} descreve os controles utilizados.
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{| l | p{8cm} |}
+      \hline
+      \textbf{Menu} & Assim como na primeira versão, armazena comandos da ferramenta, a partir do menu pode-se adicionar objetos no jogo, na nova versão da ferramenta o menu substitui a \emph{toolbar} e possui atalhos para facilitar o uso.  \\
+      \hline
+      \textbf{Área de pré visualização} & Região  destinada a prévia do jogo, onde os objetos são exibidos da forma mais próxima possível ao jogo.\\
+      \hline
+      \textbf{Árvore de objetos} & Componente que sumariza todos os objetos existentes no jogo. \\
+      \hline
+      \textbf{Painel de configuração} & Painel de configuração do objeto que foi selecionado na árvore. \\
+      \hline
+   \end{tabular}
+   \caption{Controles utilizados na segunda versão da ferramenta.}
+   \label{table:ferramenta_areas_2}
+\end{table}
 
 Vale ressaltar que, a cada interação na árvore, a ferramenta atualiza os painéis e a área de pré visualização dependendo do objeto que esteja selecionado. Além disso, a ferramenta atualiza a prévia quando algumas propriedades são alteradas no painel. Por exemplo, o campo correspondente ao plano de fundo do mundo mostrado na imagem \ref{fig:tela_inicial_2}.
 
@@ -377,7 +394,11 @@ A seguir veremos como cada um dos problemas enumerados anteriormente foram resol
 
 \section{Organização dos objetos}
 
-Árvores são ideais para organizar elementos que estão classificados hierarquicamente e tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta. A versão anterior exibia os mundos criados como abas e dentro de cada aba, os objetos criados eram botões que - quando clicados - exibiam o painel de configuração correspondente. Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alterar a visão da ferramenta. Então, essa melhoria é mais lógica e trouxe mais praticidade a ferramenta. A imagem \ref{fig:arvore_objetos} mostra um exemplo de uso da árvore de objetos para um jogo em criação.
+Árvores são ideais para organizar elementos que estão classificados hierarquicamente e tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta.
+A versão anterior exibia os mundos criados como abas e dentro de cada aba, os objetos criados eram botões que - quando clicados - exibiam o painel de configuração correspondente.
+Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alterar a visão da ferramenta.
+Então, essa melhoria é mais lógica e trouxe mais praticidade a ferramenta.
+A imagem \ref{fig:arvore_objetos} mostra um exemplo de uso da árvore de objetos para um jogo em criação.
 
 \begin{figure}[h]
 \centering
@@ -389,7 +410,6 @@ A seguir veremos como cada um dos problemas enumerados anteriormente foram resol
 \section{Painéis de configuração}
 
 \section{Pré visualização}
-\section{Descrição do módulo}
 
 \chapter{Estudo de caso}
 \label{chap:caso}
