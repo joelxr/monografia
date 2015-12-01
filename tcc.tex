@@ -59,6 +59,13 @@
 \setlength{\parskip}{0.2cm}
 \makeindex
 \begin{document}
+\lstset{
+        frame=single,
+        showlines=true,
+        language=java,
+        tabsize=3,
+        basicstyle=\scriptsize
+        }
 \selectlanguage{brazil}
 \frenchspacing
 \imprimircapa
@@ -173,21 +180,16 @@ Este documento segue o método que consiste em: apresentar um problema, propor s
 \chapter{Problema}
 \label{chap:problemas}
 % breve descrição do problema do preview
-A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui lacunas quando se trata da interação humano computador (IHC), onde é possível enumerar os seguintes pontos:
-
-\begin{alineas}
-\item A falta de pré-visualização dos objetos contidos no jogo dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas;
-\item Os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa, confusa e repleta de configurações repetitivas.
-\end{alineas}
+A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui lacunas quando se trata da interação humano computador (IHC). A falta de pré-visualização dos objetos contidos no jogo dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas. Além disso, os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa, confusa e repleta de configurações repetitivas.
 
 A nova versão da ferramenta visa resolver os dois problemas mencionados, principalmente o primeiro item, por ser mais importante quando o assunto é usabilidade. Com isso em mente, faz-se necessário construir um jogo na primeira versão da ferramenta com o objetivo de perceber os problemas e as possíveis melhorias.
 
 \section{Objetos de um jogo}
 \label{sec:objetos}
 
-Para enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, é importante construir um jogo com ela e, para fazê-lo, é preciso conhecer os objetos que existem e como devemos configurá-los. Observar que, cada um deles possui suas características e configurações, assim como um propósito no jogo. A tabela \ref{table:objetos-desc} mostra os possíveis tipos objetos e a descrição deles.
+Para enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, é importante construir um jogo com ela, então é preciso conhecer os objetos que existem nele e como eles são configurados. Observar que, cada um deles possui suas características e configurações, assim como um propósito no jogo, a tabela \ref{table:objetos-desc} mostra os possíveis tipos objetos e a descrição deles. Notar que, eles são inseridos na ferramenta a medida que o usuário ver necessidade e são responsáveis por dar liberdade ao autor de construir vários formatos de jogos, por exemplo jogos de: perguntas e respostas, concluir percurso, derrotar inimigo, sobreviver determinado tempo.
 
-\begin{table}[h]
+\begin{table}[htb]
 \centering
 \begin{tabular}{| l | p{7cm} |}
       \hline
@@ -218,26 +220,18 @@ Para enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, é impo
 \label{table:objetos-desc}
 \end{table}
 
-Notar que, eles são inseridos na ferramenta a medida que o usuário ver necessidade e são responsáveis por dar liberdade ao autor de construir vários formatos de jogos, por exemplo jogos de: perguntas e respostas, concluir percurso, derrotar inimigo, sobreviver determinado tempo.
-
-A seguir, mostra-se um jogo de exemplo na ferramenta e, com isso, os problemas e pontos de melhoria, notar que, o manual da ferramenta está na parte de anexos e pode ser consultado para entender como funciona a criação de cada um dos objetos citados.
+A seguir, pode ser visto um jogo de exemplo na ferramenta e, com isso, os problemas e pontos de melhoria. O manual da ferramenta está nos anexos para ser consultado com o objetivo de entender como funciona a criação de cada um desses objetos.
 
 \section{Dificuldades encontradas}
 \label{sec:dificuldades}
-% detalhar dificuldades com figuras da ferramenta 1.0, fazer um jogo de exemplo que será usado posteriormente
-As dificuldades encontradas na ferramenta foram relacionadas de acordo com a compreensão de cada componente existente nela, chama-se dificuldade qualquer empecilho na ferramenta que dificulte a criação e configuração de algum objeto ou o entendimento do papel dele no jogo. Assim, é percebido uma dificuldade e então ela é enumerado como problema encontrado. As seções seguintes trazem cada um dessas dificuldades encontradas.
-
+A medida que a ferramenta foi utilizada, achou-se dificuldades que podem ser qualquer interação confusa com a ferramenta ou que dificulta a criação e configuração de algum objeto, assim como o entendimento do papel dele no jogo. Essas dificuldades, embora pareçam subjetivas, podem ser mensuradas e quantificadas normalmente. As demais seções desde capítulo, encarregam-se de trazer esses problemas, dentre eles existe, por exemplo, a dificuldade de observar um objeto, após alterar alguma propriedade dele.
 Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.ifce.edu.br/downloads.php}{site do projeto CGT} na secção de \emph{downloads}\footnote{http://www.cgt.ifce.edu.br/downloads.php}.
 
 \subsection{Organização dos objetos}
 \label{sec:orga-objetos}
-Um dos pontos mais importantes quando se trata de criação de jogos, é que - no decorrer do desenvolvimento - eles podem se tornar enormes e, para a ferramenta, um jogo é um conjunto de objetos e suas respectivas propriedades. Logo, é imprescindível que os objetos possam ser vistos de forma lógica e, mais importante, organizada, já que, assim, serão acessados facilmente, pois o usuário terá necessidade de retornar a eles para melhorar ou corrigir alguma configuração.
+Um dos pontos mais importantes quando se trata de criação de jogos, é que - no decorrer do desenvolvimento - eles podem se tornar enormes e, para a ferramenta, um jogo é um conjunto de objetos e suas respectivas propriedades. Logo, é imprescindível que os objetos possam ser vistos de forma lógica e, mais importante, organizada, já que, assim, serão acessados facilmente, pois o usuário terá necessidade de retornar a eles para melhorar ou corrigir alguma configuração. Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar também o está, essa hierarquia precisa ser levada em consideração na ferramenta e o jogo será criado respeitando essas relações.
 
-Além disso, vale ressaltar que entre os objetos existe uma relação de pertinência, um ator está inserido em um mundo, assim como o inimigo que ele precisa derrotar, essa hierarquia precisa ser levada em consideração na ferramenta e o jogo será criado respeitando essas relações.
-
-Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a partir dessa imagem - pode-se notar que a ferramenta é dividida em cinco áreas importantes que estão descritas na tabela \ref{table:ferramenta_areas}. Os botões que representam objetos são organizados por colunas que representam as categorias: ator, inimigos, opositores, bonificações e informações da tela. A medida que é adicionado um novo objeto para a aba, este é posicionado na coluna correta.
-
-Essa forma de organizar os objetos do jogo possui a vantagem de ser objetiva quanto a exibir apenas o conteúdo que importa para aquele agregador (uma fase do jogo ou uma tela). No entanto, a medida que o usuário vai inserindo elementos ao jogo, essa visão - embora organizada - pode perder o significado, isto é, precisa-se de algo além de um botão com um nome gerado automaticamente para representar um objeto. Como pode ser percebido na figura \ref{fig:objetos_disp}, nesse jogo, existem quatro inimigos configurados, mas não se sabe quais são as características deles apenas olhando para os botões, ou seja, o usuário precisa selecionar um a um até encontrar qual deles é o que ele procura. Sendo assim, a ação de reconfigurar um objeto pode tornar-se difícil a medida que novos itens forem sendo adicionados ao jogo.
+Na figura \ref{fig:objetos_disp}, pode-se visualizar um jogo sendo criado e - a partir dessa imagem - pode-se notar que a ferramenta é dividida em cinco áreas importantes (descritas na tabela \ref{table:ferramenta_areas}). Os botões que representam objetos são organizados por colunas que representam as categorias: ator, inimigos, opositores, bonificações e informações da tela. A medida que é adicionado um novo objeto para a aba, este é posicionado em uma dessas colunas. Essa forma de organizar os objetos do jogo, possui a vantagem de ser objetiva, pois exibe apenas o conteúdo que importa para aquele agregador (uma fase do jogo ou uma tela). No entanto, a medida que o usuário vai inserindo elementos ao jogo e configurando eles, essa visão pode perder o significado, isto é, precisa-se de algo além de um botão com um nome gerado automaticamente para representar um objeto e ser identificado facilmente pelo usuário. Como pode ser visto na figura \ref{fig:objetos_disp}, nesse jogo, existem quatro inimigos configurados, mas não se sabe quais são as características deles apenas olhando para os botões, ou seja, o usuário precisa selecionar um a um até encontrar qual deles é o que ele procura, qual deles é o inimigo final da fase, por exemplo. Sendo assim, a ação de reconfigurar um objeto pode tornar-se difícil a medida que novos itens forem sendo adicionados ao jogo.
 
 \begin{table}[h]
    \centering
@@ -267,7 +261,7 @@ Essa forma de organizar os objetos do jogo possui a vantagem de ser objetiva qua
 
 \subsection{Painéis de configuração dos objetos}
 \label{sec:paineis-objetos}
-Todos os itens que fazem parte de um jogo possuem características que os definem, sendo assim cabe a ferramenta prover ao usuário final uma forma clara e objetiva de configurá-las. Além disso, a ferramenta tem obrigação de validar os dados e guiar o usuário nos casos mais complexos, assim como dar um significado para o dado que está sendo recebido. Por exemplo, vamos supor que exista um objeto recém adicionado no jogo e que pretendemos configurar a sua posição inicial na tela, a ferramenta recebe essa configuração através de dois números que são, respectivamente, as posições cartesianas $x$ e $y$ do objeto, deve-se verificar se essas posições estão contidas no retângulo que representa a tela do jogo, assim como fornecer ao usuário formas de saber o que significa o valor que ele está configurando.
+Todos os itens que fazem parte de um jogo possuem características que os definem, sendo assim cabe a ferramenta prover ao usuário final uma forma clara e objetiva de configurá-las. Além disso, a ferramenta tem obrigação de validar os dados e guiar o usuário nos casos mais complexos, assim como dar um significado para o dado que está sendo recebido. Por exemplo, vamos supor que exista um objeto recém adicionado no jogo e que pretendemos configurar a sua posição inicial na tela, a ferramenta recebe essa configuração através de dois números que são, respectivamente, as posições cartesianas $x$ e $y$ do objeto, deve-se verificar se essas posições estão contidas no retângulo que representa a tela do jogo, assim como fornecer ao usuário formas de saber o que significa o valor que ele está configurando. Essa e outras propriedades possuem a mesma necessidade de serem visualizadas, ver tabela \ref{table:objetos-atributos}.
 
 \begin{figure}[h]
 \centering
@@ -287,9 +281,7 @@ Todos os itens que fazem parte de um jogo possuem características que os define
 \label{sec:previa-objetos}
 Os principais problemas dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré visualização dos objetos, notar que não há forma melhor de perceber o significado de uma configuração do que visualizando-a. Ou seja, simular o jogo é importantíssimo para a criação. Logo, a maior motivação para a criação do módulo que é proposto neste trabalho é a falta desse recurso na primeira versão da ferramenta.
 
-Vale ressaltar que a visualização dos objeto também ajuda a resolver os problemas mencionados nas secções anteriores. A disposição deles e - como dito anteriormente - os problemas referentes aos painéis de configuração de cada um. Na secção \ref{chap:melhorias} será mostrado a solução sugerida para cada um desses problemas.
-
-Antes disso, é importante enumerar as propriedades dos objetos que se beneficiariam com a pré-visualização, ou seja, as propriedades que trazem ao usuário a necessidade de executar o jogo para aferir a sua respectiva configuração. Esses atributos são mostrados na tabela \ref{table:objetos-atributos}.
+A visualização dos objetos também contribui para os problemas mencionados nas secções anteriores. A disposição deles principalmente, pois com a prévia dos objetos, torna-se fácil identificá-los. Na secção \ref{chap:melhorias} será mostrado a solução sugerida para cada um desses problemas. Mas, antes disso, é importante enumerar as propriedades dos objetos que se beneficiariam com a pré-visualização, ou seja, as propriedades que trazem ao usuário a necessidade de executar o jogo para aferir a sua respectiva configuração. Esses atributos são mostrados na tabela \ref{table:objetos-atributos}.
 
 \begin{table}[h]
    \centering
@@ -311,52 +303,46 @@ Antes disso, é importante enumerar as propriedades dos objetos que se beneficia
    \caption{Objetos do jogo e suas respectivas propriedades que demandam ser simuladas, ou seja, serem visualizadas na criação.}
    \label{table:objetos-atributos}
 \end{table}
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{images/configurar-mundo-1.jpg}
+\includegraphics[width=0.4\textwidth]{images/configurar-mundo-1.jpg}
 \caption{Painel de configuração de um mundo do jogo na primeira versão da ferramenta.}
 \label{fig:configurar-mundo-1}
 \end{figure}
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{images/configurar-obj-1.jpg}
+\includegraphics[width=0.4\textwidth]{images/configurar-obj-1.jpg}
 \caption{Painel de configuração de um objeto do jogo, existe para os seguintes objetos: ator, inimigo, bônus, opositor e projétil. }
 \label{fig:configurar-obj-1}
 \end{figure}
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{images/configurar-botao-1.jpg}
+\includegraphics[width=0.4\textwidth]{images/configurar-botao-1.jpg}
 \caption{Painel de configuração de um botão na tela do jogo.}
 \label{fig:configurar-botao-1}
 \end{figure}
-
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{images/configurar-municao-1.jpg}
+\includegraphics[width=0.4\textwidth]{images/configurar-municao-1.jpg}
 \caption{Painel de configuração do mostrador de munição de um projétil do jogo.}
 \label{fig:configurar-municao-1}
 \end{figure}
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{images/configurar-vida-1.jpg}
+\includegraphics[width=0.4\textwidth]{images/configurar-vida-1.jpg}
 \caption{Painel de configuração da barra de vida de um objeto do jogo.}
 \label{fig:configurar-vida-1}
 \end{figure}
 
-\section{Game JAM} % Ryllari
-
 \chapter{Descrição das melhorias} % Joel
 \label{chap:melhorias}
-Tendo visto os problemas da primeira versão da ferramenta mostrados na secção \ref{chap:problemas}, discuti-se aqui como resolvê-los e o que é necessário. Primeiramente, tem-se uma solução correspondente a cada problema indicado, daí é discutido a sua viabilidade e a implementação técnica. Vale salientar que, os pontos de melhorias mostrados encontram-se implementados na \texttt{ferramenta 2.0}, dessa forma pode ser mostrado o resultado disso (secção \ref{chap:caso}).
+Tendo visto os problemas da primeira versão da ferramenta mostrados na secção \ref{chap:problemas}, discuti-se aqui como resolvê-los e o que é necessário para isso. Primeiramente, tem-se uma solução correspondente aos problemas indicados, daí é discutido a sua viabilidade e a implementação técnica. Vale salientar que, os pontos de melhorias mostrados encontram-se implementados na \texttt{ferramenta 2.0}, dessa forma pode ser mostrado o resultado disso (secção \ref{chap:caso}).
 
 \section{Resumo dos pontos de melhoria}
 Para cada um dos problemas indicados anteriormente, é necessário determinar a solução de cada um e, além disso, detalhar qual foi o meio técnico. Portanto, tem-se três problemas descritos nas secções \ref{sec:orga-objetos}, \ref{sec:paineis-objetos} e \ref{sec:previa-objetos} e, consequentemente, as respectivas melhorias que estão relacionadas a seguir.
 
 \begin{alineas}
-\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Assim, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore.
+\item \textbf{Organização dos objetos:} Utilizou-se uma árvore que organiza todos os objetos do jogo e deixa claro a relação que existe entre cada um deles. A árvore de objetos possui como raiz o projeto e cada objeto inserido nele é mostrado como seu filho.  Com isso, os botões que representam os itens do jogo na primeira versão da ferramenta foram substituídos por essa árvore.
 \item \textbf{Painéis de configuração dos objetos:} Os painéis de configurações permanecem parecidos com a primeira versão da ferramenta, as melhorias visam permitir que as informações alteradas reflitam sempre com a área destinada a simular o jogo, a área de pré visualização, ou seja, no módulo de pré visualização, os painéis terão que interagir para mostrar as mudanças feitas no objeto.
 \item \textbf{Pré visualização dos objetos:} A melhoria mais importante desse módulo, consiste em mostrar uma prévia do jogo ao usuário, mostrando os objetos inseridos e configurados, permitindo que o usuário perceba melhor o jogo que ele está criando.
 \end{alineas}
@@ -368,20 +354,20 @@ Com o objetivo de implementar as melhorias foi necessário redesenhar a tela ini
    \centering
    \begin{tabular}{| l | p{8cm} |}
       \hline
-      \textbf{Menu} & Assim como na primeira versão, armazena comandos da ferramenta, a partir do menu pode-se adicionar objetos no jogo, na nova versão da ferramenta o menu substitui a \emph{toolbar} e possui atalhos para facilitar o uso.  \\
+      \textbf{Menu} & Assim como na primeira versão, armazena comandos da ferramenta, a partir do menu pode-se adicionar objetos no jogo, na nova versão da ferramenta o menu substitui a \emph{toolbar} e possui atalhos para facilitar o uso. Por exemplo, \texttt{CTRL + I} para adicionar um inimigo ao jogo. \\
       \hline
-      \textbf{Área de pré visualização} & Região  destinada a prévia do jogo, onde os objetos são exibidos da forma mais próxima possível ao jogo.\\
+      \textbf{Área de pré visualização} & Região  destinada a prévia do jogo, onde os objetos são exibidos da forma mais próxima possível ao jogo. O usuário pode interagir com essa área, selecionando um objeto ou posicionando ele em outro lugar da tela por exemplo.\\
       \hline
-      \textbf{Árvore de objetos} & Componente que sumariza todos os objetos existentes no jogo. \\
+      \textbf{Árvore de objetos} & Componente que sumariza todos os objetos existentes no jogo. A árvore é responsável por exibir os objetos em sua hierarquia.\\
       \hline
-      \textbf{Painel de configuração} & Painel de configuração do objeto que foi selecionado na árvore. \\
+      \textbf{Painel de configuração} & Painel de configuração do objeto que foi selecionado. Nessa região todas as configurações relacionadas ao objeto selecionado devem ser exibidos \\
       \hline
    \end{tabular}
    \caption{Controles utilizados na segunda versão da ferramenta.}
    \label{table:ferramenta_areas_2}
 \end{table}
 
-Vale ressaltar que, a cada interação na árvore, a ferramenta atualiza os painéis e a área de pré visualização dependendo do objeto que esteja selecionado. Além disso, a ferramenta atualiza a prévia quando algumas propriedades são alteradas no painel. Por exemplo, o campo correspondente ao plano de fundo do mundo mostrado na imagem \ref{fig:tela_inicial_2}.
+Os novos controles interagem entre si com o seguinte comportamento, a cada interação na árvore a ferramenta atualiza os painéis e a área de pré visualização de acordo com o objeto que esteja selecionado. Este que, por sua vez, é atualizado também quando algumas propriedades são alteradas no painel. A tabela \ref{table:objetos-atributos} mostra os atributos que quando alterados atualizam a prévia, por exemplo, o campo correspondente ao plano de fundo do mundo (imagem \ref{fig:tela_inicial_2}).
 
 \begin{figure}[h]
 \centering
@@ -390,15 +376,24 @@ Vale ressaltar que, a cada interação na árvore, a ferramenta atualiza os pain
 \label{fig:tela_inicial_2}
 \end{figure}
 
-A seguir veremos como cada um dos problemas enumerados anteriormente foram resolvidos com base na solução sugerida.
+A seguir, veremos como cada um dos problemas enumerados anteriormente foram resolvidos com base na solução sugerida, além disso como foi a implementação disso.
+
+\section{Descrição técnica}
+
+Assim como mencionado no trabalho de \cite{monografia:aquino}, a ferramenta é escritas na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
+
+Em \emph{JavaFX}, é usado um arquivo XML que descreve o \emph{layout} de uma tela e uma classe que cuida do comportamento dela. Assim, a implementação do módulo de pré visualização, consistiu em alterar esse arquivos XML e suas respectivas classes e, além disso, classes do pacote \texttt{br.ifce.edu.cgt.application.vo}, que receberam objetos customizados que implementam a interface \texttt{DrawbleObject}. A interface \texttt{DrawbleObject} é usada por todos os objetos que são mostrados na área de pré visualização e árvore de objetos, pois define o comportamento que deverá ter os objetos que estarão contidos nessas regiões. Nessa interface, existem dois métodos que são responsáveis por desenhar o objeto e o seu painel de configuração, métodos \texttt{drawObject()} e \texttt{drawConfigurationPanel()} respectivamente.
+
+Com isso é possível visualizar as implementações que foram necessárias para concretizar o objetivo do módulo de pré visualização. O diagrama de classes, mostrando todas as classes que representam esse módulo, pode ser visto nos anexos.
 
 \section{Organização dos objetos}
 
-Árvores são ideais para organizar elementos que estão classificados hierarquicamente e tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta.
-A versão anterior exibia os mundos criados como abas e dentro de cada aba, os objetos criados eram botões que - quando clicados - exibiam o painel de configuração correspondente.
-Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alterar a visão da ferramenta.
-Então, essa melhoria é mais lógica e trouxe mais praticidade a ferramenta.
-A imagem \ref{fig:arvore_objetos} mostra um exemplo de uso da árvore de objetos para um jogo em criação.
+\subsection{Descrição da solução}
+Árvores são ideais para organizar elementos que estão classificados hierarquicamente, com isso, tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta CGT.
+A versão anterior exibia os mundos criados como abas e, dentro de cada uma, os objetos criados eram botões que quando eram clicados exibiam o painel de configuração correspondente ao objeto que foi clicado.
+Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alternar entre abas, além disso, a árvore de objetos ocupa menos espaço na janela, o que permite colocar os outros controles.
+Então, essa melhoria é mais lógica e conveniente, pois agrega mais praticidade a ferramenta.
+A imagem \ref{fig:arvore_objetos} mostra um exemplo de uma árvore de objetos para um jogo em criação.
 
 \begin{figure}[h]
 \centering
@@ -407,9 +402,53 @@ A imagem \ref{fig:arvore_objetos} mostra um exemplo de uso da árvore de objetos
 \label{fig:arvore_objetos}
 \end{figure}
 
+\subsection{Implementação técnica}
+O objetivo principal da árvore de objetos é garantir que a ferramenta seja atualizada quando um item for selecionado, pois o mesmo deve ser exibido na área de pré visualização e nos painéis de configuração, mas também ela deve organizar os objetos, agrupando-os quando necessário.
+
+Usa-se o objeto \texttt{TreeView} para representar a árvore, onde cada um dos itens é um \texttt{DrawbleObject}. O comportamento que queremos que seja feito, foi implementado com uma fábrica de células customizada que é uma classe que estende de \texttt{TreeCell} e implemente os métodos \texttt{startEdit} e \texttt{updateItem}, chamados quando o usuário interage com a árvore. Nesses métodos, coloca-se a instrução para que seja desenhado os objetos e o painel, ou seja, executa-se os métodos abstratos de \texttt{DrawbleObject} (\texttt{drawObject} e \texttt{drawConfigurationPanel}),  por fim, atribui-se ao \texttt{TreeView} a fábrica customizada assim como é mostrado abaixo (seja \texttt{t} uma instâcia de \texttt{TreeView}):
+
+\begin{lstlisting}[frame=single]
+t.setCellFactory(new Callback<TreeView<DrawableObject>,TreeCell<DrawableObject>>(){
+    @Override
+    public TreeCell<DrawableObject> call(TreeView<DrawableObject> param) {
+        return new DrawableObjectTreeCellImpl();
+    }
+});
+\end{lstlisting}
+
+Além do comportamento de redesenhar de acordo com o que foi selecionado na árvore, é importante definir os itens do jogo de acordo com a sua hierarquia, já que a árvore é montada obedecendo isso, a tabela \ref{table:obj-hierarquia} mostra todos os itens e os seus respectivos itens superiores.
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{| p{8cm} | l | }
+      \hline
+      \textbf{Item} & \textbf{Item superior} \\
+      \hline
+      Projeto & (Raiz) \\
+      Mundo & Projeto \\
+      Ator, Inimigos, Bônus(es), Opositor(es) & Mundo \\
+      Projetil & Ator \\
+      Barra de vida & Ator, Inimigo \\
+      Munição & Projétil \\
+      Tela & Projeto \\
+      Botão de tela & Tela \\
+      \hline
+   \end{tabular}
+   \caption{Tabela mostrando a hierarquia que existe entre os objetos de um jogo.}
+   \label{table:obj-hierarquia}
+\end{table}
+
+Garantir que a ferramenta mostre todos os objetos de acordo com a hierarquia, consiste em adicioná-los corretamente, o \texttt{PreviewPane} faz isso nos métodos que são chamados pelos eventos do menu editar, \texttt{addEnemy} por exemplo.
+
 \section{Painéis de configuração}
 
+\subsection{Descrição da solução}
+\subsection{Implementação técnica}
+
 \section{Pré visualização}
+
+\subsection{Descrição da solução}
+\subsection{Implementação técnica}
 
 \chapter{Estudo de caso}
 \label{chap:caso}
