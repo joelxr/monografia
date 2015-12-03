@@ -380,7 +380,7 @@ A seguir, veremos como cada um dos problemas enumerados anteriormente foram reso
 
 \section{Descrição técnica}
 
-Assim como mencionado no trabalho de \cite{monografia:aquino}, a ferramenta é escritas na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
+ A ferramenta é escritas na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
 
 Em \emph{JavaFX}, é usado um arquivo XML que descreve o \emph{layout} de uma tela e uma classe que cuida do comportamento dela. Assim, a implementação do módulo de pré visualização, consistiu em alterar esse arquivos XML e suas respectivas classes e, além disso, classes do pacote \texttt{br.ifce.edu.cgt.application.vo}, que receberam objetos customizados que implementam a interface \texttt{DrawbleObject}. A interface \texttt{DrawbleObject} é usada por todos os objetos que são mostrados na área de pré visualização e árvore de objetos, pois define o comportamento que deverá ter os objetos que estarão contidos nessas regiões. Nessa interface, existem dois métodos que são responsáveis por desenhar o objeto e o seu painel de configuração, métodos \texttt{drawObject()} e \texttt{drawConfigurationPanel()} respectivamente.
 
@@ -391,7 +391,7 @@ Com isso é possível visualizar as implementações que foram necessárias para
 \subsection{Descrição da solução}
 Árvores são ideais para organizar elementos que estão classificados hierarquicamente, com isso, tornou-se a melhor maneira de organizar os objetos da nova versão da ferramenta CGT.
 A versão anterior exibia os mundos criados como abas e, dentro de cada uma, os objetos criados eram botões que quando eram clicados exibiam o painel de configuração correspondente ao objeto que foi clicado.
-Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alternar entre abas, além disso, a árvore de objetos ocupa menos espaço na janela, o que permite colocar os outros controles.
+Ao substituir essa visão pela atual, permite-se que, facilmente, o usuário tenha visão de tudo que existe no jogo sem a necessidade de alternar entre abas, vale lembrar que a árvore de objetos ocupa menos espaço na janela, o que permitiu colocar outros controles.
 Então, essa melhoria é mais lógica e conveniente, pois agrega mais praticidade a ferramenta.
 A imagem \ref{fig:arvore_objetos} mostra um exemplo de uma árvore de objetos para um jogo em criação.
 
@@ -442,7 +442,25 @@ Garantir que a ferramenta mostre todos os objetos de acordo com a hierarquia, co
 
 \section{Painéis de configuração}
 
+Os painéis de configuração na ferramenta são, a grosso modo, os controles responsáveis por receber as informações do usuário e transformá-las em objetos do jogo.
+É importante que, os controles usados sejam claros, objetivos e consigam passar para o usuário o significado do que está sendo configurado.
+
 \subsection{Descrição da solução}
+Para a implementação do módulo de pré visualização foi necessário aprimorar os painéis existentes na primeira versão da ferramenta, possibilitando as funcionalidades da segunda versão, tem-se a necessidade, por exemplo, de não exibir diálogos de configuração  com tanta frequência, como é feito na versão anterior, pois os mesmos se posicionam na frente da ferramenta  e, consequentemente, da área de pré visualização (ver figura \ref{fig:intro-problema-2} como exemplo de configuração em dialogo).
+Lembrar que, passar para o usuário o que uma determinada configuração representa também é papel dessa área.
+
+Os painéis são mostrados na ferramenta de forma semelhante aos objetos na pré visualização, ou seja, ocorre através da árvore de objetos que, a medida que o usuário seleciona um objeto nela, exibe a configuração correspondente na região destinada aos painéis.
+Em um painel de configuração de um objeto, pode possuir mais de uma configuração para ele, cada configuração deve ser referente a algo e elas são exibidas separadamente.
+Usa-se o componente de acordeão para agregar as configurações no painel de acordo com o seu temas, ver a figura \ref{fig:painel_ator} por exemplo, nela temos um painel de configuração de um ator do jogo, pode-se perceber cada configuração separada, notar que há uma aba no acordeão para configurar as animações e outra para configurar as propriedades relacionadas a colisão.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{images/painel_ator.png}
+\caption{Painel de configuração de um ator no jogo}
+\label{fig:painel_ator}
+\end{figure}
+
+
 \subsection{Implementação técnica}
 
 \section{Pré visualização}
