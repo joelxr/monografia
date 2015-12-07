@@ -380,7 +380,7 @@ A seguir, veremos como cada um dos problemas enumerados anteriormente foram reso
 
 \section{Descrição técnica}
 
- A ferramenta é escritas na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
+ A ferramenta é escrita na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
 
 Em \emph{JavaFX}, é usado um arquivo XML que descreve o \emph{layout} de uma tela e uma classe que cuida do comportamento dela. Assim, a implementação do módulo de pré visualização, consistiu em alterar esse arquivos XML e suas respectivas classes e, além disso, classes do pacote \texttt{br.ifce.edu.cgt.application.vo}, que receberam objetos customizados que implementam a interface \texttt{DrawbleObject}. A interface \texttt{DrawbleObject} é usada por todos os objetos que são mostrados na área de pré visualização e árvore de objetos, pois define o comportamento que deverá ter os objetos que estarão contidos nessas regiões. Nessa interface, existem dois métodos que são responsáveis por desenhar o objeto e o seu painel de configuração, métodos \texttt{drawObject()} e \texttt{drawConfigurationPanel()} respectivamente.
 
@@ -447,11 +447,12 @@ Os painéis de configuração na ferramenta são, a grosso modo, os controles re
 
 \subsection{Descrição da solução}
 Para a implementação do módulo de pré visualização foi necessário aprimorar os painéis existentes na primeira versão da ferramenta, possibilitando as funcionalidades da segunda versão, tem-se a necessidade, por exemplo, de não exibir diálogos de configuração  com tanta frequência, como é feito na versão anterior, pois os mesmos se posicionam na frente da ferramenta  e, consequentemente, da área de pré visualização (ver figura \ref{fig:intro-problema-2} como exemplo de configuração em dialogo).
-Lembrar que, passar para o usuário o que uma determinada configuração representa também é papel dessa área.
+Além disso, é necessário para os objetos que possuem animação uma prévia dela ou uma forma de selecioná-la melhor no painel de configuração, é o caso do ator e inimigo por exemplo.
+Lembrar que, o objetivo é passar para o usuário o que uma determinada configuração representa.
 
-Os painéis são mostrados na ferramenta de forma semelhante aos objetos na pré visualização, ou seja, ocorre através da árvore de objetos que, a medida que o usuário seleciona um objeto nela, exibe a configuração correspondente na região destinada aos painéis.
+Os painéis são mostrados na ferramenta de forma semelhante aos objetos na pré visualização, ou seja, são disparados através da árvore de objetos, a medida que o usuário seleciona um objeto dela, a configuração correspondente é exibida na região destinada aos painéis.
 Em um painel de configuração de um objeto, pode possuir mais de uma configuração para ele, cada configuração deve ser referente a algo e elas são exibidas separadamente.
-Usa-se o componente de acordeão para agregar as configurações no painel de acordo com o seu temas, ver a figura \ref{fig:painel_ator} por exemplo, nela temos um painel de configuração de um ator do jogo, pode-se perceber cada configuração separada, notar que há uma aba no acordeão para configurar as animações e outra para configurar as propriedades relacionadas a colisão.
+Usa-se o componente de acordeão para agregar as configurações no painel de acordo com o objetivo dela. Ver a figura \ref{fig:painel_ator} por exemplo, nela temos um painel de configuração de um ator do jogo, percebe-se que cada configuração é separada de acordo com sua finalidade, há uma aba para configurar as animações e outra para configurar as propriedades relacionadas a colisão, por exemplo.
 
 \begin{figure}[h]
 \centering
@@ -460,10 +461,33 @@ Usa-se o componente de acordeão para agregar as configurações no painel de ac
 \label{fig:painel_ator}
 \end{figure}
 
-
 \subsection{Implementação técnica}
 
+A implementação dessa melhoria está relacionada a reutilizar os painéis que já existiam e melhorar alguns aspectos, dentre eles, pode-se destacar a configuração das animações do painel responsável por configurar um \emph{game object}.
+Na primeira versão da ferramenta, uma animação era adicionada a partir de uma janela \textit{pop up} que mostrava o \textit{sprite} do objeto, então o usuário escolhia dentro de uma matriz o \textit{frame} inicial e final, assim como a finalidade da animação e outras propriedades dela (ver imagem \ref{fig:add_animacao}).
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/add_animacao_1.png}
+\caption{Janela para adicionar animações para um objeto na primeira versão da ferramenta. }
+\label{fig:add_animacao}
+\end{figure}
+Quando há um painel destinado a mostrar as configurações do objeto correspondente, faz-se desnecessário o uso de janela \textit{pop up}, dessa forma, na nova versão da ferramenta as configurações da animação do objeto foram colocadas no painel dele apenas, facilitando a pré visualização e também o manuseio.
+Ver imagem \ref{fig:add_animacao_2}, notar que, o que é preciso para configurar uma animação está em três abas desse painel, onde a última aba é uma lista de todas as animações que já existem, a segunda as propriedades da animação e a primeira aba a configuração do quadro inicial e final da animação. Vale notar que o comportamento de selecionar o quadro inicial e final de uma animação para um objeto, tornou-se mais fácil, pois antes  era feito com campos de texto que recebiam as coordenadas $x$ e $y$ do quadro e, na segunda versão, faz-se necessário apenas clicar no quandro que se deseja.
+Logo, foi possível transferir tudo para o painel, contribuindo para a coesão da ferramenta e melhorando também no objetivo de pré visualização dos objetos.
+
+De um ponto de vista técnico, os painéis implementados para a nova versão da ferramenta são classes que carregam o arquivo XML que descreve o \textit{layout} (FXML) e, Consequentemente, definem o comportamento.
+Além disso, faz-se necessário escrever na função que abre um jogo salvo previamente o comportamento de preencher as informações desses painéis.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{images/add_animacao_2.png}
+\caption{Painel de configuração das animações do objeto na nova versão da ferramenta.}
+\label{fig:add_animacao_2}
+\end{figure}
+
 \section{Pré visualização}
+
+A pré visualização 
 
 \subsection{Descrição da solução}
 \subsection{Implementação técnica}
