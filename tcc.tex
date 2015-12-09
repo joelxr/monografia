@@ -16,6 +16,7 @@
 \usepackage{tikz-uml}
 \usepackage{uarial}
 \usepackage{blindtext}
+\usepackage{float}
 \graphicspath{{../images/}}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
@@ -27,7 +28,26 @@
    Citado na página #2.%
    \else		Citado #1 vezes nas páginas #2.%
    \fi}%
-
+\newfloat{mylisting}{tbphH}{lopbl}[chapter]
+\floatname{mylisting}{Listing}
+\newsubfloat{mylisting}
+\newcommand{\listofmylistings}{\listof{mylisting}{List of Listings}}
+% if you use the hyperref package
+\providecommand*\theHmylisting{\themylisting}
+\newcommand{\listbylist}[6][showlines=true]{
+  \begin{mylisting}
+    \subfloat[ ]{
+      ...
+    }
+    \hfill{}
+    \subfloat[ ]{
+      ...
+    }
+    \hfill{}
+    \caption[#5]{#6}
+    \label{#4}
+  \end{mylisting}
+}
 \titulo{Módulo de pré visualização para a ferramenta CGT - Ceará Game Tools}
 \author{Joel Xavier Rocha\thanks{\texttt{joelxr@gmail.com}}}
 \orientador{Prof. Dr. Carlos Hairon Ribeiro Gonçalves}
@@ -487,10 +507,62 @@ Além disso, faz-se necessário escrever na função que abre um jogo salvo prev
 
 \section{Pré visualização}
 
-A pré visualização 
+A pré visualização dos objetos do jogos criados pela ferramenta CGT é a principal melhoria do módulo que foi proposto e desenvolvido com esse trabalho. Vale lembrar que, a nova versão da ferramenta consiste exatamente nos itens presentes neste capitulo, sendo assim, a pré visualização dos objetos é a última funcionalidade que foi implementada e a mais importante, pois como - será visto posteriormente - é a maior responsável por melhorar a experiência do usuário, comparando-a com a versão anterior.
 
 \subsection{Descrição da solução}
+Poder conferir o que está sendo produzido, é a principal falta que os usuários da primeira versão da ferramenta sentem. Dessa forma, pode-se dizer que é o maior problema que ela possui. Para resolvê-lo, foi preciso dedicar uma região da janela para uma área de pré visualização do jogo, com isso a ferramenta foi alterada para conter essa área, a árvore de objetos e o painel de configuração (figura \ref{fig:tela_inicial_2}). A área de pré visualização deve conter todos os objetos existentes no jogo para aquele agregador (mundo ou tela do jogo), além disso, o itens devem ser exibidos tais quais seriam no momento de execução do jogo, devem ser fiéis a configuração feita e refletir no resultado real.
+Na figura \ref{fig:preview_objetos}, pode-se ver como a tela da ferramenta é usualmente vista pelo usuário, notar que - na área de visualização - é mostrado um mundo em que podem ser vistos dois objetos configurados um ator e um inimigo.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/preview1.png}
+\caption{Tela da ferramenta mostrando a área de pré visualização com dois objetos configurados.}
+\label{fig:preview_objetos}
+\end{figure}
+
 \subsection{Implementação técnica}
+
+A construção da pré visualização da ferramenta foi implementada utilizando objetos customizados que possuem três atributos essenciais para o funcionamento dessa funcionalidade:
+\begin{alineas}
+\item Um atributo que corresponde ao objeto raiz do jogo, por exemplo: ator, inimigo;
+\item Um método para desenhar esse objeto raiz na área de pré visualização;
+\item Um método para exibir o painel de configuração correspondente ao objeto selecionado;
+\end{alineas}
+
+Dessa forma, temos uma interface criada para esse fim, a \texttt{DrawableObject}, a partir daí, foi implementada uma classe abstrata, cujo nome é \texttt{AbstractDrawableObject}, responsável por implementar algumas das tarefas comuns de todos esses objetos desenháveis.
+Com isso, pode-se ainda estender essa classe abstrata e gerar classes especificas aos objetos que necessitam de uma prévia, então foram criadas classes com o sufixo \texttt{Drawable}, por exemplo \texttt{CGTGameActorDrawable} que tem o objetivo de descrever cada uma das propriedades citadas anteriormente.
+
+Então, por definição, um objeto desenhável deve prover de meios para representar um objeto raiz do projeto, que são os objetos que estão no pacote \texttt{cgt.core} dentro do módulo \texttt{core} do projeto (ver tabela \ref{table:modulos}). Os meios que um desenhável possui são os métodos \texttt{drawObject} e \texttt{drawConfigurationPanel} que são responsáveis por exibir o objeto e o painel de configuração respectivamente.
+Esses objetos desenháveis, são criados pelo usuário e inseridos na árvore de objetos (assim como explicado na secção \ref{sec:orga-objetos}), no momento de inserção, o método que os desenha é chamado e, então, a pré visualização é exibida.
+A medida que, o usuário vai configurando esses objetos no respectivo painel de configuração, a prévia dele é atualizada na área de visualização.
+Isso é possível, graças a criação de métodos do tipo \emph{callback} que existem em todos os painéis de configuração que necessitam que as mudanças sejam exibidas assim que feitas, notar que, esse método é chamado pelo próprio painel toda vez que algum atributo relevante é modificado, por exemplo, a dimensão e posição de um objeto, assim como é mostrado na figura \ref{fig:obj_preview_tamanho}.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{images/preview2.png}
+\caption{Exemplo de dimensão do objeto sendo percebida no momento que é alterada na configuração}
+\label{fig:obj_preview_tamanho}
+\end{figure}
+
+Ou seja, toda vez que é detectado um evento de mudança no campo de texto do tamanho do objeto, o método de \textit{callback} - que é um objeto Java da classe \texttt{Runnable}, mas no painel é um atributo cujo nome é \texttt{onUpdateRunnable} - é executado da forma é mostrado a seguir. Notar que, quem cria o objeto que corresponde ao painel de configuração é que deve determinar o conteúdo desse método \texttt{callback}, dessa forma, é garantido que o painel seja compatível com a ferramenta.
+
+\begin{mylisting}[h]
+\begin{lstlisting}
+boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
+ @Override
+ public void changed(ObservableValue<? extends Boolean> observable,
+   Boolean oldValue, Boolean newValue) {
+      if (!newValue) {
+         /** comportamento para mudar a altura do objeto */
+      }
+
+      if (onUpdateRunnable != null) {
+         onUpdateRunnable.run();
+      }
+   }});
+\end{lstlisting}
+\end{mylisting}
+
 
 \chapter{Estudo de caso}
 \label{chap:caso}
