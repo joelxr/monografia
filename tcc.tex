@@ -582,6 +582,208 @@ boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
 \begin{anexosenv}
    \partanexos
    \chapter{Manual da ferramenta}
+
+   Após as melhorias implementadas na nova versão da ferramenta, foi preciso atualizar o manual existente em trabalhos anteriores \cite{monografia:aquino}. Usou-se a mesma estrutura do manual anterior, atualizando-o para adequar-se às novas telas implementadas.
+   Então, com este novo manual será possível encontrar uma descrição sucinta da ferramenta CGT(Ceará Game Tools), mostrando todas as suas funcionalidades e imagens que explicam as suas configurações.
+   Dividido em duas partes, a primeira parte deste manual é referente a configuração de um jogo usando a ferramenta, já a segunda parte se refere a explicação de cada funcionalidade que o CGT possui.
+   Assim, o usuário possuirá um exemplo prático e a parte teórica caso já saiba o que deseja.
+
+   \section{Configuração de um jogo com a ferramenta}
+   Com o intuito de mostrar as funcionalidades que a ferramenta possui, será demonstrada a criação de um jogo com a ferramenta CGT.
+
+   \subsection{Criar tela}
+   Uma tela representa uma tela do jogo inicial, podendo ser encontrada como uma tela de configurações, uma tela de créditos, entre outros exemplos.
+   Para criar uma tela basta ir no menu: \texttt{Editar$\rightarrow$Adicionar$\rightarrow$Tela} da ferramenta, ou o atalho: \texttt{ALT+T} (ver figura \ref{fig:add_tela}).
+   No painel de configuração de uma tela, o usuário pode configurar o plano de fundo e o áudio.
+   No exemplo a seguir foi selecionada uma imagem para o plano de fundo e adicionado botões a ela, figura \ref{fig:add_tela_2}.
+
+   Agora serão configurados os botões que foram adicionados a tela.
+   Como o procedimento é o mesmo para todos os botões, será demonstrada apenas a configuração de um. Nele serão configurados ação, imagem, posicionamento e dimensão do botão.
+   A ação do botão, representado pelo “ir para”, será selecionada outra tela previamente criada ou um mundo, que será explicado ao longo do texto.
+   Quanto a imagem do botão, será selecionada uma para quando se encontrar no estado normal e outra para quando for pressionado, causando a ideia de efeito ao clicar sobre o botão.
+   O seu posicionamento na tela e dimensão são configurados com base na tela e os valores devem variar de 0 a 1, representando a porcentagem da tela. A área de pré-visualização permite arrastar o botão para a posição desejada, atualizando o painel de configuração em seguida (figura \ref{fig:add_botao}).
+   Com isso, a ferramenta permite ao usuário criar telas de acordo com a necessidade do jogo e com os botões que lhe forem preciso.
+
+   \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_tela.png}
+   \caption{Inserindo uma nova tela na ferramenta.}
+   \label{fig:add_tela}
+   \end{figure}
+
+   \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_tela_2.png}
+   \caption{Tela de um jogo exemplo sendo configurada.}
+   \label{fig:add_tela_2}
+   \end{figure}
+
+   \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_botao.jpg}
+   \caption{Configurando um botão em tela de exemplo do jogo.}
+   \label{fig:add_botao}
+   \end{figure}
+
+   \subsection{Criar mundo}
+   O botão de uma tela pode levar a um mundo. Um mundo pode ser o seu jogo ou uma fase dele e é constituído de vários objetos que serão configurados mais adiante.
+   Para criar um mundo basta ir no menu: \texttt{Editar$\rightarrow$Adicionar$\rightarrow$Mundo} da ferramenta, ou o atalho: \texttt{ALT+M} (ver figura \ref{fig:add_mundo}).
+   Como mostrado na imagem \ref{fig:add_mundo_2}, o mundo possui algumas características gerais, que são: nome, plano de fundo e música.
+   Na figura \ref{fig:add_mundo_3}, temos as configurações do critério de vitória para esse mundo que podem ser cinco (eliminar inimigos, sobreviver, pegar bônus, completar percurso e atingir pontuação) e da mensagem que será exibida quando o jogador vencer.
+   Na figura \ref{fig:add_mundo_4}, temos as configurações de derrota desse mundo, os critérios podem ser: ator morrer ou contagem regressiva, uma mensagem de derrota também pode ser configurada.
+   Além dessas mensagens de derreta e vitória, na figura \ref{fig:add_mundo_5}, é possível configurar a mensagem que será exibida quando o mundo estiver em pausa.
+   Por fim, na figura \ref{fig:add_mundo_6}, tem-se o painel de configuração da câmera do mundo.
+
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo.jpg}
+   \caption{Adicionando um mundo na nova versão da ferramenta}
+   \label{fig:add_mundo}
+   \end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo_2.jpg}
+   \caption{Propriedades gerais de um mundo.}
+   \label{fig:add_mundo_2}
+   \end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo_3.jpg}
+   \caption{Propriedades de vitória do mundo.}
+   \label{fig:add_mundo_3}
+   \end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo_4.jpg}
+   \caption{Propriedades de derrota do mundo.}
+   \label{fig:add_mundo_4}
+   \end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo_5.jpg}
+   \caption{Propriedades da pausa do mundo.}
+   \label{fig:add_mundo_5}
+   \end{figure}
+   \begin{figure}[htb]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/add_mundo_6.jpg}
+   \caption{Propriedades da câmera do mundo.}
+   \label{fig:add_mundo_6}
+   \end{figure}
+
+   \subsubsection{Configurar mensagens}
+   A configuração das mensagens são todas iguais, então será demonstrada apenas a configuração um deles. Para configurar será necessário ajustar posicionamento, dimensão, imagens e botões. Uma mensagem deve possuir três imagens bases, que precisam ser do tipo PNG, são elas o fundo, a borda horizontal e a borda do canto inferior. A imagem de fundo será o plano de fundo, as imagens de borda horizontal e canto inferior direito são imagens usadas para se definir a borda de toda a janela da mensagem. Ver figura \ref{fig:config_msg}.
+
+   \begin{figure}[h]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/config_msg.jpg}
+   \caption{Janela de configuração de uma mensagem no mundo, seja ela para vitória, derrota ou pausa.}
+   \label{fig:config_msg}
+   \end{figure}
+
+   \subsubsection{Ator principal}
+
+
+   \subsubsection{Configurar opositores}
+
+
+   \subsubsection{Configurar inimigos}
+
+
+   \subsubsection{Bônus}
+
+
+   \subsubsection{Configurar projétil}
+
+
+   \subsubsection{Configurar HUD}
+
+
+   \section{Telas da ferramenta}
+
+
+   \subsection{Configurar tela}
+
+
+   \subsection{Configurar mundo}
+
+
+   \subsubsection{Configurações gerais}
+
+
+   \subsubsection{Configurar \emph{pop-up}}
+
+
+   \subsubsection{Configurar critérios de vitória}
+
+
+   \subsubsection{Critérios de derrota}
+
+
+   \subsubsection{Configurar \emph{spritesheet}}
+
+
+   \subsubsection{Configurar animação (ator, inimigo, opositor, bônus, projétil)}
+
+
+   \subsubsection{Configuração comum dos objetos(ator, inimigo, opositor, bonus,projétil)}
+
+
+   \subsection{Configurações específicas do ator}
+
+
+   \subsubsection{Configurações das ações do ator}
+
+
+   \subsection{Configurações especificas dos inimigos}
+
+
+   \subsubsection{Comportamento sino}
+
+
+   \subsubsection{Comportamento \emph{fade}}
+
+
+   \subsubsection{Comportamento onda}
+
+
+   \subsection{Configurações específicas dos opositores}
+
+
+   \subsection{Configurações específicas dos bônus}
+
+
+   \subsection{Configurar projétil}
+
+
+   \subsubsection{Configuração do posicionamento}
+
+
+   \subsection{Configurar \emph{HUDs}}
+
+
+   \subsubsection{Configuração do tela de munição}
+
+
+   \subsubsection{Configuração do barra de vida dos inimigos}
+
+
+   \subsubsection{Configuração barra de vida objeto}
+
+
+   \section{Executar projeto}
+
+
+   \section{Configurar game}
+
+
+   \section{Exportar projeto}
+
+
+   \section{Gerar chave de assinatura}
+
+teste
+
    \chapter{Diagramas de classes}
    \label{chap:diagramas}
    \includepdf[pages=-]{ClassModel.pdf}
