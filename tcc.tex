@@ -124,7 +124,7 @@
 \chapter{Introdução} % Ryllari
 \label{chap:introducao}
 % introduzindo sobre o que é o trabalho
-Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}). A nova versão da ferramenta tem como objetivo melhorar o processo de criação de jogos e tornando-o mais intuitivo para o usuário final.
+Neste trabalho, é apresentado problemas existentes e pontos de melhorias na primeira versão da ferramenta de construção de jogos do projeto CGT (\texttt{ferramenta 1.0}). Bem como, de que modo essas questões foram tratadas e implementadas na segunda versão (\texttt{ferramenta 2.0}) que tem como objetivo melhorar o processo de criação de jogos e tornando-o mais intuitivo para o usuário final.
 \section{O projeto CGT}
 % Descrição/apresentação do projeto CGT
 O projeto CGT que surgiu para tornar possível a qualquer pessoa a criação de jogos, assim como é explicado no trabalho \cite{monografia:aquino}, vem sido desenvolvido desde 2013 e possibilita a construção de jogos eletrônicos por qualquer pessoa, não sendo necessário conhecimentos em programação ou nas técnicas de criação de jogos. De foma fácil, simples e prática, a ferramenta, atende a necessidade da maior parte dos usuários, podendo produzir jogos de vários temas e para diversos fins, desde entretenimento a educação, por exemplo. Assim como, é proposto no \emph{website} do projeto que explica, detalhadamente, o seu objetivo.
@@ -142,7 +142,7 @@ Em aspectos gerais, esse trabalho apresenta todo o processo de criação da ferr
 
 \subsection{Os módulos desenvolvidos para o projeto}
 % ferramenta de construção de jogos
-O projeto é composto por módulos que dividem as funcionalidades existentes, esses módulos são mostrados e descritos na tabela \ref{table:modulos}. O módulo da ferramenta que é o objeto de estudo para este trabalho tem como objetivo implementar toda a interação com o usuário e ser responsável por apresentá-lo ao jogo no momento da criação, tudo isso de forma intuitiva, simples e prática. Pode-se notar que, esse módulo é essencial para o projeto e deve ser capaz de lidar com tudo que torna possível a criação de jogos.
+O projeto CGT é composto por módulos que foram desenvolvidos e dividem entre sí as funcionalidades existentes, eles são mostrados e descritos na tabela \ref{table:modulos}, o módulo da ferramenta é o objeto de estudo para este trabalho e tem como objetivo implementar toda a interação com o usuário, além de ser responsável por apresentar a ele o jogo no momento da sua criação de forma intuitiva, simples e prática. Pode-se notar que, esse módulo é essencial para o projeto e deve ser capaz de lidar com tudo que possibilita a criação de jogos.
 \begin{table}[h]
    \centering
    \begin{tabular}{ | l | p{10cm} | }
@@ -165,11 +165,12 @@ O projeto é composto por módulos que dividem as funcionalidades existentes, es
 \end{table}
 \section{Introdução ao problema}
 \label{sec:intro-problema}
-A identificação dos problemas e pontos de melhoria para a ferramenta foram percebidos, principalmente, através do uso e estão relacionados a interação com o usuário final, além disso, na forma como o jogo em produção é percebido.
-
-A \texttt{ferramenta 1.0} é bastante robusta e atende o propósito de criar os objetos que compõem o jogo e, eventualmente, produzi-lo em forma de aplicação para a plataforma destino. Entretanto, a mesma carece em fornecer algum \emph{feedback} no momento da criação, obrigando ao usuário a sempre executar o jogo para poder perceber atributos essenciais dos objetos dele, tais como: a posição, o tamanho, a textura.
-
-Por exemplo, sejam as posições de um novo objeto configuradas da forma que se deseja, logo após isso, naturalmente, o usuário executa o jogo para poder visualizar o que configurou, e também entender o que representa graficamente o número que inseriu. Pode-se ver esse processo ocorrendo na imagem \ref{fig:intro-problema-1}, as duas janelas que estão abertas são, respectivamente, a do jogo em execução e da ferramenta de criação. Portanto, podemos assumir que para todo objeto recém configurado, será preciso executar o jogo para ver o resultado da configuração, ou seja, o processo de criação se torna bastante repetitivo.
+A identificação dos problemas e pontos de melhoria para a ferramenta foram percebidos, principalmente, através do uso e estão relacionados a interação com o usuário final, além disso, na forma como o jogo que está sendo produzido pelo usuário é percebido por ele mesmo.
+Para tanto, a \texttt{ferramenta 1.0} possui uma interface bastante robusta e atende o propósito de criar os objetos que compõem o jogo e, eventualmente, produzi-lo em forma de aplicação para a plataforma destino.
+Entretanto, a mesma carece em fornecer algum \emph{feedback} no momento da criação, obrigando ao usuário a sempre executar o jogo para poder perceber atributos essenciais dos objetos dele, tais como: a posição, o tamanho, a textura.
+Por exemplo, sejam as posições de um novo objeto configuradas da forma que se deseja, logo após isso, naturalmente, o usuário executa o jogo para poder visualizar o que configurou, e também entender o que representa graficamente o número que inseriu.
+Pode-se ver esse processo ocorrendo na imagem \ref{fig:intro-problema-1}, as duas janelas que estão abertas são, respectivamente, a do jogo em execução e da ferramenta de criação.
+Logo, podemos assumir que para todo objeto recém configurado, será preciso executar o jogo para verificar o resultado da configuração e com isso o processo de criação se torna bastante repetitivo.
 
 \begin{figure}[h]
    \centering
@@ -179,7 +180,7 @@ Por exemplo, sejam as posições de um novo objeto configuradas da forma que se 
 \end{figure}
 
 % mais problemas
-Além disso, os controles que fazem parte da primeira versão da ferramenta, tornam, na maioria das vezes, oneroso o processo de configuração dos objetos. Por exemplo, na configuração das animações que possui um objeto é necessário criar as animações olhando no \emph{spritesheet}\footnote{Imagem que contém todas as faces de um objeto no jogo.} do objeto e preenchendo campos de texto com o valor da linha e coluna do \emph{sprite} correspondente a animação configurada (ver imagem \ref{fig:intro-problema-2}).
+Além disso, os controles que fazem parte da primeira versão da ferramenta, tornam, na maioria das vezes, oneroso o processo de configuração dos objetos. Podendo citar a configuração das animações de um objeto, é necessário criar as animações olhando no \emph{spritesheet}\footnote{Imagem que contém todas as faces de um objeto no jogo.} do objeto e preenchendo campos de texto com o valor da linha e coluna do \emph{sprite} correspondente a animação configurada (ver imagem \ref{fig:intro-problema-2}).
 
 \begin{figure}[h]
    \centering
@@ -201,9 +202,11 @@ Este documento segue o método que consiste em: apresentar um problema, propor s
 \chapter{Problema}
 \label{chap:problemas}
 % breve descrição do problema do preview
-A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui lacunas quando se trata da interação humano computador (IHC). A falta de pré-visualização dos objetos contidos no jogo dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas. Além disso, os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa, confusa e repleta de configurações repetitivas.
-
-A nova versão da ferramenta visa resolver os dois problemas mencionados, principalmente o primeiro item, por ser mais importante quando o assunto é usabilidade. Com isso em mente, faz-se necessário construir um jogo na primeira versão da ferramenta com o objetivo de perceber os problemas e as possíveis melhorias.
+A ferramenta de construção de jogos do projeto CGT é robusta e atende aos objetivos propostos. Contudo, ela possui lacunas quando se trata da interação humano computador (IHC).
+A falta de pré-visualização dos objetos contidos no jogo dificulta a percepção do usuário, obrigando-o a sempre executar o jogo para observar as configurações que foram feitas.
+Além disso, os controles não são claros e, assim, produzir um jogo pode acabar sendo uma experiência onerosa, confusa e repleta de configurações repetitivas.
+A nova versão da ferramenta visa resolver os dois problemas mencionados, principalmente o primeiro item, por ser mais importante para a usabilidade e clareza dos controles envolvidos no processo de criação de um jogo.
+Com isso em mente, faz-se necessário conhecer os objetos e controles que existem em um jogo da primeira versão da ferramenta, com o objetivo de perceber os problemas e as possíveis melhorias.
 
 \section{Objetos de um jogo}
 \label{sec:objetos}
@@ -241,11 +244,9 @@ Para enumerar todos os problemas e melhorias da \texttt{ferramenta 1.0}, é impo
 \label{table:objetos-desc}
 \end{table}
 
-A seguir, pode ser visto um jogo de exemplo na ferramenta e, com isso, os problemas e pontos de melhoria. O manual da ferramenta está nos anexos para ser consultado com o objetivo de entender como funciona a criação de cada um desses objetos.
-
 \section{Dificuldades encontradas}
 \label{sec:dificuldades}
-A medida que a ferramenta foi utilizada, achou-se dificuldades que podem ser qualquer interação confusa com a ferramenta ou que dificulta a criação e configuração de algum objeto, assim como o entendimento do papel dele no jogo. Essas dificuldades, embora pareçam subjetivas, podem ser mensuradas e quantificadas normalmente. As demais seções desde capítulo, encarregam-se de trazer esses problemas, dentre eles existe, por exemplo, a dificuldade de observar um objeto, após alterar alguma propriedade dele.
+A medida que a ferramenta foi utilizada, achou-se dificuldades, por exemplo, alguma interação confusa com a ferramenta que dificulta a criação e configuração de algum objeto, assim como o entendimento do papel dele no jogo, ou, até mesmo, a necessidade de executar o jogo para observar o que foi feito. Essas dificuldades, embora pareçam subjetivas, podem ser mensuradas e quantificadas normalmente. As demais seções desde capítulo, encarregam-se de trazer esses problemas, dentre eles existe, por exemplo, a dificuldade de observar um objeto, após alterar alguma propriedade dele.
 Notar que, a \texttt{ferramenta 1.0} está disponível no \href{http://www.cgt.ifce.edu.br/downloads.php}{site do projeto CGT} na secção de \emph{downloads}\footnote{http://www.cgt.ifce.edu.br/downloads.php}.
 
 \subsection{Organização dos objetos}
@@ -300,7 +301,7 @@ Todos os itens que fazem parte de um jogo possuem características que os define
 
 \subsection{Pré visualização dos objetos}
 \label{sec:previa-objetos}
-Os principais problemas dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré visualização dos objetos, notar que não há forma melhor de perceber o significado de uma configuração do que visualizando-a. Ou seja, simular o jogo é importantíssimo para a criação. Logo, a maior motivação para a criação do módulo que é proposto neste trabalho é a falta desse recurso na primeira versão da ferramenta.
+Os principais problemas dos painéis de configuração da \texttt{ferramenta 1.0} estão diretamente relacionados a falta de pré visualização dos objetos, notar que não há forma melhor de perceber o significado de uma configuração do que visualizando-a. Ou seja, simular o jogo é importantíssimo para a criação. Logo, a maior motivação para a criação do módulo que é proposto neste trabalho é a falta desse recurso.
 
 A visualização dos objetos também contribui para os problemas mencionados nas secções anteriores. A disposição deles principalmente, pois com a prévia dos objetos, torna-se fácil identificá-los. Na secção \ref{chap:melhorias} será mostrado a solução sugerida para cada um desses problemas. Mas, antes disso, é importante enumerar as propriedades dos objetos que se beneficiariam com a pré-visualização, ou seja, as propriedades que trazem ao usuário a necessidade de executar o jogo para aferir a sua respectiva configuração. Esses atributos são mostrados na tabela \ref{table:objetos-atributos}.
 
@@ -567,13 +568,22 @@ boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 \chapter{Estudo de caso}
 \label{chap:caso}
+
+Neste capitulo será realizado um estudo para mostrar o ganho que se obteve com a implementação do módulo de pré-visualização, ou seja, qual o verdadeiro resultado que foi obtido após utilizar a nova versão da ferramenta. Sendo assim, será feito comparações com as duas versões da ferramenta com o intuito de demonstrar avanço na criação de jogos.
+
 \section{Análise dos resultados}
-\section{Comparativo}
-\section{Jogo exemplo}
-\section{Projeto de extensão}
+
+Ao colocar o módulo de pré visualização na ferramenta, exclui-se a necessidade de frequentemente executar o jogo para verificar qualquer configuração feita. Na tabela \ref{table:objetos-atributos} pode ser visto os atributos de cada objeto que fazem necessário a execução do jogo após a alteração deles. A nova versão da ferramenta elimina esse problema, ou seja, enquanto que para um jogo com cinquenta objetos criado na primeira versão da ferramenta, provavelmente, faria com que o usuário executasse esse jogo cinquenta ou mais vezes para averiguar o seu trabalho, a nova versão pouparia isso e exibiria todos os objetos com suas respectivas propriedades de forma objetiva e clara com a área de pré visualização e a árvore dos objetos auxiliando no acesso a eles.
+
+Ao criar um jogo com a antiga ferramenta, foi visto que\ldots
+
 
 \chapter{Conclusão e trabalhos futuros}
 \label{chap:conclcsao}
+
+Neste trabalho, apresentou-se uma melhoria significativa para a ferramenta de criação de jogos do projeto CGT que tem como objetivo tornar a criação de jogos ainda mais fácil, lógica e produtiva. De tal forma que, os usuários não tenham necessidade de possuir conhecimentos técnicos na criação de jogos, aumentando ainda mais o alcance da ferramenta ao público alvo.
+
+Para trabalhos futuros seria interessante disponibilizar mais ações na área de pré visualização que, atualmente, conta apenas com a função de mover os objetos para novas posições na tela, sendo interessante incluir outras propriedades. Além disso, possibilitar a criação de outros tipos de jogos, por exemplo, jogos de corrida e jogos em três dimensões que contem com outra perspectiva de câmera.
 
 \postextual
 \bibliography{references}
@@ -581,9 +591,10 @@ boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
 \begin{anexosenv}
    \partanexos
-   \chapter{Manual da ferramenta}
    \chapter{Diagramas de classes}
    \label{chap:diagramas}
+   Dessa página em diante, pode-se ver o diagrama de classes do módulo que foi e implementado juntamente com esse trabalho, os diagramas são das classes presentes na \texttt{ferramenta} contidas no projeto CGT no pacote \texttt{br.edu.ifce.cgt.application.vo} e outras classes que precisaram ser adaptadas para a nova versão. Os diagramas foram gerados a partir da ferramenta \textit{Enterprise Architect} que lê o código fonte e gera os diagramas UML para ele, obteve-se o código fonte a partir do repositório \textit{Git} do projeto \cite{website:projeto-cgt-repo}.
+   As demais classes do projeto, são irrelevantes para o que foi proposto aqui ou não foram alteradas para as implementações que foram feitas para a nova versão da ferramenta.
    \includepdf[pages=-]{ClassModel.pdf}
 \end{anexosenv}
 \phantompart
