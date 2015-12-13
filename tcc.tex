@@ -1,4 +1,4 @@
-\documentclass[12pt,twoside,openright,a4paper,english,brazil,sumario=tradicional]{abntex2}
+\documentclass[12pt,oneside,openright,a4paper,english,brazil,sumario=tradicional]{abntex2}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{indentfirst}
@@ -17,6 +17,7 @@
 \usepackage{uarial}
 \usepackage{blindtext}
 \usepackage{float}
+\usepackage[section]{placeins}
 \usepackage{pdfpages}
 \graphicspath{{../images/}}
 \renewcommand{\familydefault}{\sfdefault}
@@ -98,9 +99,6 @@
 
 % \includepdf{folhadeaprovacao_final.pdf}
 
-\begin{agradecimentos}
-
-\end{agradecimentos}
 \setlength{\absparsep}{18pt}
 \begin{resumo}
    O crescimento da industria de jogos em diversas áreas - como entretenimento e educação - torna necessário a elaboração de ferramentas que possibilitem a criação destes de forma simples, fácil e objetiva. Por esta razão, o projeto \emph{Ceará Game Tools} (CGT), tem como objetivo possibilitar isso aos usuários que não conhecem os meios e as técnicas envolvidas na criação de jogos.
@@ -573,6 +571,8 @@ Neste capitulo será realizado um estudo para mostrar o ganho que se obteve com 
 
 \section{Análise dos resultados}
 
+
+
 Ao colocar o módulo de pré visualização na ferramenta, exclui-se a necessidade de frequentemente executar o jogo para verificar qualquer configuração feita. Na tabela \ref{table:objetos-atributos} pode ser visto os atributos de cada objeto que fazem necessário a execução do jogo após a alteração deles. A nova versão da ferramenta elimina esse problema, ou seja, enquanto que para um jogo com cinquenta objetos criado na primeira versão da ferramenta, provavelmente, faria com que o usuário executasse esse jogo cinquenta ou mais vezes para averiguar o seu trabalho, a nova versão pouparia isso e exibiria todos os objetos com suas respectivas propriedades de forma objetiva e clara com a área de pré visualização e a árvore dos objetos auxiliando no acesso a eles.
 
 Ao criar um jogo com a antiga ferramenta, foi visto que\ldots
@@ -594,14 +594,10 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
    \chapter{Manual da ferramenta}
 
    Após as melhorias implementadas na nova versão da ferramenta, foi preciso atualizar o manual existente em trabalhos anteriores \cite{monografia:aquino}. Usou-se a mesma estrutura do manual anterior, atualizando-o para adequar-se às novas telas implementadas.
-   Então, com este novo manual será possível encontrar uma descrição sucinta da ferramenta CGT(Ceará Game Tools), mostrando todas as suas funcionalidades e imagens que explicam as suas configurações.
-   Dividido em duas partes, a primeira parte deste manual é referente a configuração de um jogo usando a ferramenta, já a segunda parte se refere a explicação de cada funcionalidade que o CGT possui.
-   Assim, o usuário possuirá um exemplo prático e a parte teórica caso já saiba o que deseja.
+   Então, com este complemento será possível encontrar uma descrição sucinta da ferramenta CGT(Ceará Game Tools), mostrando todas as suas funcionalidades e imagens que explicam as suas configurações.
+   Além disso, com o intuito de mostrar as funcionalidades que a ferramenta possui, será demonstrada a criação de um jogo com a ferramenta CGT.
 
-   \section{Configuração de um jogo com a ferramenta}
-   Com o intuito de mostrar as funcionalidades que a ferramenta possui, será demonstrada a criação de um jogo com a ferramenta CGT.
-
-   \subsection{Criar tela}
+   \section{Criar tela}
    Uma tela representa uma tela do jogo inicial, podendo ser encontrada como uma tela de configurações, uma tela de créditos, entre outros exemplos.
    Para criar uma tela basta ir no menu: \texttt{Editar$\rightarrow$Adicionar$\rightarrow$Tela} da ferramenta, ou o atalho: \texttt{ALT+T} (ver figura \ref{fig:add_tela}).
    No painel de configuração de uma tela, o usuário pode configurar o plano de fundo e o áudio.
@@ -614,188 +610,292 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
    O seu posicionamento na tela e dimensão são configurados com base na tela e os valores devem variar de 0 a 1, representando a porcentagem da tela. A área de pré-visualização permite arrastar o botão para a posição desejada, atualizando o painel de configuração em seguida (figura \ref{fig:add_botao}).
    Com isso, a ferramenta permite ao usuário criar telas de acordo com a necessidade do jogo e com os botões que lhe forem preciso.
 
-   \begin{figure}[h]
+   \section{Criar mundo}
+   O botão de uma tela pode levar a um mundo. Um mundo pode ser o seu jogo ou uma fase dele e é constituído de vários objetos que serão configurados mais adiante.
+   Para criar um mundo basta ir no menu: \texttt{Editar$\rightarrow$Adicionar$\rightarrow$Mundo} da ferramenta, ou o atalho: \texttt{ALT+M} (ver figura \ref{fig:add_mundo}).
+   Como mostrado na imagem \ref{fig:add_mundo_2}, o mundo possui algumas características gerais, que são: nome, plano de fundo e música. Além disso, configurações de vitória, derrota e pausa do jogo.
+
+   \subsection{Critérios de vitória}
+   Na figura \ref{fig:add_mundo_3}, temos as configurações do critério de vitória para um mundo que podem ser cinco (eliminar inimigos, sobreviver, pegar bônus, completar percurso e atingir pontuação) e da mensagem que será exibida quando o jogador vencer. Para selecionar um dos critérios basta marcá-lo, notar que podem haver mais de um critério para o mundo.
+
+   \begin{alineas}
+   \item \textbf{Eliminar inimigos}: Será atingido quando todos os inimigos que forem destruíveis forem derrotados.
+   \item \textbf{Sobreviver}: Configurar qual o valor(inteiro) de score deve ser atingido para que o critério seja atingido, ver imagem \ref{fig:vitoria_sobreviver}.
+   \item \textbf{Pegar bônus}: Será atingido quando todos os bônus existentes tiverem sido consumidos pelo ator.
+   \item \textbf{Completar percurso}: Definir o ponto que deve ser alcançado, como também a largura e altura desse ponto, tendo como referência valores inteiros. O critério será atingido quando o personagem alcançar o ponto definido, ver figura \ref{fig:vitoria_completar_perc}
+   \item \textbf{Atingir pontuação}: Informar o tempo (valor inteiro em segundos) que o personagem deve sobreviver para que o critério seja atingido, ver figura \ref{fig:vitoria_atingir_pont}.
+   \end{alineas}
+
+   \subsection{Critérios de derrota}
+   Na figura \ref{fig:add_mundo_4}, temos as configurações de derrota desse mundo, os critérios podem ser: ator morrer ou contagem regressiva, uma mensagem de derrota também pode ser configurada.
+
+   \begin{alineas}
+   \item \textbf{Ator morrer}: Será atingido quando o personagem possuir vida igual ou menor que zero.
+   \item \textbf{Contagem regressiva}: Deve-se definir o tempo (em segundos), tamanho e cor da fonte que será exibida na tela e o posicionamento desse tempo na tela. Este critério será cumprido se não for atingido nenhum critério de vitória ao término do tempo, ver imagem \ref{fig:derrota_cont_regress}.
+   \end{alineas}
+
+   Além dessas mensagens de derreta e vitória, na figura \ref{fig:add_mundo_5}, é possível configurar a mensagem que será exibida quando o mundo estiver em pausa.
+   Por fim, na figura \ref{fig:add_mundo_6}, tem-se o painel de configuração da câmera do mundo.
+
+   \subsection{Configurar mensagens}
+   A configuração das mensagens são todas iguais, então será demonstrada apenas a configuração um deles. Para configurar será necessário ajustar posicionamento, dimensão, imagens e botões. Uma mensagem deve possuir três imagens bases, que precisam ser do tipo PNG, são elas o fundo, a borda horizontal e a borda do canto inferior. A imagem de fundo será o plano de fundo, as imagens de borda horizontal e canto inferior direito são imagens usadas para se definir a borda de toda a janela da mensagem. Ver figura \ref{fig:config_msg}.
+
+   Para adicionar botões na mensagem basta clicar no botão destacado na figura \ref{fig:config_msg_2}. As configurações do botão são as texturas do botão em estado normal e quando pressionado, a ação, deve ser escolhida no campo “Ir para”, selecionando a tela ou o mundo que a que esse botão vai levar, o posicionamento e as dimensões que ele deve ter na tela com os campos recebendo entradas de 0 a 1 de acordo com a tela.
+
+   \section{Configurar \emph{spritesheet} dos objetos}
+   Para adicionar um \emph{spritesheet} de um objeto basta ir no menu \texttt{Editar$\rightarrow$Spritesheet$\rightarrow$Adicionar} da ferramenta. A janela da figura \ref{fig:add_sprite} será aberta, então o usuário deve escolher uma imagem PNG e informar o número de linhas e colunas.
+
+   \section{Ator principal}
+   Para cada mundo existirá um ator principal que corresponde ao personagem que será controlado por quem estiver jogando.
+   Ele possui algumas características que são comuns a outros objetos, tais como o inimigo, opositor e bônus.
+
+   A animação é uma propriedade que todos esses objetos tem em comum e significa o que é mostrado na tela quando algo acontece com o objeto (andar, ficar parado, morrer) é feita através de um \emph{spritesheet} que é uma imagem que possui várias outras imagens dentro que possibilitam que uma animação seja configurada. Então, deve ser escolhido um \emph{spritesheet} (figura \ref{fig:add_sprite}), isso pode ser feito através do menu \texttt{Editar$\rightarrow$Spritesheet$\rightarrow$Adicionar} ou pelo botão que existe no painel de configuração, depois disso, deve ser feita as demais configurações da animação.
+
+   Ao escolher na aba de animações do objeto o \emph{spritesheet} correspondente a esse objeto, todos os \emph{sprites} que compõem a folha dele são exibidos abaixo e, com eles, é possível definir o \textit{frame} inicial e final da animação. Para isso, basta clicar no botão correspondente do \textit{frame} em que se deseja configurar e então clicar no \emph{sprite} correspondente, a ferramenta informa ao lado do botão através de um texto qual o \emph{sprite} selecionado, ver figura \ref{fig:anima_obj}.
+
+   O próximo passo é configurar as propriedades dessa animação que, até agora, possui apenas um \textit{frame} inicial e final. Das propriedades que devem ser configuradas temos (figura \ref{fig:anima_props}):
+
+   \begin{alineas}
+   \item \textbf{Velocidade}: representa de quanto em quanto tempo o \emph{frame} atual é trocado pelo próximo.
+   \item \textbf{Política}: indica como se deve alternar entre os \emph{frames} nessa animação, os valores podem ser:
+      \begin{alineas}
+      \item \textbf{Normal}: as imagens são mostradas na sequência, do \emph{frame} inicial ao final uma única vez;
+      \item \textbf{Reversivo}: as imagens são mostradas na ordem inversa uma única vez;
+      \item \textbf{\emph{Loop}}: as imagens são mostradas na ordem normal repetidas vezes;
+      \item \textbf{\emph{Loop} Reversivo}: as imagens são mostradas na ordem inversa repetidas vezes;
+      \item \textbf{Loop PingPong}: as imagens são mostradas na ordem normal depois na ordem inversa repetidas vezes;
+      \item \textbf{Loop Random}: as imagens são mostradas em qualquer ordem.
+      \end{alineas}
+   \item \textbf{\emph{flip} horizontal ou vertical}: indica se deve ser modificado a imagem aplicando nela uma rotação.
+   \item \textbf{Estado}: representa em que momento deve ser exibido a animação, por exemplo: parado, andando para esquerda, dano, morto, olhando para cima.
+   \end{alineas}
+
+   Após escolhido os quadros inicial e final e as propriedades, a animação pode ser salva com o botão de salvar no painel, com isso, a animação deverá constar na lista de animações do ator que fica na terceira aba do painel (ver figura \ref{fig:anima_lista}). Nessa lista é possível adicionar ou editar uma animação.
+
+   No que foi configurado as animações do ator é preciso configurar as propriedades gerais do objeto, que consistem na informação da vida desse objeto, além de suas posições iniciais e velocidade de movimento, ver figura \ref{fig:obj_props_geral}. Vale salientar que, assim que configurado as posições iniciais, o objeto é posicionado na área de pré visualização, já que é nesse momento que a ferramenta sabe onde deve colocá-lo.
+   Em seguida, deve ser configurado as dimensões do objeto, ou seja, tamanho dele e o tamanho do espaço de colisão (\ref{fig:obj_props_dim}). Ainda nas configurações do objeto, é preciso definir os sons que o objeto faz em duas ocasiões: colisão e eliminação (ver figura \ref{fig:obj_sons}).
+
+   Até então, as propriedades que foram configuradas são comuns aos objetos: ator, inimigos, opositores, bônus e projétil. Portanto, por fim, devem ser configuradas as configurações exclusivas do ator que são mostradas na figura \ref{fig:ator_props}. Deve ser selecionado o projétil do ator, caso ele possua, o tempo de recuperação e as ações dele, que é um mapeamento da entrada que é dada pelo jogador com a ação que o personagem deve executar.
+
+   \section{Configurar opositores}
+   Opositores são objetos comuns do jogo, que podem ser casas, paredes, árvores e entre outros exemplos. A seguir, será demonstrada as suas configurações específicas, que são \emph{block} e destruível. O \emph{block} define se o ator principal pode se colidir com ele. Destruível define se o ator pode “matar” o inimigo com o projétil (figura \ref{fig:opositor_props}).
+
+   \section{Configurar inimigos}
+   Inimigos no jogo são opositores, que podem se movimentar e causar dano ao ator principal. Suas características específicas são \emph{block}, destruível, comportamento, valor do dano e grupo. Comportamento define a maneira como o inimigo irá se movimentar. Valor do dano define quanto o inimigo irá retirar de vida do ator principal ao colidir. O grupo garante que se o inimigo e o ator principal possuírem o mesmo grupo, eles poderão causar dano um no outro (figura \ref{fig:inimigos_props}).
+
+   \section{Bônus}
+   Bônus são objetos que ao colidir com o ator principal geram algum benefício. Suas características específicas são \emph{score}, destruível, \emph{lifetime} e políticas. O score define quanto de benefício será dado ao ator quando houver colisão. \emph{Lifetime} é o tempo de vida do bônus. Política é o que o bônus irá fornecer de benefício para o ator, no caso do exemplo abaixo, irá fornecer \emph{score}, ver figura \ref{fig:bonus_props}.
+
+   \section{Configurar projétil}
+   O projétil é uma arma que o ator possui, nela é possível configurar que o ator possa destruir inimigos. As configurações específicas são grupo, dano, intervalo, ângulo e posicionamentos. O grupo define a que grupo de inimigos aquele projétil irá afetar. Dano é o valor que irá retirar do inimigo. Posicionamentos são as posições iniciais do projétil referente ao estado do ator (figura \ref{fig:project_props}).
+
+   \section{Configurar HUD}
+   HUD são elementos de informação que irão ser exibidos na tela, por exemplo vida, munição, tempo, pontuação, e outros. No jogo criado foi configurado apenas uma barra de vida mostrando a vida do ator no mundo. Em sua configuração é escolhido o objeto do qual se quer exibir a vida, a imagem da barra e imagem de fundo, além do posicionamento e dimensão que a barra vai possuir (figura \ref{fig:lifebar_props}).
+
+   %%%%%  FIGURAS DO MANUAL %%%%%
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_tela.png}
    \caption{Inserindo uma nova tela na ferramenta.}
    \label{fig:add_tela}
    \end{figure}
 
-   \begin{figure}[h]
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_tela_2.png}
    \caption{Tela de um jogo exemplo sendo configurada.}
    \label{fig:add_tela_2}
    \end{figure}
 
-   \begin{figure}[h]
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_botao.jpg}
    \caption{Configurando um botão em tela de exemplo do jogo.}
    \label{fig:add_botao}
    \end{figure}
 
-   \subsection{Criar mundo}
-   O botão de uma tela pode levar a um mundo. Um mundo pode ser o seu jogo ou uma fase dele e é constituído de vários objetos que serão configurados mais adiante.
-   Para criar um mundo basta ir no menu: \texttt{Editar$\rightarrow$Adicionar$\rightarrow$Mundo} da ferramenta, ou o atalho: \texttt{ALT+M} (ver figura \ref{fig:add_mundo}).
-   Como mostrado na imagem \ref{fig:add_mundo_2}, o mundo possui algumas características gerais, que são: nome, plano de fundo e música.
-   Na figura \ref{fig:add_mundo_3}, temos as configurações do critério de vitória para esse mundo que podem ser cinco (eliminar inimigos, sobreviver, pegar bônus, completar percurso e atingir pontuação) e da mensagem que será exibida quando o jogador vencer.
-   Na figura \ref{fig:add_mundo_4}, temos as configurações de derrota desse mundo, os critérios podem ser: ator morrer ou contagem regressiva, uma mensagem de derrota também pode ser configurada.
-   Além dessas mensagens de derreta e vitória, na figura \ref{fig:add_mundo_5}, é possível configurar a mensagem que será exibida quando o mundo estiver em pausa.
-   Por fim, na figura \ref{fig:add_mundo_6}, tem-se o painel de configuração da câmera do mundo.
-
-   \begin{figure}[htb]
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo.jpg}
    \caption{Adicionando um mundo na nova versão da ferramenta}
    \label{fig:add_mundo}
    \end{figure}
-   \begin{figure}[htb]
+
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo_2.jpg}
    \caption{Propriedades gerais de um mundo.}
    \label{fig:add_mundo_2}
    \end{figure}
-   \begin{figure}[htb]
+
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo_3.jpg}
    \caption{Propriedades de vitória do mundo.}
    \label{fig:add_mundo_3}
    \end{figure}
-   \begin{figure}[htb]
+
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo_4.jpg}
    \caption{Propriedades de derrota do mundo.}
    \label{fig:add_mundo_4}
    \end{figure}
-   \begin{figure}[htb]
+
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo_5.jpg}
    \caption{Propriedades da pausa do mundo.}
    \label{fig:add_mundo_5}
    \end{figure}
-   \begin{figure}[htb]
+
+   \begin{figure}[H]
    \centering
    \includegraphics[width=0.7\textwidth]{images/add_mundo_6.jpg}
    \caption{Propriedades da câmera do mundo.}
    \label{fig:add_mundo_6}
    \end{figure}
 
-   \subsubsection{Configurar mensagens}
-   A configuração das mensagens são todas iguais, então será demonstrada apenas a configuração um deles. Para configurar será necessário ajustar posicionamento, dimensão, imagens e botões. Uma mensagem deve possuir três imagens bases, que precisam ser do tipo PNG, são elas o fundo, a borda horizontal e a borda do canto inferior. A imagem de fundo será o plano de fundo, as imagens de borda horizontal e canto inferior direito são imagens usadas para se definir a borda de toda a janela da mensagem. Ver figura \ref{fig:config_msg}.
-
-   \begin{figure}[h]
+   \begin{figure}[H]
    \centering
-   \includegraphics[width=0.8\textwidth]{images/config_msg.jpg}
+   \includegraphics[width=0.5\textwidth]{images/vitoria_sobreviver.jpg}
+   \caption{Configurações do critério de vitória sobreviver no jogo.}
+   \label{fig:vitoria_sobreviver}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/vitoria_completar_perc.jpg}
+   \caption{Configurações do critério de vitória completar percurso no jogo.}
+   \label{fig:vitoria_completar_perc}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/vitoria_atingir_pont.jpg}
+   \caption{Configurações do critério de vitória de atingir uma pontuação no jogo.}
+   \label{fig:vitoria_atingir_pont}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/derrota_cont_regress.jpg}
+   \caption{Configurações do critério de derrota de contagem regressiva no jogo.}
+   \label{fig:derrota_cont_regress}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/config_msg.jpg}
    \caption{Janela de configuração de uma mensagem no mundo, seja ela para vitória, derrota ou pausa.}
    \label{fig:config_msg}
    \end{figure}
 
-   \subsubsection{Ator principal}
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/config_msg_2.jpg}
+   \caption{Configuração dos botões de uma mensagem do mundo.}
+   \label{fig:config_msg_2}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/add_sprite.jpg}
+   \caption{Janela para adicionar \emph{spritesheets} na ferramenta.}
+   \label{fig:add_sprite}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/anima_obj.jpg}
+   \caption{Painel de configuração da animação de um objeto}
+   \label{fig:anima_obj}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/anima_props.jpg}
+   \caption{Propriedades de uma animação nas configurações de um objeto.}
+   \label{fig:anima_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/anima_lista.jpg}
+   \caption{Lista de animações de um objeto do jogo}
+   \label{fig:anima_lista}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/obj_props_geral}
+   \caption{Propriedades gerais de um objeto}
+   \label{fig:obj_props_geral}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/obj_props_dim.jpg}
+   \caption{Propriedades de dimensões e colisão de um objeto no jogo.}
+   \label{fig:obj_props_dim}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/obj_sons.jpg}
+   \caption{Configuração dos sons que um objeto faz.}
+   \label{fig:obj_sons}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/ator_props.jpg}
+   \caption{Propriedades exclusivas do ator do jogo}
+   \label{fig:ator_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/opositor_props.jpg}
+   \caption{Configurações de um opositor.}
+   \label{fig:opositor_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/inimigos_props.jpg}
+   \caption{Propriedades do inimigo}
+   \label{fig:inimigos_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.6\textwidth]{images/bonus_props.jpg}
+   \caption{Propriedades de um bônus do jogo}
+   \label{fig:bonus_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.6\textwidth]{images/projec_props.jpg}
+   \caption{Propriedades de um projétil no jogo.}
+   \label{fig:project_props}
+   \end{figure}
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=0.7\textwidth]{images/lifebar_props.jpg}
+   \caption{Propriedades da barra de vida de um objeto.}
+   \label{fig:lifebar_props}
+   \end{figure}
 
 
-   \subsubsection{Configurar opositores}
-
-
-   \subsubsection{Configurar inimigos}
-
-
-   \subsubsection{Bônus}
-
-
-   \subsubsection{Configurar projétil}
-
-
-   \subsubsection{Configurar HUD}
-
-
-   \section{Telas da ferramenta}
-
-
-   \subsection{Configurar tela}
-
-
-   \subsection{Configurar mundo}
-
-
-   \subsubsection{Configurações gerais}
-
-
-   \subsubsection{Configurar \emph{pop-up}}
-
-
-   \subsubsection{Configurar critérios de vitória}
-
-
-   \subsubsection{Critérios de derrota}
-
-
-   \subsubsection{Configurar \emph{spritesheet}}
-
-
-   \subsubsection{Configurar animação (ator, inimigo, opositor, bônus, projétil)}
-
-
-   \subsubsection{Configuração comum dos objetos(ator, inimigo, opositor, bonus,projétil)}
-
-
-   \subsection{Configurações específicas do ator}
-
-
-   \subsubsection{Configurações das ações do ator}
-
-
-   \subsection{Configurações especificas dos inimigos}
-
-
-   \subsubsection{Comportamento sino}
-
-
-   \subsubsection{Comportamento \emph{fade}}
-
-
-   \subsubsection{Comportamento onda}
-
-
-   \subsection{Configurações específicas dos opositores}
-
-
-   \subsection{Configurações específicas dos bônus}
-
-
-   \subsection{Configurar projétil}
-
-
-   \subsubsection{Configuração do posicionamento}
-
-
-   \subsection{Configurar \emph{HUDs}}
-
-
-   \subsubsection{Configuração do tela de munição}
-
-
-   \subsubsection{Configuração do barra de vida dos inimigos}
-
-
-   \subsubsection{Configuração barra de vida objeto}
-
-
-   \section{Executar projeto}
-
-
-   \section{Configurar game}
-
-
-   \section{Exportar projeto}
-
-
-   \section{Gerar chave de assinatura}
 
    \chapter{Diagramas de classes}
    \label{chap:diagramas}
    Dessa página em diante, pode-se ver o diagrama de classes do módulo que foi e implementado juntamente com esse trabalho, os diagramas são das classes presentes na \texttt{ferramenta} contidas no projeto CGT no pacote \texttt{br.edu.ifce.cgt.application.vo} e outras classes que precisaram ser adaptadas para a nova versão. Os diagramas foram gerados a partir da ferramenta \textit{Enterprise Architect} que lê o código fonte e gera os diagramas UML para ele, obteve-se o código fonte a partir do repositório \textit{Git} do projeto \cite{website:projeto-cgt-repo}.
    As demais classes do projeto, são irrelevantes para o que foi proposto aqui ou não foram alteradas para as implementações que foram feitas para a nova versão da ferramenta.
+
    \includepdf[pages=-]{ClassModel.pdf}
 \end{anexosenv}
 \phantompart
