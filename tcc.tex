@@ -619,25 +619,8 @@ Acredita-se que as tarefas mostradas na tabela \ref{table:tarefas} já possam ex
 Para estimar as tarefas, considere o sistema KLM e suas operações vistas na tabela \ref{table:klm-ops}.
 A partir dessas operações, pode-se expressar cada tarefa, uma vez que se sabe no que cada uma delas consiste. Nas próximas secções, é mostrado o que há em cada uma das tarefas listadas, começando com as atividades menores até as maiores.
 
-\begin{table}[p]
-   \centering
-   \begin{tabular}{| l | p{18em} | r |}
-      \hline
-      \textbf{Operação} & \textbf{Descrição} & \textbf{Tempo (s)} \\
-      \hline
-      K & Digitar uma tecla, é usado para quando o usuário digita qualquer tecla seja a letra \texttt{a} ou a tecla \texttt{SHIFT}.  & 0,12 \\
-      P & Posicionar o ponteiro do mouse em algum local da tela.  & 1,1  \\
-      B & Pressionar ou liberar os botões do mouse & 0,1 \\
-      BB & Clique do mouse & 0,2 \\
-      H & Mover a mão do teclado para o mouse. & 0,4 \\
-      M & Pensar ou perceber algo relacionado ao sistema. & 1,2 \\
-      \hline
-   \end{tabular}
-   \caption{Operações e seus respectivos tempos para o sistema KLM.}
-   \label{table:klm-ops}
-\end{table}
-
 \subsection{Configurar um objeto (T1)}
+\label{sec:t1}
 Assume-se que para criar um objeto, independente da versão da ferramenta, deve ser realizado os seguintes passos listados a seguir:
 \begin{enumerate}
    \item Selecionar um objeto (T3);
@@ -814,20 +797,175 @@ Configurar uma animação de um objeto é uma das ações mais importantes e dem
 \end{tabularx}}
 
 \subsection{Configurar uma tela (T2)}
+\label{sec:t2}
+A tarefa de configurar uma tela em ambas as versões da ferramenta é simples e tem seu tempo estimado facilmente através das seguintes sub tarefas:
+\begin{enumerate}
+   \item Selecionar o plano de fundo (T2.1);
+   \item Criar um ou mais botões (T2.2)
+\end{enumerate}
+
+Ou seja, o tempo que é levado para configurar uma tela é calculado através da seguinte equação $tempo(T2) = tempo(T2.1) + N \times tempo(T2.2)$ seja $N$ a quantidade de botões na tela.
+
+De acordo com as secções \ref{sec:t2.1} e \ref{sec:t2.2}, pode-se determinar que uma tela com dois botões é criada no seguinte tempo $tempo(T2_{antiga}) = 5,3 + 2\times 20,5 = \textbf{46,3s}$ e $tempo(T2_{nova}) = 5,3 + 2 \times 17,3 = \textbf{39,9s}$
 
 \subsection{Configurar a textura da tela (T2.1)}
+\label{sec:t2.1}
+O tempo que se leva para configurar a textura de uma tela do jogo, ou seja atribuir um plano de fundo a ela é dividido nas seguintes operações:
 
-\subsection{Criar um botão (T2.1)}
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configuração Screen} (P+BB);
+      \item Posicionar e clicar em \emph{Pesquisar} (P+BB);
+      \item Posicionar e clicar no arquivo de imagem que será usado como textura da tela (M+P+BB);
+      \item Posicionar e clicar em abrir (P+BB);
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configurações da tela} (P+BB);
+      \item Posicionar e clicar na lupa (P+BB);
+      \item Posicionar e clicar no arquivo de imagem que será usado como textura da tela (M+P+BB);
+      \item Posicionar e clicar em abrir (P+BB);
+   \end{enumerate}
+   \\
+   $tempo(T2)=3tempo(P)+4tempo(BB)+tempo(M)=3,3+0,8+1,2=\textbf{5,3s}$
+   &
+   $tempo(T2)=3tempo(P)+4tempo(BB)+tempo(M)=3,3+0,8+1,2=\textbf{5,3s}$
+   \\
+\end{tabularx}}
+
+\subsection{Criar um botão (T2.2)}
+\label{sec:t2.2}
+A tarefa de criar um botão é baseada em três sub tarefas que são mostradas nas secções \ref{sec:t2.2.1}, \ref{sec:t2.2.2} e \ref{sec:t2.2.3}. Logo, o tempo de criar um botão, é igual a soma dos tempos dessas sub tarefas $ tempo(T2.2) = tempo(T2.2.1) + tempo(T2.2.2) + tempo(T2.2.3) $.
+
+Substituindo pelos valores obtidos na respectivas secções, é possível verificar que para criar um botão leva-se o seguinte tempo (ver tabela \ref{table:botao_tarefas_result}): $tempo(T2.2_{antiga}) = \textbf{20,5s}$ e $tempo(T2.2_{nova})=\textbf{17,3s}$.
+
+\begin{table}[H]
+   \centering
+   \begin{tabular}{|l|r|r|}
+      \hline
+      \textbf{Tarefa} & Tempo(s) & Tempo(s) \\
+      \hline
+      T2.2.1 & 11,5 & 11,5\\
+      T2.2.2 & 4,5 & 1,3\\
+      T2.2.3 & 4,5 & 4,5\\
+      \hline
+   \end{tabular}
+   \caption{Tempo que leva para executar as tarefas relacionadas a criação de um botão nas duas versões da ferramenta.}
+   \label{table:botao_tarefas_result}
+\end{table}
+
 
 \subsection{Configurar textura de um botão (T2.2.1)}
+\label{sec:t2.2.1}
+Significa definir qual a imagem que deve ser exibida quando o botão da tela estiver sendo clicado ou não, é constituído das seguintes operações:
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configurações Button Screen} (P+BB);
+      \item Posicionar e clicar em \emph{Pesquisar} ao lado do campo referente a textura (P+BB);
+      \item Posicionar e clicar no arquivo de imagem que será usado como textura (M+P+BB);
+      \item Posicionar e clicar em abrir (P+BB);
+      \item Repetir os três últimos para a textura do botão quando for clicado (3P+M+3BB);
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configurações do botão} (P+BB);
+      \item Posicionar e clicar em \emph{Pesquisar} ao lado do campo referente a textura (P+BB);
+      \item Posicionar e clicar no arquivo de imagem que será usado como textura (M+P+BB);
+      \item Posicionar e clicar em abrir (P+BB);
+      \item Repetir os três últimos para a textura do botão quando for clicado (3P+M+3BB);
+   \end{enumerate}
+   \\
+   $tempo(T2.2.1)=7tempo(P)+7tempo(BB)+2tempo(M)=7,7+1,4+2,4=\textbf{11,5s}$
+   &
+   $tempo(T2.2.1)=7tempo(P)+7tempo(BB)+2tempo(M)=7,7+1,4+2,4=\textbf{11,5s}$
+   \\
+\end{tabularx}}
 
 \subsection{Posicionar um botão (T2.2.2)}
+\label{sec:t2.2.2}
+é a tarefa que consiste em posicionar um botão na tela que ele pertence, vale salientar que a segunda versão da ferramenta utiliza a área de pré visualização para fazer isso e, portanto, consome menos tempo do usuário, contudo o tempo é determinado pelas seguintes operações:
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configurações Button Screen} (P+BB);
+      \item Posicionar e clicar em \emph{Relativo X} (P+BB);
+      \item Digitar valor (3K);
+      \item Repetir os dois últimos para \emph{Relativo Y} (P+BB+3K)
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar (segurando) no botão na área de pré visualização, em seguida soltar o botão onde se deseja que ele fique (P+BB);
+   \end{enumerate}
+   \\
+   $tempo(T2.2.2)=3tempo(BB)+3tempo(P)+6tempo(K)=0,6+3,3+0,72=\textbf{4,5s}$
+   &
+   $tempo(T2.2.2)=tempo(P)+tempo(BB)=1,1+0,2=\textbf{1,3s}$
+   \\
+\end{tabularx}}
 
 \subsection{Configurar o tamanho de um botão (T2.3)}
+\label{sec:t2.2.3}
+
+É a tarefa que visa determinar o tamanho relativo que um botão ocupa na tela, consiste nas seguintes operações:
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Configurações Button Screen} (P+BB);
+      \item Posicionar e clicar em \emph{Largura relativa} (P+BB);
+      \item Digitar valor (3K);
+      \item Repetir os dois últimos para \emph{Altura relativa} (P+BB+3K)
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+    \begin{enumerate}
+       \item Posicionar e clicar em \emph{Configurações do botão} (P+BB);
+      \item Posicionar e clicar em \emph{Largura relativa} (P+BB);
+      \item Digitar valor (3K);
+      \item Repetir os dois últimos para \emph{Altura relativa} (P+BB+3K)
+   \end{enumerate}
+   \\
+   $tempo(T2.2.3)=3tempo(BB)+3tempo(P)+6tempo(K)=0,6+3,3+0,72=\textbf{4,5s}$
+   &
+   $tempo(T2.2.3)=3tempo(BB)+3tempo(P)+6tempo(K)=0,6+3,3+0,72=\textbf{4,5s}$
+   \\
+\end{tabularx}}
+
+\begin{table}[p]
+   \centering
+   \begin{tabular}{| l | p{18em} | r |}
+      \hline
+      \textbf{Operação} & \textbf{Descrição} & \textbf{Tempo (s)} \\
+      \hline
+      K & Digitar uma tecla, é usado para quando o usuário digita qualquer tecla seja a letra \texttt{a} ou a tecla \texttt{SHIFT}.  & 0,12 \\
+      P & Posicionar o ponteiro do mouse em algum local da tela.  & 1,1  \\
+      B & Pressionar ou liberar os botões do mouse & 0,1 \\
+      BB & Clique do mouse & 0,2 \\
+      H & Mover a mão do teclado para o mouse. & 0,4 \\
+      M & Pensar ou perceber algo relacionado ao sistema. & 1,2 \\
+      \hline
+   \end{tabular}
+   \caption{Operações e seus respectivos tempos para o sistema KLM.}
+   \label{table:klm-ops}
+\end{table}
 
 \section{Análise dos resultados}
-
-\section{Considerações finais}
+Após estimar o tempo que leva as principais tarefas envolvidas na construção de um jogo em ambas as versões da ferramenta do projeto CGT, é possível, com esses números, provar que o módulo de pré visualização tornou mais rápida e fácil a criação de jogos. Para tanto, considera-se um jogo exemplo que tenha 20 objetos em mundos diferentes e 10 telas, apenas com os resultados obtidos nas secções \ref{sec:t1}  e \ref{sec:t2} podemos calcular que esse jogo na primeira versão da ferramenta terá seus objetos e telas configurados em aproximadamente 1h17m, enquanto que a nova versão teria o mesmo jogo construído em aproximadamente 57m. Vale lembrar que esse tempo da ferramenta antiga pode aumentar em 20\% quando incluímos o tempo das execuções do jogo que o usuário faz a medida que vai configurando esses objetos.
 
 \chapter{Conclusão e trabalhos futuros}
 \label{chap:conclcsao}
@@ -894,7 +1032,7 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
    Para adicionar botões na mensagem basta clicar no botão destacado na figura \ref{fig:config_msg_2}. As configurações do botão são as texturas do botão em estado normal e quando pressionado, a ação, deve ser escolhida no campo “Ir para”, selecionando a tela ou o mundo que a que esse botão vai levar, o posicionamento e as dimensões que ele deve ter na tela com os campos recebendo entradas de 0 a 1 de acordo com a tela.
 
    \section{Configurar \emph{spritesheet} dos objetos}
-   Para adicionar um \emph{spritesheet} de um objeto basta ir no menu \texttt{Editar$\rightarrow$Spritesheet$\rightarrow$Adicionar} da ferramenta. A janela da figura \ref{fig:add_sprite} será aberta, então o usuário deve escolher uma imagem PNG e informar o número de linhas e colunas.
+   Para adicionar um \emph{spritesheet} de um objeto basta ir no menu \texttt{Editar$\rightarrow$Spritesheet $\rightarrow$Adicionar} da ferramenta. A janela da figura \ref{fig:add_sprite} será aberta, então o usuário deve escolher uma imagem PNG e informar o número de linhas e colunas.
 
    \section{Ator principal}
    Para cada mundo existirá um ator principal que corresponde ao personagem que será controlado por quem estiver jogando.
