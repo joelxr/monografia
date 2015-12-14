@@ -19,10 +19,14 @@
 \usepackage{float}
 \usepackage[section]{placeins}
 \usepackage{pdfpages}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{tabu}
 \graphicspath{{../images/}}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
 \renewcommand{\backref}{}
+\renewcommand{\arraystretch}{1.5}
 \renewcommand*{\backrefalt}[4]{
    \ifcase #1 %
    Nenhuma citação no texto.%
@@ -546,7 +550,7 @@ Isso é possível, graças a criação de métodos do tipo \emph{callback} que e
 
 Ou seja, toda vez que é detectado um evento de mudança no campo de texto do tamanho do objeto, o método de \textit{callback} - que é um objeto Java da classe \texttt{Runnable}, mas no painel é um atributo cujo nome é \texttt{onUpdateRunnable} - é executado da forma é mostrado a seguir. Notar que, quem cria o objeto que corresponde ao painel de configuração é que deve determinar o conteúdo desse método \texttt{callback}, dessa forma, é garantido que o painel seja compatível com a ferramenta.
 
-\begin{mylisting}[h]
+\begin{mylisting}[t]
 \begin{lstlisting}
 boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
  @Override
@@ -564,19 +568,266 @@ boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
 \end{mylisting}
 
 
-\chapter{Estudo de caso}
 \label{chap:caso}
+\chapter{Estudo de caso}
 
-Neste capitulo será realizado um estudo para mostrar o ganho que se obteve com a implementação do módulo de pré-visualização, ou seja, qual o verdadeiro resultado que foi obtido após utilizar a nova versão da ferramenta. Sendo assim, será feito comparações com as duas versões da ferramenta com o intuito de demonstrar avanço na criação de jogos.
+Neste capitulo será realizado um estudo para mostrar o ganho que se obteve com a implementação do módulo de pré-visualização, ou seja, qual o verdadeiro resultado que foi obtido após utilizar a nova versão da ferramenta. Sendo assim, será feito comparações com as duas versões da ferramenta com o intuito de demonstrar avanço na criação de jogos. Ao colocar o módulo de pré visualização na ferramenta, sabe-se que, com isso, exclui-se a necessidade de frequentemente executar o jogo para verificar qualquer configuração feita. Então, na tabela \ref{table:objetos-atributos} pode ser visto os atributos de cada objeto que fazem necessário a execução do jogo após a alteração deles. A nova versão da ferramenta elimina esse problema, ou seja, enquanto que para um jogo com cinquenta objetos criado na primeira versão da ferramenta, provavelmente, faria com que o usuário executasse esse jogo cinquenta ou mais vezes para averiguar o seu trabalho, a nova versão pouparia isso e exibiria todos os objetos com suas respectivas propriedades de uma só vez de forma objetiva e clara na área de pré visualização e na árvore dos objetos auxiliando no acesso a eles.
+
+\section{Funcionalidades analisadas}
+
+Para analisar o resultado deve-se criar um jogo com a antiga ferramenta e com a nova, pode ser visto no manual da ferramenta antiga, onde é mostrado como criar um jogo nela \cite{monografia:aquino} e - com o anexo \ref{anex:manual-novo} deste documento - mostra-se como proceder com as alterações do módulo de pré visualização, ou seja como criar um jogo com a nova versão da ferramenta. Posto isso, será usado o modelo KLM (\emph{Keystroke-Level Model}) que propõe quantificar o tempo de execução que o usuário leva para executar uma tarefa, será utilizado esse método na ferramenta para averiguar se as tarefas são executadas mais rápidas na nova versão.
+
+Assim como sugere o modelo KLM \cite{klm-def} há uma tarefa maior que a ferramenta deve possibilitar que é a tarefa de criar um jogo, mas ela pode ser fragmentada em tarefas menores que são listadas na tabela \ref{table:tarefas} e, além disso, é importante lembrar que elas podem ser executadas em mais de um cenário, o que para o método KLM deve ser tratado de forma diferente \cite{klm-metodo}. Notar que, essas tarefas assemelham-se bastante com os casos de uso da ferramenta, contudo será analisado apenas o que é relevante para averiguar as melhorias implementadas na nova versão da ferramenta.
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{| m{3em} | m{16em} | m{18em} |}
+      \hline
+      \textbf{ID} & \textbf{Tarefa} & \textbf{Descrição} \\
+      \hline
+      T1     & Configurar os objetos de um mundo:    & Os objetos do mundo que entram nessa categoria podem ser: ator, inimigo, opositor, bônus e projétil. \\
+      \hline
+      T1.1   & \hspace{2em} Configurar as dimensões; & Determinar e perceber o tamanho do objeto e o espaço de colisão. \\
+      \hline
+      T1.2   & \hspace{2em} Configurar a posição;    & Determinar e perceber alguma das posições iniciais do objeto. \\
+      \hline
+      T1.3   & \hspace{2em} Configurar uma animação; & Para qualquer objeto criado, inserir apenas uma animação para um objeto. \\
+      \hline
+      T2     & Configurar uma tela:                  & Criar uma tela para o jogo.\\
+      \hline
+      T2.1   & \hspace{2em} Configurar textura;      & Selecionar e perceber a textura para a tela.\\
+      \hline
+      T2.2   & \hspace{2em} Criar botão:             & Incluir um botão em uma tela criada.\\
+      \hline
+      T2.2.1 & \hspace{4em} Configurar textura;      & Configurar a textura do botão, inclusive quando ele for clicado. \\
+      \hline
+      T2.2.2 & \hspace{4em} Posicionar botão;        & Determinar a posição que o botão deve ficar na tela.\\
+      \hline
+      T2.2.3 & \hspace{4em} Configurar tamanho;      & Determinar o tamanho desse botão com relação a tela dele.\\
+      \hline
+      T3 & Selecionar um objeto & Significa selecionar um objeto qualquer do jogo. \\
+      \hline
+   \end{tabular}
+   \caption{Tarefas que foram utilizadas para analisar a nova versão da ferramenta.}
+   \label{table:tarefas}
+\end{table}
+
+Acredita-se que as tarefas mostradas na tabela \ref{table:tarefas} já possam exemplificar o que se deseja, pois algumas tarefas muito importantes para a ferramenta não foram contabilizadas, tais como: selecionar um objeto, configurar um mundo, configurar especificamente um objeto do mundo (ator, inimigo, opositor, bônus e projétil).
+
+\section{Estimando as funcionalidades}
+
+Para estimar as tarefas, considere o sistema KLM e suas operações vistas na tabela \ref{table:klm-ops}.
+A partir dessas operações, pode-se expressar cada tarefa, uma vez que se sabe no que cada uma delas consiste. Nas próximas secções, é mostrado o que há em cada uma das tarefas listadas, começando com as atividades menores até as maiores.
+
+\begin{table}[p]
+   \centering
+   \begin{tabular}{| l | p{18em} | r |}
+      \hline
+      \textbf{Operação} & \textbf{Descrição} & \textbf{Tempo (s)} \\
+      \hline
+      K & Digitar uma tecla, é usado para quando o usuário digita qualquer tecla seja a letra \texttt{a} ou a tecla \texttt{SHIFT}.  & 0,12 \\
+      P & Posicionar o ponteiro do mouse em algum local da tela.  & 1,1  \\
+      B & Pressionar ou liberar os botões do mouse & 0,1 \\
+      BB & Clique do mouse & 0,2 \\
+      H & Mover a mão do teclado para o mouse. & 0,4 \\
+      M & Pensar ou perceber algo relacionado ao sistema. & 1,2 \\
+      \hline
+   \end{tabular}
+   \caption{Operações e seus respectivos tempos para o sistema KLM.}
+   \label{table:klm-ops}
+\end{table}
+
+\subsection{Configurar um objeto (T1)}
+Assume-se que para criar um objeto, independente da versão da ferramenta, deve ser realizado os seguintes passos listados a seguir:
+\begin{enumerate}
+   \item Selecionar um objeto (T3);
+   \item Configurar as dimensões (T1.1);
+   \item Configurar a posição (T1.2);
+   \item Configurar uma ou mais animações (T1.3);
+\end{enumerate}
+
+Posto isso, considere a função $tempo(x)$ que representa o tempo de uma dada tarefa $x$, então, pode-se dizer que tempo total para criar um objeto é $$tempo(T1) = tempo(T3) + tempo(T1.1) + tempo(T1.2) + N \times tempo(T1.3)$$ onde $N$ é a quantidade de animações que o objeto possui.
+
+\begin{table}[H]
+   \centering
+   \begin{tabular}{| l | r | r |}
+      \hline
+      \textbf{Tarefa} & \textbf{Tempo(s)} & \textbf{Tempo(s)} \\
+      \hline
+      T3 & 5,0 & 2,5 \\
+      T1.1 & 7,54 & 7,54 \\
+      T1.2 & 2,76 & 2,4 \\
+      T1.3 & 28,90 & 20,96 \\
+      \hline
+   \end{tabular}
+   \caption{Tabela com os resultados dos tempos da ferramenta antiga para as tarefas relacionadas a objetos do jogo: T3, T1.1, T1.2 e T1.3.}
+   \label{table:obj_resultados_antiga}
+\end{table}
+
+Nas subsecções seguintes - secções \ref{sec:t3}, \ref{sec:t1.1}, \ref{sec:t1.2} e \ref{sec:t1.3} - é mostrado como foram calculados os tempos para cada uma das tarefas (ver tabela \ref{table:obj_resultados_antiga}), com isso, pode ser substituído os valores na equação anterior,assumindo que seja um objeto com sete animações, daí temos para a primeira versão da ferramenta o resultado de $$tempo(T1_{antiga}) = 5 + 7,54 + 2,76 + 7 \times 28,98 = 15,3 + 202,86 \approxeq \textbf{3m38s}$$ e para a ferramenta nova o resultado é $$ tempo(T1_{nova}) = 2,5 +7,54+2,4+7\times 20,96=12,44+146,72 \approxeq \textbf{2m39s}.$$
+
+Com isso temos o tempo que o usuário leva em média para configurar um objeto nas duas versões da ferramenta.
+
+\subsection{Selecionar um objeto (T3)}
+\label{sec:t3}
+Consiste em um objeto qualquer do jogo, seja ele contido em mundo ou um botão de tela, a ferramenta deve possibilitar que essa ação seja mais fácil possível, pois é uma das ações mais usadas pelo usuário. Com isso, considere os seguintes passos para selecionar um objeto na ferramenta a seguir.
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Achar aba do objeto (M);
+      \item Posicionar ponteiro na aba (P);
+      \item Clicar na aba (BB);
+      \item Achar o botão do objeto (M);
+      \item Posicionar ponteiro no botão do objeto (P);
+      \item Clicar no botão do objeto (BB);
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Achar objeto na árvore (M);
+      \item Posicionar ponteiro no item (P);
+      \item Clicar no item do objeto (BB);
+   \end{enumerate}
+   \\
+   $tempo(T3)=2tempo(M)+2tempo(BB)+2tempo(P)=2,4+0,4+2,2=\textbf{5,0s}$
+   &
+   $tempo(T3)=tempo(M)+tempo(BB)+tempo(P)=1,2+0,2+1,1=\textbf{2,5s}$
+   \\
+\end{tabularx}}
+
+\subsection{Configurar as dimensões de um objeto (T1.1)}
+\label{sec:t1.1}
+A tarefa de configurar as dimensões do objeto é, geralmente, a primeira a ser feita quando um novo objeto em configurado. Para essa tarefa, vale observar que no caso da segunda versão da ferramenta, as dimensões já são preenchidas automaticamente com o valor calculado através do \emph{spritesheet} fornecido. A seguir, os passos e operações para o pior caso:
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \textit{Configurações Game Object} (P+BB);
+      \item Posicionar e clicar no campo de texto \textit{Dimensões} (P+BB);
+      \item Digitar novo valor da largura (múltiplos K, mínimo 4);
+      \item Repete os dois últimos passos 3 vezes para a altura, altura e largura do espaço de colisão.
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \textit{Propriedades de dimensão e colisão} (P+BB);
+      \item Posicionar e clicar no campo de texto \textit{Dimensões} (P+BB);
+      \item Digitar novo valor da largura (múltiplos K, mínimo 4);
+      \item Repete os dois últimos passos 3 vezes para a altura, altura e largura do espaço de colisão.
+   \end{enumerate}
+   \\
+   $tempo(T1.1)=5tempo(BB)+12tempo(K)+5tempo(P)=0,6+1,44+5,5=\textbf{7,54s}$
+   &
+   $tempo(T1.1)=5tempo(BB)+12tempo(K)+5tempo(P)=0,6+1,44+5,5=\textbf{7,54s}$
+   \\
+\end{tabularx}}
+
+\subsection{Configurar a posição de um objeto (T1.2)}
+\label{sec:t1.2}
+
+Um objeto pode possuir mais de uma posição inicial, contudo, para o estudo de caso, está sendo levado em consideração que ele tenha apenas uma. A nova versão da ferramenta possui duas formas de posicionar o objeto, pode ser do mesmo jeito que é feito na ferramenta antiga ou pode ser utilizado a área de pré visualização para posicionar o objeto. Será contabilizado o segundo.
+
+{\small
+\noindent
+\begin{tabularx}{\textwidth}{X  X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar no painel \textit{Configuração Game Object} (P+BB);
+      \item Posicionar e clicar no campo de texto da posição do objeto (P+BB);
+      \item Digitar valor da posição (K);
+      \item Ir para o próximo campo de texto, pressionar \texttt{TAB} (K);
+      \item Digitar valor da posição (K);
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar no painel \textit{Configuração gerais do objeto} (P+BB);
+      \item Posicionar e clicar (segurando) no objeto contido na área de pré visualização, em seguida liberar o objeto na posição que se deseja (P+BB);
+   \end{enumerate}
+   \\
+   $tempo(T1.2)=2tempo(P)+2tempo(BB)+3tempo(K)=2,2+0,2+0,36=\textbf{2,76s}$
+   &
+   $tempo(T1.2)=2tempo(P)+2tempo(BB)=2,2+0,2=\textbf{2,4s}$
+   \\
+\end{tabularx}
+}
+
+\subsection{Configurar uma animação de um objeto (T1.3)}
+\label{sec:t1.3}
+Configurar uma animação de um objeto é uma das ações mais importantes e demoradas da ferramenta, essa tarefa é responsável por definir o comportamento de um objeto quando um determinado acontece, além de ser responsável por estabelecer uma relação entre o objeto e o seu respectivo \emph{spritesheet}.
+
+{\tiny
+\noindent
+\begin{tabularx}{\textwidth}{X X}
+   \textbf{Primeira versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \textit{Configurações Game Object} (P+BB);
+      \item Posicionar e clicar no botão (+) ao lado de \textit{Animações} (P+BB);
+      \item Posicionar e clicar em \textit{Estado do objeto} (P+BB);
+      \item Posicionar e clicar em uma opção (P+BB);
+      \item Posicionar e clicar no botão (+) ao lado de \textit{Estado do objeto} (P+BB);
+      \item Posicionar e clicar de \emph{Sprite sheet} (P+BB);
+      \item Posicionar e clicar em uma opção de \textit{Sprite sheet} (P+BB);
+      \item Identificar quadro inicial da animação no \emph{spritesheet} (M);
+      \item Posicionar e clicar no campo da linha do quadro inicial (P+BB);
+      \item Digitar valor (M+K);
+      \item Posicionar no campo da coluna do quadro inicial através da tecla \texttt{TAB} (K);
+      \item Digitar valor (M+K);
+      \item Repetir os cinco últimos passos para o quadro final (3M+P+BB+3K);
+      \item Posicionar e clicar no campo de velocidade da animação (P+BB);
+      \item Digitar valor da velocidade da animação (M+3K);
+      \item Posicionar e clicar na opção \emph{Flip vertical} \textbf{(Opcional)} (P+BB);
+      \item Posicionar e clicar na opção \emph{Flip horizontal} \textbf{(Opcional)} (P+BB);
+      \item Posicionar e clicar em \emph{Animation Policy} (P+BB);
+      \item Posicionar e clicar numa opção de \emph{Animation Policy} (P+BB);
+      \item Posicionar e clicar no botão cadastrar (P+BB);
+   \end{enumerate}
+   &
+   \textbf{Nova versão:}
+   \begin{enumerate}
+      \item Posicionar e clicar em \emph{Animações do objeto} (P+BB);
+      \item Posicionar e clicar na lista com os \emph{spritesheets} (P+BB);
+      \item Posicionar e clicar no botão \emph{Frame inicial} (P+BB);
+      \item Posicionar e clicar no botão que representa o quadro inicial da animação (M+P+BB);
+      \item Posicionar e clicar no botão \emph{Frame final} (P+BB);
+      \item Posicionar e clicar no botão que representa o quadro final da animação (M+P+BB);
+      \item Posicionar e clicar na aba \emph{Propriedades} (P+BB);
+      \item Posicionar e clicar no campo \emph{Velocidade} (P+BB);
+      \item Digitar o valor da velocidade (3K);
+      \item Posicionar e clicar no campo \emph{Política} (P+BB);
+      \item Escolher uma opção (P+BB);
+      \item Posicionar e clicar na opção \emph{Flip vertical} \textbf{(Opcional)} (P+BB);
+      \item Posicionar e clicar na opção \emph{Flip horizontal} \textbf{(Opcional)} (P+BB);
+      \item Posicionar e clicar em uma opção do campo \emph{Estados de animação} (P+BB);
+      \item Posicionar e clicar no botão \emph{Salvar} (P+BB);
+   \end{enumerate}
+   \\
+   $tempo(T1.3)=15tempo(P)+9tempo(K)+15tempo(BB)+7tempo(M)=16,5+1,08+3+8,4=\textbf{28,98s}$
+   &
+   $tempo(T1.3)=14tempo(P)+3tempo(K)+14tempo(BB)+2tempo(M)=15,4+0,36+2,8+2,4=\textbf{20,96s}$
+   \\
+\end{tabularx}}
+
+\subsection{Configurar uma tela (T2)}
+
+\subsection{Configurar a textura da tela (T2.1)}
+
+\subsection{Criar um botão (T2.1)}
+
+\subsection{Configurar textura de um botão (T2.2.1)}
+
+\subsection{Posicionar um botão (T2.2.2)}
+
+\subsection{Configurar o tamanho de um botão (T2.3)}
 
 \section{Análise dos resultados}
 
-
-
-Ao colocar o módulo de pré visualização na ferramenta, exclui-se a necessidade de frequentemente executar o jogo para verificar qualquer configuração feita. Na tabela \ref{table:objetos-atributos} pode ser visto os atributos de cada objeto que fazem necessário a execução do jogo após a alteração deles. A nova versão da ferramenta elimina esse problema, ou seja, enquanto que para um jogo com cinquenta objetos criado na primeira versão da ferramenta, provavelmente, faria com que o usuário executasse esse jogo cinquenta ou mais vezes para averiguar o seu trabalho, a nova versão pouparia isso e exibiria todos os objetos com suas respectivas propriedades de forma objetiva e clara com a área de pré visualização e a árvore dos objetos auxiliando no acesso a eles.
-
-Ao criar um jogo com a antiga ferramenta, foi visto que\ldots
-
+\section{Considerações finais}
 
 \chapter{Conclusão e trabalhos futuros}
 \label{chap:conclcsao}
@@ -588,10 +839,10 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
 \postextual
 \bibliography{references}
 
-
 \begin{anexosenv}
    \partanexos
    \chapter{Manual da ferramenta}
+   \label{anex:manual-novo}
 
    Após as melhorias implementadas na nova versão da ferramenta, foi preciso atualizar o manual existente em trabalhos anteriores \cite{monografia:aquino}. Usou-se a mesma estrutura do manual anterior, atualizando-o para adequar-se às novas telas implementadas.
    Então, com este complemento será possível encontrar uma descrição sucinta da ferramenta CGT(Ceará Game Tools), mostrando todas as suas funcionalidades e imagens que explicam as suas configurações.
@@ -888,8 +1139,6 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
    \caption{Propriedades da barra de vida de um objeto.}
    \label{fig:lifebar_props}
    \end{figure}
-
-
 
    \chapter{Diagramas de classes}
    \label{chap:diagramas}
