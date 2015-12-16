@@ -22,6 +22,10 @@
 \usepackage{tabularx}
 \usepackage{longtable}
 \usepackage{tabu}
+\usepackage{smartdiagram}
+\usesmartdiagramlibrary{additions}
+\usetikzlibrary{arrows}
+\setSpacing{1.5}
 \graphicspath{{../images/}}
 \renewcommand{\familydefault}{\sfdefault}
 \renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
@@ -392,19 +396,19 @@ Com o objetivo de implementar as melhorias foi necessário redesenhar a tela ini
 \end{table}
 
 Os novos controles interagem entre si com o seguinte comportamento, a cada interação na árvore a ferramenta atualiza os painéis e a área de pré visualização de acordo com o objeto que esteja selecionado. Este que, por sua vez, é atualizado também quando algumas propriedades são alteradas no painel. A tabela \ref{table:objetos-atributos} mostra os atributos que quando alterados atualizam a prévia, por exemplo, o campo correspondente ao plano de fundo do mundo (imagem \ref{fig:tela_inicial_2}).
+A seguir, veremos como cada um dos problemas enumerados anteriormente foram resolvidos com base na solução sugerida, além disso como foi a implementação.
+
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{images/tela_inicial_2.jpg}
-\caption{Nova tela inicial da ferramenta com os novos controles que possibilitaram as melhorias.}
-\label{fig:tela_inicial_2}
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/tela_inicial_2.jpg}
+   \caption{Nova tela inicial da ferramenta com os novos controles que possibilitaram as melhorias.}
+   \label{fig:tela_inicial_2}
 \end{figure}
-
-A seguir, veremos como cada um dos problemas enumerados anteriormente foram resolvidos com base na solução sugerida, além disso como foi a implementação disso.
 
 \section{Descrição técnica}
 
- A ferramenta é escrita na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
+A ferramenta é escrita na linguagem \texttt{Java} e utiliza o \emph{framework} \texttt{JavaFX} para a interface do usuário, todo o código escrito para a primeira versão da ferramenta foi reutilizado, incrementando-o a medida que foi preciso na implementação do módulo de \textit{preview}.
 
 Em \emph{JavaFX}, é usado um arquivo XML que descreve o \emph{layout} de uma tela e uma classe que cuida do comportamento dela. Assim, a implementação do módulo de pré visualização, consistiu em alterar esse arquivos XML e suas respectivas classes e, além disso, classes do pacote \texttt{br.ifce.edu.cgt.application.vo}, que receberam objetos customizados que implementam a interface \texttt{DrawbleObject}. A interface \texttt{DrawbleObject} é usada por todos os objetos que são mostrados na área de pré visualização e árvore de objetos, pois define o comportamento que deverá ter os objetos que estarão contidos nessas regiões. Nessa interface, existem dois métodos que são responsáveis por desenhar o objeto e o seu painel de configuração, métodos \texttt{drawObject()} e \texttt{drawConfigurationPanel()} respectivamente.
 
@@ -420,10 +424,10 @@ Então, essa melhoria é mais lógica e conveniente, pois agrega mais praticidad
 A imagem \ref{fig:arvore_objetos} mostra um exemplo de uma árvore de objetos para um jogo em criação.
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.2\textwidth]{images/arvore_objetos.png}
-\caption{Árvore de objetos da nova versão da ferramenta.}
-\label{fig:arvore_objetos}
+   \centering
+   \includegraphics[width=0.2\textwidth]{images/arvore_objetos.png}
+   \caption{Árvore de objetos da nova versão da ferramenta.}
+   \label{fig:arvore_objetos}
 \end{figure}
 
 \subsection{Implementação técnica}
@@ -432,12 +436,12 @@ O objetivo principal da árvore de objetos é garantir que a ferramenta seja atu
 Usa-se o objeto \texttt{TreeView} para representar a árvore, onde cada um dos itens é um \texttt{DrawbleObject}. O comportamento que queremos que seja feito, foi implementado com uma fábrica de células customizada que é uma classe que estende de \texttt{TreeCell} e implemente os métodos \texttt{startEdit} e \texttt{updateItem}, chamados quando o usuário interage com a árvore. Nesses métodos, coloca-se a instrução para que seja desenhado os objetos e o painel, ou seja, executa-se os métodos abstratos de \texttt{DrawbleObject} (\texttt{drawObject} e \texttt{drawConfigurationPanel}),  por fim, atribui-se ao \texttt{TreeView} a fábrica customizada assim como é mostrado abaixo (seja \texttt{t} uma instâcia de \texttt{TreeView}):
 
 \begin{lstlisting}[frame=single]
-t.setCellFactory(new Callback<TreeView<DrawableObject>,TreeCell<DrawableObject>>(){
-    @Override
-    public TreeCell<DrawableObject> call(TreeView<DrawableObject> param) {
-        return new DrawableObjectTreeCellImpl();
-    }
-});
+   t.setCellFactory(new Callback<TreeView<DrawableObject>,TreeCell<DrawableObject>>(){
+      @Override
+      public TreeCell<DrawableObject> call(TreeView<DrawableObject> param) {
+         return new DrawableObjectTreeCellImpl();
+      }
+   });
 \end{lstlisting}
 
 Além do comportamento de redesenhar de acordo com o que foi selecionado na árvore, é importante definir os itens do jogo de acordo com a sua hierarquia, já que a árvore é montada obedecendo isso, a tabela \ref{table:obj-hierarquia} mostra todos os itens e os seus respectivos itens superiores.
@@ -479,10 +483,10 @@ Em um painel de configuração de um objeto, pode possuir mais de uma configura�
 Usa-se o componente de acordeão para agregar as configurações no painel de acordo com o objetivo dela. Ver a figura \ref{fig:painel_ator} por exemplo, nela temos um painel de configuração de um ator do jogo, percebe-se que cada configuração é separada de acordo com sua finalidade, há uma aba para configurar as animações e outra para configurar as propriedades relacionadas a colisão, por exemplo.
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.4\textwidth]{images/painel_ator.png}
-\caption{Painel de configuração de um ator no jogo}
-\label{fig:painel_ator}
+   \centering
+   \includegraphics[width=0.4\textwidth]{images/painel_ator.png}
+   \caption{Painel de configuração de um ator no jogo}
+   \label{fig:painel_ator}
 \end{figure}
 
 \subsection{Implementação técnica}
@@ -490,10 +494,10 @@ Usa-se o componente de acordeão para agregar as configurações no painel de ac
 A implementação dessa melhoria está relacionada a reutilizar os painéis que já existiam e melhorar alguns aspectos, dentre eles, pode-se destacar a configuração das animações do painel responsável por configurar um \emph{game object}.
 Na primeira versão da ferramenta, uma animação era adicionada a partir de uma janela \textit{pop up} que mostrava o \textit{sprite} do objeto, então o usuário escolhia dentro de uma matriz o \textit{frame} inicial e final, assim como a finalidade da animação e outras propriedades dela (ver imagem \ref{fig:add_animacao}).
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{images/add_animacao_1.png}
-\caption{Janela para adicionar animações para um objeto na primeira versão da ferramenta. }
-\label{fig:add_animacao}
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/add_animacao_1.png}
+   \caption{Janela para adicionar animações para um objeto na primeira versão da ferramenta. }
+   \label{fig:add_animacao}
 \end{figure}
 Quando há um painel destinado a mostrar as configurações do objeto correspondente, faz-se desnecessário o uso de janela \textit{pop up}, dessa forma, na nova versão da ferramenta as configurações da animação do objeto foram colocadas no painel dele apenas, facilitando a pré visualização e também o manuseio.
 Ver imagem \ref{fig:add_animacao_2}, notar que, o que é preciso para configurar uma animação está em três abas desse painel, onde a última aba é uma lista de todas as animações que já existem, a segunda as propriedades da animação e a primeira aba a configuração do quadro inicial e final da animação. Vale notar que o comportamento de selecionar o quadro inicial e final de uma animação para um objeto, tornou-se mais fácil, pois antes  era feito com campos de texto que recebiam as coordenadas $x$ e $y$ do quadro e, na segunda versão, faz-se necessário apenas clicar no quandro que se deseja.
@@ -503,10 +507,10 @@ De um ponto de vista técnico, os painéis implementados para a nova versão da 
 Além disso, faz-se necessário escrever na função que abre um jogo salvo previamente o comportamento de preencher as informações desses painéis.
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{images/add_animacao_2.png}
-\caption{Painel de configuração das animações do objeto na nova versão da ferramenta.}
-\label{fig:add_animacao_2}
+   \centering
+   \includegraphics[width=0.5\textwidth]{images/add_animacao_2.png}
+   \caption{Painel de configuração das animações do objeto na nova versão da ferramenta.}
+   \label{fig:add_animacao_2}
 \end{figure}
 
 \section{Pré visualização}
@@ -518,10 +522,10 @@ Poder conferir o que está sendo produzido, é a principal falta que os usuário
 Na figura \ref{fig:preview_objetos}, pode-se ver como a tela da ferramenta é usualmente vista pelo usuário, notar que - na área de visualização - é mostrado um mundo em que podem ser vistos dois objetos configurados um ator e um inimigo.
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{images/preview1.png}
-\caption{Tela da ferramenta mostrando a área de pré visualização com dois objetos configurados.}
-\label{fig:preview_objetos}
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/preview1.png}
+   \caption{Tela da ferramenta mostrando a área de pré visualização com dois objetos configurados.}
+   \label{fig:preview_objetos}
 \end{figure}
 
 \subsection{Implementação técnica}
@@ -542,29 +546,29 @@ A medida que, o usuário vai configurando esses objetos no respectivo painel de 
 Isso é possível, graças a criação de métodos do tipo \emph{callback} que existem em todos os painéis de configuração que necessitam que as mudanças sejam exibidas assim que feitas, notar que, esse método é chamado pelo próprio painel toda vez que algum atributo relevante é modificado, por exemplo, a dimensão e posição de um objeto, assim como é mostrado na figura \ref{fig:obj_preview_tamanho}.
 
 \begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{images/preview2.png}
-\caption{Exemplo de dimensão do objeto sendo percebida no momento que é alterada na configuração}
-\label{fig:obj_preview_tamanho}
+   \centering
+   \includegraphics[width=0.8\textwidth]{images/preview2.png}
+   \caption{Exemplo de dimensão do objeto sendo percebida no momento que é alterada na configuração}
+   \label{fig:obj_preview_tamanho}
 \end{figure}
 
 Ou seja, toda vez que é detectado um evento de mudança no campo de texto do tamanho do objeto, o método de \textit{callback} - que é um objeto Java da classe \texttt{Runnable}, mas no painel é um atributo cujo nome é \texttt{onUpdateRunnable} - é executado da forma é mostrado a seguir. Notar que, quem cria o objeto que corresponde ao painel de configuração é que deve determinar o conteúdo desse método \texttt{callback}, dessa forma, é garantido que o painel seja compatível com a ferramenta.
 
 \begin{mylisting}[t]
-\begin{lstlisting}
-boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
- @Override
- public void changed(ObservableValue<? extends Boolean> observable,
-   Boolean oldValue, Boolean newValue) {
-      if (!newValue) {
-         /** comportamento para mudar a altura do objeto */
-      }
+   \begin{lstlisting}
+      boundsH.focusedProperty().addListener(new ChangeListener<Boolean>() {
+         @Override
+         public void changed(ObservableValue<? extends Boolean> observable,
+         Boolean oldValue, Boolean newValue) {
+            if (!newValue) {
+               /** comportamento para mudar a altura do objeto */
+            }
 
-      if (onUpdateRunnable != null) {
-         onUpdateRunnable.run();
-      }
-   }});
-\end{lstlisting}
+            if (onUpdateRunnable != null) {
+               onUpdateRunnable.run();
+            }
+         }});
+   \end{lstlisting}
 \end{mylisting}
 
 
@@ -965,14 +969,43 @@ Significa definir qual a imagem que deve ser exibida quando o botão da tela est
 \end{table}
 
 \section{Análise dos resultados}
-Após estimar o tempo que leva as principais tarefas envolvidas na construção de um jogo em ambas as versões da ferramenta do projeto CGT, é possível, com esses números, provar que o módulo de pré visualização tornou mais rápida e fácil a criação de jogos. Para tanto, considera-se um jogo exemplo que tenha 20 objetos em mundos diferentes e 10 telas, apenas com os resultados obtidos nas secções \ref{sec:t1}  e \ref{sec:t2} podemos calcular que esse jogo na primeira versão da ferramenta terá seus objetos e telas configurados em aproximadamente 1h17m, enquanto que a nova versão teria o mesmo jogo construído em aproximadamente 57m. Vale lembrar que esse tempo da ferramenta antiga pode aumentar em 20\% quando incluímos o tempo das execuções do jogo que o usuário faz a medida que vai configurando esses objetos.
+Após estimar o tempo que leva as principais tarefas envolvidas na construção de um jogo em ambas as versões da ferramenta do projeto CGT, é possível, com esses números, provar que o módulo de pré visualização tornou mais rápida e fácil a criação de jogos.
+
+Para tanto, considera-se um jogo exemplo que tenha 20 objetos em mundos diferentes e 10 telas, apenas com os resultados obtidos nas secções \ref{sec:t1}  e \ref{sec:t2} podemos calcular que esse jogo na primeira versão da ferramenta terá seus objetos e telas configurados em aproximadamente \textbf{1h 17min}, enquanto que a nova versão teria o mesmo jogo construído em aproximadamente \textbf{57min}. Vale lembrar que esse tempo da ferramenta antiga pode aumentar se incluirmos o tempo das execuções do jogo que o usuário faz a medida que vai configurando esses objetos. Ver tabela \ref{table:resultados}.
+
+Pode ser considerado então que o aproveitamento obtido através da implementação da nova ferramenta, foi de pelo menos \textbf{25,97\%}, ou seja, pode-se assumir que os usuários criarão jogos 25,97\% mais rápidos. Como forma de ilustrar esse resultado, pode-se pensar que com quatro jogos criados na antiga versão da ferramenta, seria criado um quinto, caso fosse utilizado a ferramenta nova.
+
+\begin{table}[h]
+   \centering
+   \begin{tabular}{|l|r|}
+      \hline
+      \textbf{Ferramenta 1.0} & \texttt{1h 17min} \\
+      \hline
+      \textbf{Ferramenta 2.0} & \texttt{57min} \\
+      \hline
+   \end{tabular}
+   \caption{Resultado de análise KLM para ambas as versões da ferramenta.}
+   \label{table:resultados}
+\end{table}
 
 \chapter{Conclusão e trabalhos futuros}
 \label{chap:conclcsao}
 
-Neste trabalho, apresentou-se uma melhoria significativa para a ferramenta de criação de jogos do projeto CGT que tem como objetivo tornar a criação de jogos ainda mais fácil, lógica e produtiva. De tal forma que, os usuários não tenham necessidade de possuir conhecimentos técnicos na criação de jogos, aumentando ainda mais o alcance da ferramenta ao público alvo.
+Neste trabalho, apresentou-se melhorias significativas para a ferramenta de criação de jogos do projeto CGT que tem como objetivo tornar a criação de jogos ainda mais fácil, lógica e produtiva. De tal forma que, os usuários não tenham necessidade de possuir conhecimentos técnicos na criação de jogos, aumentando ainda mais o alcance da ferramenta ao público alvo. Além disso, a ferramenta torna-se ideal quando existe uma necessidade de rapidez na demanda ou se, essa demanda, é um jogo simples que na mão das grandes produtoras de jogo custaria bem mais que um jogo criado pela ferramenta. Ou seja, quando a necessidade é provar um conceito ou demonstrar uma ideia a ferramenta é uma excelente escolha.
 
-Para trabalhos futuros seria interessante disponibilizar mais ações na área de pré visualização que, atualmente, conta apenas com a função de mover os objetos para novas posições na tela, sendo interessante incluir outras propriedades. Além disso, possibilitar a criação de outros tipos de jogos, por exemplo, jogos de corrida e jogos em três dimensões que contem com outra perspectiva de câmera.
+Com o avanço e crescimento da indústria de jogos, ferramentas acessíveis e de confiança, farão a diferença nesse mercado onde o diferencial consiste, principalmente, na criatividade do autor do jogo. Então, para que o projeto CGT continue competitivo e interessante é importante investir na experiência do usuário e, dessa forma, ganhar espaço nessa área e, como grande pilar posto desde o surgimento do projeto, aumentar o alcance dos usuários menos especializados contanto apenas com as ideias deles para produzir jogos cada vez melhores.
+
+Posto isso, ainda existem melhorias quem podem ser feitas em prol de uma ferramenta ainda mais robusta e eficiente. Aassim, para trabalhos futuros seria interessante considerar os seguintes pontos:
+\begin{alineas}
+\item Disponibilizar mais ações na área de pré visualização que, atualmente, conta apenas com a função de mover os objetos para novas posições na tela, seria interessante incluir outras propriedades e ações (modificar o tamanho do objeto, por exemplo). Ou seja, transformar a área de pré visualização no verdadeiro protagonista da ferramenta.
+\item Possibilitar a pré visualização de mensagens exibidas no jogo, tais como as mensagens de vitória e derrota no mundo, assim como o contador que é inserido quando o jogo é do tipo ``sobreviver durante um período de tempo''.
+\item Prover de meios para a inserção rápida de telas e botões, a ferramenta carrega imagens externa para esses dois componentes, entretanto, muitas vezes, necessita-se incluir algo bem simples como uma mensagem de texto. Seria interessante a ferramenta ter configurações expressas para mensagens do jogo.
+\item Possibilitar a criação de outros tipos de jogos, por exemplo, jogos de corrida e jogos em três dimensões que contem com outra perspectiva de câmera.
+\end{alineas}
+
+O desenvolvimento da ferramenta deve continuar evoluir prezando sempre pelos princípios estabelecidos pelo projeto CGT, de tal forma que, o fato de o projeto ser código aberto, pode auxiliar bastante com o crescimento dele.
+
+
 
 \postextual
 \bibliography{references}
@@ -1282,6 +1315,13 @@ Para trabalhos futuros seria interessante disponibilizar mais ações na área d
    \label{chap:diagramas}
    Dessa página em diante, pode-se ver o diagrama de classes do módulo que foi e implementado juntamente com esse trabalho, os diagramas são das classes presentes na \texttt{ferramenta} contidas no projeto CGT no pacote \texttt{br.edu.ifce.cgt.application.vo} e outras classes que precisaram ser adaptadas para a nova versão. Os diagramas foram gerados a partir da ferramenta \textit{Enterprise Architect} que lê o código fonte e gera os diagramas UML para ele, obteve-se o código fonte a partir do repositório \textit{Git} do projeto \cite{website:projeto-cgt-repo}.
    As demais classes do projeto, são irrelevantes para o que foi proposto aqui ou não foram alteradas para as implementações que foram feitas para a nova versão da ferramenta.
+
+   \begin{figure}[H]
+   \centering
+   \includegraphics[width=\textwidth]{images/classes.png}
+   \caption{Classes envolvidas no módulo de pré visualização.}
+   \label{fig:classes}
+   \end{figure}
 
    \includepdf[pages=-]{ClassModel.pdf}
 \end{anexosenv}
