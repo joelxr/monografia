@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[portuges,brazilian]{babel}
@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \usepackage[alf]{abntex2cite}
 \usepackage{color}
+\usepackage{tabularx}
 \useoutertheme{infolines}
 \useinnertheme{rectangles}
 \usefonttheme{professionalfonts}
@@ -17,7 +18,7 @@
 \author[Joel]{Joel Rocha}
 \institute[IFCE]{Orientador: Prof. Dr. Carlos Hairon
    \par Engenharia de Computação
-   \par Instituto Federal de Ciência, Arte e Tecnologia}
+   \par Instituto Federal de Educação, Ciência e Tecnologia do Ceará}
 \date{Dezembro, 2015}
 \logo{\includegraphics[width=0.8cm]{images/logo.jpg}}
 
@@ -28,15 +29,15 @@
 
    \begin{frame}{\contentsname}
       \begin{multicols}{2}
-         {\footnotesize \tableofcontents}
+         {\small \tableofcontents}
       \end{multicols}
    \end{frame}
 
    \section{Introdução}
    \subsection{Indústria de jogos digitais}
    \begin{frame}
-      \frametitle{Introdução}
-      \framesubtitle{Qual a importância dos jogos?}
+      \frametitle{Qual a importância dos jogos?}
+      \framesubtitle{Introdução}
       \begin{itemize}
          \item Geração de emprego e renda {\scriptsize (produtor, desenvolvedor, testador, \emph{designer}, roteirista, dublador)}.
          \item Inovação tecnológica.
@@ -52,27 +53,27 @@
    \end{frame}
    \subsection{Projeto CGT}
    \begin{frame}
-      \frametitle{Introdução}
-      \framesubtitle{O que é o Projeto CGT?}
+      \frametitle{O que é o Projeto CGT?}
+      \framesubtitle{Introdução}
       Projeto Ceará \emph{Games Tools} tem o objetivo de oferecer uma ferramenta para a construção de jogos onde qualquer um poderá criar seu próprio jogo. \cite{website:projeto-cgt}
    \end{frame}
    \subsection{Vínculo CNPQ}
    \begin{frame}
-      \frametitle{Introdução}
-      \framesubtitle{Projeto CGT e o CNPQ}
+      \frametitle{Projeto CGT e o CNPQ}
+      \framesubtitle{Introdução}
       \begin{itemize}
          \item Pesquisa, Desenvolvimento e Comercialização de Games Temáticos da Cultura Cearense.
-         \item Edital 80 de 2013, processo 409227/2013-7.
          \item \emph{Software livre}.
          \item Multiplataforma.
+         \item Edital 80 de 2013, processo 409227/2013-7.
       \end{itemize}
    \end{frame}
    \subsection{Projeto de extensão}
    \begin{frame}
       \begin{columns}[T]
          \begin{column}{0.48\textwidth}
-            \frametitle{Introdução}
-            \framesubtitle{Projeto de extensão}
+            \frametitle{Projeto de extensão}
+            \framesubtitle{Introdução}
             \begin{itemize}
                \item Curso de desenvolvimento de jogos digitais;
                \item Para 14 jovens do ensino fundamental e médio;
@@ -91,8 +92,8 @@
    \end{frame}
 
    \begin{frame}
-      \frametitle{Introdução}
-      \framesubtitle{Retorno dos usuários}
+      \frametitle{Retorno dos usuários}
+      \framesubtitle{Introdução}
       \begin{columns}[T]
          \begin{column}{0.48\textwidth}
             \begin{itemize}
@@ -115,8 +116,8 @@
 
    \subsection{Introdução ao problema}
    \begin{frame}
-      \frametitle{Introdução}
-      \framesubtitle{Problemas da ferramenta 1.0}
+      \frametitle{Problemas da ferramenta 1.0}
+      \framesubtitle{Introdução}
       \begin{itemize}
          \item Controles confusos;
          \item Ausência de \emph{feedback};
@@ -160,9 +161,8 @@
    \end{frame}
 
    \begin{frame}
-
-      {\footnotesize
-      \begin{tabular}{ l | p{7cm} }
+      \begin{center}
+         \begin{tabular}{ p{6em} | p{20em} }
          \textbf{Objeto} & \textbf{Descrição} \\
          \hline
          Mundo & Fase do jogo definindo o plano de fundo.  \\
@@ -184,7 +184,8 @@
          Vida de um objeto & Mostra a quantidade de vida que um objeto possui. \\
          \hline
          Munição de um objeto & A quantidade de projéteis que o ator ainda pode arremessar. \\
-      \end{tabular}}
+      \end{tabular}
+   \end{center}
    \end{frame}
 
    \begin{frame}
@@ -264,13 +265,13 @@
 
    \begin{frame}
       \begin{center}
-         \includegraphics[width=0.9\textwidth]{images/add_animacao_1.png}
+         \includegraphics[width=\textwidth]{images/add_animacao_1.png}
       \end{center}
    \end{frame}
 
    \begin{frame}
       \begin{center}
-         \includegraphics[width=0.38\textwidth]{images/add_animacao_2.png}
+         \includegraphics[width=0.4\textwidth]{images/add_animacao_2.png}
       \end{center}
    \end{frame}
 
@@ -313,11 +314,13 @@
          Espaço na ferramenta responsável por mostrar os objetos que foram criados, possibilitando que sejam visualizados pelo usuário.
       \end{block}
 
-      \begin{itemize}
-         \item Deve refletir com as configurações feitas;
-         \item Deve estar sincronizado com a árvore de objetos;
-         \item Deve ser fiel ao jogo;
-      \end{itemize}
+      \begin{block}{Objetos nessa área devem}
+         \begin{itemize}
+            \item Refletir com as configurações feitas,
+            \item Estar sincronizado com os itens da árvore e
+            \item Ser fiéis ao jogo.
+         \end{itemize}
+      \end{block}
 
    \end{frame}
 
@@ -328,10 +331,145 @@
    \end{frame}
 
    \section{Estudo de caso}
+   \subsection{Análise}
    \begin{frame}
+      \frametitle{Resultado das melhorias}
+      \framesubtitle{Estudo de caso}
+
+      \begin{itemize}
+         \item Houve ganho? De quanto?
+         \item As melhorias são percebidas pelo usuário?
+         \item A pré visualização tornou a ferramenta mais efetiva?
+      \end{itemize}
+   \end{frame}
+
+   \subsection{Método Keystroke-Level Model}
+   \begin{frame}
+      \frametitle{\emph{Keystroke-Level Model} (KLM)}
+      \framesubtitle{Comparando as ferramentas}
+
+      \begin{itemize}
+         \item Método que atribui a todas as ações do usuário um intervalo de tempo;
+         \item Usado para calcular a possível duração de uma tarefa;
+         \item Dividi uma tarefa em várias sub tarefas passo-a-passo para quantificar o total;
+         \item Fonte: \cite{klm-def}
+      \end{itemize}
+   \end{frame}
+
+   \begin{frame}
+      \begin{center}
+         \begin{tabular}{| l | p{18em} | r |}
+            \hline
+            \textbf{Operação} & \textbf{Descrição} & \textbf{Tempo (s)} \\
+            \hline
+            K & Digitar uma tecla, é usado para quando o usuário digita qualquer tecla seja a letra \texttt{a} ou a tecla \texttt{SHIFT}.  & 0,12 \\
+            P & Posicionar o ponteiro do mouse em algum local da tela.  & 1,1  \\
+            B & Pressionar ou liberar os botões do mouse & 0,1 \\
+            BB & Clique do mouse & 0,2 \\
+            H & Mover a mão do teclado para o mouse. & 0,4 \\
+            M & Pensar ou perceber algo relacionado ao sistema. & 1,2 \\
+            \hline
+         \end{tabular}
+      \end{center}
+   \end{frame}
+
+   \subsection{Tarefas analisadas}
+   \begin{frame}
+      \frametitle{Tarefas analisadas}
+      \framesubtitle{Estudo de caso}
+
+      \begin{itemize}
+         \item Selecionar um objeto já criado na ferramenta;
+         \item Configurar os objetos de um mundo;
+            \begin{itemize}
+               \item Atribuir as dimensões;
+               \item Posicionar o objeto;
+               \item Criar animações;
+            \end{itemize}
+         \item Configurar uma tela;
+            \begin{itemize}
+               \item Selecionar plano de fundo;
+               \item Criar um botão;
+            \end{itemize}
+      \end{itemize}
+   \end{frame}
+
+   \begin{frame}
+      \frametitle{Selecionar um objeto}
+      \framesubtitle{Exemplo de tarefa}
+      {\small
+      \begin{tabularx}{\textwidth}{X  X}
+         \textbf{Primeira versão:}
+         \begin{enumerate}
+            \item Achar aba do objeto (M);
+            \item Posicionar ponteiro na aba (P);
+            \item Clicar na aba (BB);
+            \item Achar o botão do objeto (M);
+            \item Posicionar ponteiro no botão do objeto (P);
+            \item Clicar no botão do objeto (BB);
+         \end{enumerate}
+         &
+         \textbf{Nova versão:}
+         \begin{enumerate}
+            \item Achar objeto na árvore (M);
+            \item Posicionar ponteiro no item (P);
+            \item Clicar no item do objeto (BB);
+         \end{enumerate}
+         \\
+         \texttt{M + 2BB + 2P = 2,4 + 0,4 + 2,2 =} \textbf{5,0s}
+         &
+         \texttt{M + BB + P = 1,2 + 0,2 + 1,1 =} \textbf{2,5s}
+         \\
+      \end{tabularx}}
+   \end{frame}
+
+   \subsection{Resultado da comparação}
+   \begin{frame}
+      \frametitle{Tabela de resultados}
+      \framesubtitle{Estudo de caso}
+      \begin{center}
+            \begin{tabular}{ m{16em} | r | r }
+               Configurar um objeto (7 animações)      & 3min 38s & \textcolor{green}{2min 39s} \\
+               \hspace{2em}Configurar as dimensões     & 5,0s     & \textcolor{green}{2,5s} \\
+               \hspace{2em}Configurar a posição        & 7,54s    & 7,54s \\
+               \hspace{2em}Configurar uma animação     & 28,90s   & \textcolor{green}{20,96s} \\
+               Configurar uma tela (com 2 botões)      & 46,3s    & \textcolor{green}{39,9s} \\
+               \hspace{2em}Configurar textura          & 5,3s     & 5,3s \\
+               \hspace{2em}Criar botão                 & 20,5s    & \textcolor{green}{17,3s} \\
+               \hspace{4em}Configurar textura          & 11,5s    & 11,5s \\
+               \hspace{4em}Posicionar botão            & 4,5s     & \textcolor{green}{1,3s} \\
+               \hspace{4em}Configurar tamanho          & 4,5s     & 4,5s \\
+               Selecionar um objeto                    & 5,0s     & \textcolor{green}{2,5s} \\
+               \hline
+               \textbf{Jogo com 20 objetos e 10 telas} & \textbf{1h 17min} & \textbf{\textcolor{green}{57min}} \\
+         \end{tabular}
+      \end{center}
    \end{frame}
 
    \section{Conclusão e trabalhos futuros}
+   \begin{frame}
+      \frametitle{Considerações finais}
+      \framesubtitle{Conclusão}
+      \begin{itemize}
+         \item É possível tornar a ferramenta mais fácil, lógica e produtiva.
+         \item Criar jogos de forma rápida.
+         \item Sem conhecimento técnico.
+         \item Baixo custo.
+      \end{itemize}
+   \end{frame}
+   \begin{frame}
+      \frametitle{Trabalhos futuros}
+      \framesubtitle{Conclusão}
+
+      \begin{itemize}
+         \item Mais ações na área de pré visualização;
+         \item Pré visualização de mensagens;
+         \item Inserção rápida de telas e botões;
+         \item Diversificar tipos de jogos;
+         \item Criação de anúncios.
+      \end{itemize}
+      
+   \end{frame}
    \begin{frame}
       \begin{center}
          Obrigado
